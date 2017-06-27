@@ -8,4 +8,21 @@ public/
 .idea
 /.deploy_git/
 
+themes/**/.DS_Store
+themes/**/.idea/
+themes/**/*.log
+themes/**/*.iml
+themes/**/node_modules/
 
+# Ignore unused verdors' files
+themes/**/source/lib/fancybox/*
+!themes/**/source/lib/fancybox/source/
+
+themes/**/source/lib/font-awesome/less/
+themes/**/source/lib/font-awesome/scss/
+
+themes/**/source/lib/ua-parser-js/*
+!themes/**/source/lib/ua-parser-js/dist/
+
+themes/**/source/lib/Han/*
+!themes/**/source/lib/Han/dist/
