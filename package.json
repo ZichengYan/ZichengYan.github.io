@@ -18,7 +18,7 @@
     "hexo-server": "^0.2.0"
   },
   "scripts": {
-    "start": "hexo clean && hexo s",
+    "start": "hexo clean && hexo s --port 5000",
     "build": "hexo clean && hexo g && hexo d"
   }
 }
