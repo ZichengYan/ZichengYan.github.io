@@ -1,0 +1,748 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="原生," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="input : focus (作为事件触发条件) 使用 :focus 作为事件触发条件123456// 当css为input : focus +div &amp;#123;            display:block;&amp;#125;// 当给上面的 div 注册事件的时候会注册注册上,但是不能触发 ,因为一旦离开input的框的焦点就会隐藏div , 所以事件不能触发 . 及时代理事件也不能触发">
+<meta name="keywords" content="原生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原生js">
+<meta property="og:url" content="http://yoursite.com/2016/02/24/原生javascript/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="input : focus (作为事件触发条件) 使用 :focus 作为事件触发条件123456// 当css为input : focus +div &amp;#123;            display:block;&amp;#125;// 当给上面的 div 注册事件的时候会注册注册上,但是不能触发 ,因为一旦离开input的框的焦点就会隐藏div , 所以事件不能触发 . 及时代理事件也不能触发">
+<meta property="og:updated_time" content="2017-07-17T13:04:31.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原生js">
+<meta name="twitter:description" content="input : focus (作为事件触发条件) 使用 :focus 作为事件触发条件123456// 当css为input : focus +div &amp;#123;            display:block;&amp;#125;// 当给上面的 div 注册事件的时候会注册注册上,但是不能触发 ,因为一旦离开input的框的焦点就会隐藏div , 所以事件不能触发 . 及时代理事件也不能触发">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/24/原生javascript/"/>
+
+
+
+
+
+  <title>原生js | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/原生javascript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">原生js</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
+                2016-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="input-focus-作为事件触发条件"><a href="#input-focus-作为事件触发条件" class="headerlink" title="input : focus (作为事件触发条件)"></a>input : focus (作为事件触发条件)</h3><ul>
+<li>使用 :focus 作为事件触发条件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 当css为</div><div class="line">input : focus +div &#123;</div><div class="line">            display:block;</div><div class="line">&#125;</div><div class="line">// 当给上面的 div 注册事件的时候会注册注册上,但是不能触发 ,</div><div class="line">因为一旦离开input的框的焦点就会隐藏div , 所以事件不能触发 . 及时代理事件也不能触发</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h3><ul>
+<li>使用 js 给具有readonly 的input文本框赋值,不能触发onchange事件 , 此处要手动触发</li>
+<li>onChange事件是失去焦点的时候才能触发 </li>
+</ul>
+<h3 id="str-replace"><a href="#str-replace" class="headerlink" title="str.replace();"></a>str.replace();</h3><ul>
+<li>替换</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">name = <span class="string">'aaa bbb ccc'</span>;</div><div class="line">uw = name.replace(<span class="regexp">/\b\w+\b/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">word</span>) </span>&#123;</div><div class="line">   <span class="comment">// 将匹配到的字符串传进来 做处理在return 出去 ,</span></div><div class="line">   <span class="comment">//  其实与name.replace(/\b\w+\b/g, "新字段"),相同 </span></div><div class="line">     <span class="built_in">console</span>.log(word)</div><div class="line">     <span class="built_in">console</span>.log(word.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase());</div><div class="line">     <span class="built_in">console</span>.log(word.substring(<span class="number">1</span>))</div><div class="line">     <span class="keyword">return</span> word.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + word.substring(<span class="number">1</span>);</div><div class="line"> &#125;);</div><div class="line"> <span class="built_in">console</span>.log(uw)</div></pre></td></tr></table></figure>
+<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><ul>
+<li><p>相关链接 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined" target="_blank" rel="external">undefined</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void" target="_blank" rel="external"> void 运算符</a> 对给定的表达式进行求值，然后返回 undefined。 </p>
+</li>
+<li><p>javaScript URIs</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href="javascript:void(0);"&gt;</div><div class="line">  这个链接点击之后不会做任何事情，如果去掉 void()，</div><div class="line">  点击之后整个页面会被替换成一个字符 0。</div><div class="line">&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;a href="javascript:void(document.body.style.backgroundColor='green');"&gt;</div><div class="line">  点击这个链接会让页面背景变成绿色。</div><div class="line">&lt;/a&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>立即调用函数表达式 <ul>
+<li>在使用立即执行的函数表达式时，可以利用 void 运算符让 JavaScript 引擎把一个函数识别成函数表达式而不是函数声明（语句）。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void function iife() &#123;</div><div class="line">    var bar = function () &#123;&#125;;</div><div class="line">    var baz = function () &#123;&#125;;</div><div class="line">    var foo = function () &#123;</div><div class="line">        bar();</div><div class="line">        baz();</div><div class="line">     &#125;;</div><div class="line">    var biz = function () &#123;&#125;;</div><div class="line"></div><div class="line">    foo();</div><div class="line">    biz();</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+<ul>
+<li>javascript <ul>
+<li>伪协议执行js</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// void (0) 只是加了个运算符号() , 避免0 余其他标识符进行运算</div><div class="line"></div><div class="line">void 0 的返回值是 undefined</div><div class="line"></div><div class="line">// 应用环境</div><div class="line"></div><div class="line">// 阻止a 标签跳转</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: void(0);"</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span>  </div><div class="line"></div><div class="line">// 或者写成这样 , 因为阻止a 标签跳转的原因是javascript的运算结果为undefined , 中间是空值;</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: ;"</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="typeof-运算符"><a href="#typeof-运算符" class="headerlink" title="typeof 运算符"></a>typeof 运算符</h3><ul>
+<li>使用 typeof的是它不会在一个变量没有被声明的时候抛出一个错误。</li>
+</ul>
+<p>-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var x;</div><div class="line">if(x === void 0) &#123;</div><div class="line">    // 执行这些语句</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 没有声明y</div><div class="line">if(y === void 0) &#123;</div><div class="line">    // 抛出一个RenferenceError错误(与`typeof`相比)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="setter-getter"><a href="#setter-getter" class="headerlink" title="setter / getter"></a>setter / getter</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> var obj = &#123;</div><div class="line">			asd:123,</div><div class="line">            val:100,</div><div class="line">			name2:2,</div><div class="line">            get getval()&#123;</div><div class="line">                return this.val;</div><div class="line">            &#125;,</div><div class="line">			get getas()&#123;return this.asd&#125;,</div><div class="line">            set setval(x)&#123;</div><div class="line">                this.val = x;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">//获取</div><div class="line">obj.getval</div><div class="line">// 修改</div><div class="line">obj.setval=&quot;test&quot;</div></pre></td></tr></table></figure>
+<h3 id="变量未声明"><a href="#变量未声明" class="headerlink" title="变量未声明"></a>变量未声明</h3><ul>
+<li>赋值为null</li>
+</ul>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><ul>
+<li></li>
+<li><p>弊端</p>
+<ul>
+<li>在”严格模式”下必须使用”var”;会创建独立作用域;</li>
+<li>无论怎么改造都会创建独立作用域.</li>
+<li>或者说这个只用来判断作用域是否创建</li>
+</ul>
+</li>
+<li>将a.b这样的字符串做分割成数组,没拼接一次转换成js执行一次typeof,如果不存在就创建一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> // 声明一个全局对象nameSpace，用来注册命名空间  </div><div class="line">    var nameSpace = new Object();</div><div class="line">    // 全局对象仅仅存在register函数，参数为名称空间全路径，如&quot;Grandsoft.GEA&quot;  </div><div class="line">    nameSpace.register = function(fullNS) &#123;</div><div class="line">        // 将命名空间切成N部分, 比如Grandsoft、GEA等  </div><div class="line">        var nsArray = fullNS.split(&apos;.&apos;);</div><div class="line">        var sEval = &quot;&quot;;</div><div class="line">        var sNS = &quot;&quot;;</div><div class="line">        for (var i = 0; i &lt; nsArray.length; i++) &#123;</div><div class="line">             </div><div class="line">            if (i != 0) &#123;</div><div class="line">                sNS += &quot;.&quot;;</div><div class="line">            &#125;</div><div class="line">            sNS += nsArray[i];</div><div class="line">            // 依次创建构造命名空间对象（假如不存在的话）的语句  </div><div class="line">            // 比如先创建Grandsoft，然后创建Grandsoft.GEA，依次下去  </div><div class="line">            // consoel.log()中的字符串需要使用单引号在包一层否则执行的时候会报错;</div><div class="line"> </div><div class="line"> </div><div class="line">           sEval += &quot;if (typeof(&quot; + sNS + &quot;) == &apos;undefined&apos;) &#123;&quot; + sNS + &quot; = new Object();&#125;else&#123;console.log(&apos;nameSpace--&quot; + sNS + &quot;已存在-------&apos;)&#125;&quot;;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">// sEval最终拼接为</div><div class="line">// if (typeof(a) == &apos;undefined&apos;) a = new Object();if (typeof(a.b) == &apos;undefined&apos;) a.b = new Object();</div><div class="line">        if (sEval != &quot;&quot;) eval(sEval);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    // 注册命名空间Grandsoft.GEA, Grandsoft.GCM  </div><div class="line">    nameSpace.register(&quot;Grandsoft.GEA&quot;);</div><div class="line">    nameSpace.register(&quot;Grandsoft.GCM&quot;);</div><div class="line">    // 在Grandsoft.GEA命名空间里面声明类Person  </div><div class="line">    Grandsoft.GEA.Person = function(name, age) &#123;</div><div class="line">            this.name = name;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        // 给类Person添加一个公共方法show()  </div><div class="line">    Grandsoft.GEA.Person.prototype.show = function() &#123;</div><div class="line">            alert(this.name + &quot; is &quot; + this.age + &quot; years old!&quot;);</div><div class="line">        &#125;</div><div class="line">        // 演示如何使用类Person  </div><div class="line">    var p = new Grandsoft.GEA.Person(&quot;yanglf&quot;, 25);</div><div class="line">    p.show();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="formData"><a href="#formData" class="headerlink" title="formData"></a>formData</h3><ul>
+<li><p>前端上传代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>exercise<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">    #contents img &#123;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">    &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"uploadForm"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"uploadBox"</span>&gt;</span>上传文件：</div><div class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"uploadFile"</span> <span class="attr">id</span>=<span class="string">"files"</span> <span class="attr">multiple</span>=<span class="string">""</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"contents"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doUpload</span>(<span class="params">$dom</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</div><div class="line">        <span class="keyword">var</span> files = $dom[<span class="number">0</span>].files;</div><div class="line">        <span class="keyword">var</span> dataUrl = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">var</span> imgStr = <span class="string">''</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; files.length; k++) &#123;</div><div class="line">            formData.append(k, files[k]);</div><div class="line">            <span class="built_in">console</span>.log(k)</div><div class="line">            dataUrl = <span class="built_in">window</span>.URL.createObjectURL(files[k]);</div><div class="line">            imgList += <span class="string">'&lt;img src="'</span> + dataUrl + <span class="string">'" alt="" /&gt;'</span>;</div><div class="line">        &#125;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">url</span>: <span class="string">'http://localhost:8002/upload'</span>,</div><div class="line">            <span class="comment">// url: 'http://wx.bokedata.com/yatou/wechat/common/upload',</span></div><div class="line">            <span class="comment">// url: 'http://192.168.0.107:8080/yatou/wechat/common/upload',</span></div><div class="line">            type: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">"JSON"</span>,</div><div class="line">            <span class="attr">data</span>: formData,</div><div class="line">            <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">            <span class="comment">// headers:&#123;</span></div><div class="line">            <span class="comment">//  "Content-Type":"multipart/form-data"</span></div><div class="line">            <span class="comment">// &#125;</span></div><div class="line">            contentType: <span class="literal">false</span>,</div><div class="line">            <span class="attr">processData</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">context</span>: $dom,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"成功"</span>, data)</div><div class="line">                $(<span class="string">"#contents"</span>).append(imgStr);</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log();</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"失败"</span>, data)</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"完成"</span>, data);</div><div class="line">                <span class="comment">//替换input</span></div><div class="line">                $(<span class="keyword">this</span>).parent().html($(<span class="keyword">this</span>).parent().html());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    $(<span class="string">"#uploadForm"</span>).on(<span class="string">"change"</span>, <span class="string">"#files"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> $<span class="keyword">this</span> = $(<span class="keyword">this</span>);</div><div class="line">        doUpload($<span class="keyword">this</span>);</div><div class="line">    &#125;)</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>后台代码</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> formidable = <span class="built_in">require</span>(<span class="string">'formidable'</span>);</div><div class="line"><span class="keyword">var</span> uuid = <span class="built_in">require</span>(<span class="string">'node-uuid'</span>);</div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> allowCrossDomain = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>);</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'GET,PUT,POST,DELETE'</span>);</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type'</span>);</div><div class="line"></div><div class="line">    next();</div><div class="line">&#125;;</div><div class="line">app.use(allowCrossDomain);</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload_path</span>(<span class="params">path</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> _path = <span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/<span class="subst">$&#123;path&#125;</span>`</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        fs.accessSync(_path);</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        fs.mkdirSync(_path);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;_path&#125;</span>/`</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">node_upload</span>(<span class="params">req, callback, next</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> form = <span class="keyword">new</span> formidable.IncomingForm();</div><div class="line">    form.encoding = <span class="string">'utf-8'</span>;</div><div class="line">    form.uploadDir = upload_path(<span class="string">'uploads'</span>);</div><div class="line">    form.maxFieldsSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">    <span class="comment">//解析</span></div><div class="line">    form.parse(req, <span class="function"><span class="keyword">function</span>(<span class="params">err, fields, files</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> file <span class="keyword">in</span> files) &#123;</div><div class="line">            <span class="comment">//后缀名</span></div><div class="line">            <span class="keyword">var</span> extName = <span class="regexp">/\.[^\.]+/</span>.exec(files[file].name);</div><div class="line">            <span class="keyword">var</span> ext = <span class="built_in">Array</span>.isArray(extName) ? extName[<span class="number">0</span>] : <span class="string">''</span>;</div><div class="line">            <span class="comment">//重命名，以防文件重复</span></div><div class="line">            <span class="keyword">var</span> avatarName = uuid() + ext;</div><div class="line">            <span class="comment">//移动的文件目录</span></div><div class="line">            <span class="keyword">var</span> newPath = form.uploadDir + avatarName;</div><div class="line">            fs.renameSync(files[file].path, newPath);</div><div class="line">            fields[file] = &#123;</div><div class="line">                <span class="attr">size</span>: files[file].size,</div><div class="line">                <span class="attr">path</span>: newPath,</div><div class="line">                <span class="attr">name</span>: files[file].name,</div><div class="line">                <span class="attr">type</span>: files[file].type,</div><div class="line">                <span class="attr">extName</span>: ext</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">        callback(<span class="literal">null</span>, fields);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">app.post(<span class="string">'/upload'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    <span class="comment">// console.log(req.body)</span></div><div class="line">    node_upload(req, <span class="function"><span class="keyword">function</span>(<span class="params">err, fields</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="comment">// res.end('1232344')</span></div><div class="line">            res.json(fields);</div><div class="line">        &#125;, <span class="number">1000</span>);</div><div class="line">    &#125;, next);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">http.createServer(app).listen(<span class="number">8002</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Express server listening on port 8002'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><ul>
+<li>使用同步ajax上传文件的时候会是页面阻塞, 请求前面的额代码执行效果不能展示</li>
+<li>与alert(1)原理相同, alert会阻塞页面渲染,渲染dom阶段与看到dom阶段是不同的</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原生/" rel="tag"># 原生</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/24/svn/" rel="next" title="svn">
+                <i class="fa fa-chevron-left"></i> svn
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/24/bower配置/" rel="prev" title="bower配置">
+                bower配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-focus-作为事件触发条件"><span class="nav-number">1.</span> <span class="nav-text">input : focus (作为事件触发条件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readonly"><span class="nav-number">2.</span> <span class="nav-text">readonly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#str-replace"><span class="nav-number">3.</span> <span class="nav-text">str.replace();</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#void"><span class="nav-number">4.</span> <span class="nav-text">void</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeof-运算符"><span class="nav-number">5.</span> <span class="nav-text">typeof 运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setter-getter"><span class="nav-number">6.</span> <span class="nav-text">setter / getter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量未声明"><span class="nav-number">7.</span> <span class="nav-text">变量未声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间"><span class="nav-number">8.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#formData"><span class="nav-number">9.</span> <span class="nav-text">formData</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传"><span class="nav-number"></span> <span class="nav-text">文件上传</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

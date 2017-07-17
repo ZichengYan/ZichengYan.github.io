@@ -253,6 +253,162 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/24/微信开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/24/微信开发/" itemprop="url">微信开发</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T23:10:11+08:00">
+                2017-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="测试账号开发"><a href="#测试账号开发" class="headerlink" title="测试账号开发"></a>测试账号开发</h1><h3 id="微信交互流程"><a href="#微信交互流程" class="headerlink" title="微信交互流程"></a>微信交互流程</h3><ul>
+<li>票据<br><img src="/images/wx01.jpg" alt="票据流程">  </li>
+</ul>
+<p>### </p>
+<h3 id="测试账号"><a href="#测试账号" class="headerlink" title="测试账号"></a>测试账号</h3><ul>
+<li>下图中的两个地方的功能是互斥的</li>
+<li>红框中是走微信自己的服务器 , 里面会有一些预定义的功能 ,会与微信自己的服务器交互</li>
+<li>绿色框中是开发者自己的服务器 , 启用后红框中的功能也就不能使用的了 ,因为微信客户端会将时间推送到开发者的服务器中</li>
+<li>测试账号是直接开启了开发者模式 , 所以整套配置都需要开发者自己配置</li>
+<li>微信会由客户端推送事件到开发者的服务器 , 服务器会对其作出相应 ,在返回给客户端 , 这些api都要从<code>https://mp.weixin.qq.com/wiki/9/2c15b20a16019ae613d413e30cac8ea1.html</code>开发者文档中获取<br><img src="/images/wx02.png" alt="票据流程"> </li>
+</ul>
+<h3 id="xml转化成json"><a href="#xml转化成json" class="headerlink" title="xml转化成json"></a>xml转化成json</h3><ul>
+<li><code>xml2js</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">xml2hs.parseString(</div><div class="line">   xml,</div><div class="line">   &#123;trim:true&#125;,</div><div class="line">   function(error,content)&#123;</div><div class="line">            </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安全域名不能带http"><a href="#安全域名不能带http" class="headerlink" title="安全域名不能带http"></a>安全域名不能带http</h3><p><img src="/images/wx03.jpg" alt="票据流程"> </p>
+<h3 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h3><ul>
+<li>官方的直接拿来用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">var createNonceStr = function () &#123;</div><div class="line">  return Math.random().toString(36).substr(2, 15);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var createTimestamp = function () &#123;</div><div class="line">  return parseInt(new Date().getTime() / 1000) + &apos;&apos;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var raw = function (args) &#123;</div><div class="line">  var keys = Object.keys(args);</div><div class="line">  keys = keys.sort()</div><div class="line">  var newArgs = &#123;&#125;;</div><div class="line">  keys.forEach(function (key) &#123;</div><div class="line">    newArgs[key.toLowerCase()] = args[key];</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  var string = &apos;&apos;;</div><div class="line">  for (var k in newArgs) &#123;</div><div class="line">    string += &apos;&amp;&apos; + k + &apos;=&apos; + newArgs[k];</div><div class="line">  &#125;</div><div class="line">  string = string.substr(1);</div><div class="line">  return string;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line">* @synopsis 签名算法 </div><div class="line">*</div><div class="line">* @param jsapi_ticket 用于签名的 jsapi_ticket</div><div class="line">* @param url 用于签名的 url ，注意必须动态获取，不能 hardcode</div><div class="line">*</div><div class="line">* @returns</div><div class="line">*/</div><div class="line">var sign = function (jsapi_ticket, url) &#123;</div><div class="line">  var ret = &#123;</div><div class="line">    jsapi_ticket: jsapi_ticket,</div><div class="line">    nonceStr: createNonceStr(),</div><div class="line">    timestamp: createTimestamp(),</div><div class="line">    url: url</div><div class="line">  &#125;;</div><div class="line">  var string = raw(ret);</div><div class="line">      jsSHA = require(&apos;jssha&apos;);</div><div class="line">      shaObj = new jsSHA(string, &apos;TEXT&apos;);</div><div class="line">  ret.signature = shaObj.getHash(&apos;SHA-1&apos;, &apos;HEX&apos;);</div><div class="line">  return ret;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">module.exports = sign;</div></pre></td></tr></table></figure>
+<h3 id="签名参数"><a href="#签名参数" class="headerlink" title="签名参数"></a>签名参数</h3><ul>
+<li>当签名参数添加上appid的时候,会弹出签名错误的提示框 , 删掉就好的 , </li>
+<li>暂且认定返回参数只能返回5个 ( 错误的解释 )</li>
+<li>解释 : 当进行签名算法时是使用的raw() , 这个签名算法只需要四个参数(jsapi_ticket , noncestr ,timestamp ,url)</li>
+<li><p>直接定义在里面会导致签名错误 , 所以签名算法之后在添加appID字段是没有问题的 .<br><img src="/images/wx05.png" alt="签名"> </p>
+<h3 id="官方wx-js"><a href="#官方wx-js" class="headerlink" title="官方wx.js"></a>官方wx.js</h3></li>
+<li>要使用官方最新版的1.2版本 , 第一1.2版本的额不能在使用choseImage 中的 localids作为图路径使用</li>
+</ul>
+<h3 id="必须要关注测试账号才能在关注的账号中调用jssdk"><a href="#必须要关注测试账号才能在关注的账号中调用jssdk" class="headerlink" title="必须要关注测试账号才能在关注的账号中调用jssdk"></a>必须要关注测试账号才能在关注的账号中调用jssdk</h3><h3 id="微信当前网页跳到对话窗口"><a href="#微信当前网页跳到对话窗口" class="headerlink" title="微信当前网页跳到对话窗口"></a>微信当前网页跳到对话窗口</h3><ul>
+<li>该方法直接使用</li>
+<li>WeixinJSBridge.call(‘closeWindow’)<h3 id="ajax后退"><a href="#ajax后退" class="headerlink" title="ajax后退"></a>ajax后退</h3></li>
+<li>后退添加锚点得方式解决</li>
+</ul>
+<h3 id="weui在iphone上点击没有效果"><a href="#weui在iphone上点击没有效果" class="headerlink" title="weui在iphone上点击没有效果"></a>weui在iphone上点击没有效果</h3><p>-<code>&lt;body ontouchstart= &quot; &quot; &gt;</code></p>
+<p>###　微信清空缓存</p>
+<ul>
+<li>debugx5.qq.com 只支持安卓</li>
+</ul>
+<h3 id="使用weui-js"><a href="#使用weui-js" class="headerlink" title="使用weui.js"></a>使用weui.js</h3><ul>
+<li>使用时间插件的时候推荐使用原生js的方法注册事件</li>
+<li>时间插件使用jQuery注册事件的时候会导致iphone不能正常运行</li>
+</ul>
+<h3 id="微信使用jssdk"><a href="#微信使用jssdk" class="headerlink" title="微信使用jssdk"></a>微信使用jssdk</h3><ul>
+<li>使用开发工具开发的时候这里的连接需要填安全域名<br><img src="/images/wx06.png" alt="jssdk"> </li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/24/gulp配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -763,6 +919,169 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/24/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/24/git/" itemprop="url">git</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-24T11:22:07+08:00">
+                2016-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="gitlab创建公钥"><a href="#gitlab创建公钥" class="headerlink" title="gitlab创建公钥"></a>gitlab创建公钥</h3><ul>
+<li><code>ssh-keygen -t rsa -C &quot;your.email@example.com&quot; -b 4096</code><br>-<code>https://gitlab.com/help/ssh/README</code></li>
+</ul>
+<h3 id="移除origin"><a href="#移除origin" class="headerlink" title="移除origin"></a>移除origin</h3><p>-<code>$ git remote rm origin</code></p>
+<h3 id="Command-line-instructions"><a href="#Command-line-instructions" class="headerlink" title="Command line instructions"></a>Command line instructions</h3><h4 id="Git-global-setup"><a href="#Git-global-setup" class="headerlink" title="Git global setup"></a>Git global setup</h4><ul>
+<li>git config –global user.name “xxxx”</li>
+<li>git config –global user.email “xxxxx@xx.com”</li>
+</ul>
+<h4 id="Create-a-new-repository"><a href="#Create-a-new-repository" class="headerlink" title="Create a new repository"></a>Create a new repository</h4><ul>
+<li>git clone git@gitlab.com:xxxx/weixinnode.git</li>
+<li>cd weixinnode</li>
+<li>touch README.md</li>
+<li>git add README.md</li>
+<li>git commit -m “add README”</li>
+<li>git push -u origin master</li>
+</ul>
+<h4 id="Existing-folder"><a href="#Existing-folder" class="headerlink" title="Existing folder"></a>Existing folder</h4><ul>
+<li>cd existing_folder</li>
+<li>git init</li>
+<li>git remote add origin git@gitlab.com:xxxx/xxxx.git</li>
+<li>git add .</li>
+<li>git commit</li>
+<li>git push -u origin master</li>
+</ul>
+<h4 id="Existing-Git-repository"><a href="#Existing-Git-repository" class="headerlink" title="Existing Git repository"></a>Existing Git repository</h4><ul>
+<li>cd existing_repo</li>
+<li>git remote add origin git@gitlab.com:xxxx/xxxx.git</li>
+<li>git push -u origin –all</li>
+<li>git push -u origin –tags</li>
+<li>来源： <a href="https://gitlab.com/xxxx/xxxx" target="_blank" rel="external">https://gitlab.com/xxxx/xxxx</a></li>
+</ul>
+<h3 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h3><ul>
+<li><code>git reset --hard &lt;commit ID号&gt;</code></li>
+</ul>
+<h3 id="强制覆盖本地"><a href="#强制覆盖本地" class="headerlink" title="强制覆盖本地"></a>强制覆盖本地</h3><ul>
+<li><p><code>git fetch --all  
+git reset --hard origin/master 
+git pull</code></p>
+</li>
+<li><p>git clone 远程分支<br>Git clone只能clone远程库的master分支，无法clone所有分支，解决办法如下：</p>
+</li>
+</ul>
+<ol>
+<li>找一个干净目录，假设是git_work</li>
+<li>cd git_work</li>
+<li>git clone <a href="http://myrepo.xxx.com/project/.git" target="_blank" rel="external">http://myrepo.xxx.com/project/.git</a> ,这样在git_work目录下得到一个project子目录</li>
+<li>cd project</li>
+<li>git branch -a，列出所有分支名称如下：<br>remotes/origin/dev<br>remotes/origin/release</li>
+<li>git checkout -b dev origin/dev，作用是checkout远程的dev分支，在本地起名为dev分支，并切换到本地的dev分支</li>
+<li>git checkout -b release origin/release，作用参见上一步解释</li>
+<li>git checkout dev，切换回dev分支，并开始开发。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/24/npm配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1203,7 +1522,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/24/js初级03((原型链总结))/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/原生javascript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Robert">
@@ -1222,7 +1541,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2013/10/24/js初级03((原型链总结))/" itemprop="url">js初级03(原型链总结)</a></h1>
+                <a class="post-title-link" href="/2016/02/24/原生javascript/" itemprop="url">原生js</a></h1>
         
 
         <div class="post-meta">
@@ -1234,8 +1553,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-24T22:14:37+08:00">
-                2013-10-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
+                2016-02-24
               </time>
             
 
@@ -1271,49 +1590,74 @@
       
         
           
-            <h1 id="原型总结"><a href="#原型总结" class="headerlink" title="原型总结"></a>原型总结</h1><h4 id="原型链的概念"><a href="#原型链的概念" class="headerlink" title="原型链的概念"></a>原型链的概念</h4><blockquote>
-<p>一个对象继承的所有对象称之为对象的原型链，对象的原型链结构可长可短。</p>
-</blockquote>
-<h4 id="什么类型的对象既有prototype属性又有proto属性？"><a href="#什么类型的对象既有prototype属性又有proto属性？" class="headerlink" title="什么类型的对象既有prototype属性又有proto属性？"></a>什么类型的对象既有prototype属性又有<strong>proto</strong>属性？</h4><blockquote>
-<p>函数类型的对象</p>
-</blockquote>
-<h4 id="直接继承Object-prototype的对象有哪几种？"><a href="#直接继承Object-prototype的对象有哪几种？" class="headerlink" title="直接继承Object.prototype的对象有哪几种？"></a>直接继承Object.prototype的对象有哪几种？</h4><blockquote>
-<p>{}、new Object  内置构造函数.prototype  自定义函数.prototype、 Math</p>
-</blockquote>
-<h4 id="直接继承Function-prototype的对象有哪几种？"><a href="#直接继承Function-prototype的对象有哪几种？" class="headerlink" title="直接继承Function.prototype的对象有哪几种？"></a>直接继承Function.prototype的对象有哪几种？</h4><blockquote>
-<p>内置的构造函数、字面量定义的函数、new Function创建的函数</p>
-</blockquote>
-<h4 id="instanceof运算符的运算规则："><a href="#instanceof运算符的运算规则：" class="headerlink" title="instanceof运算符的运算规则："></a>instanceof运算符的运算规则：</h4><blockquote>
-<p>判断左边的对象的原型链中有没有右边构造函数.prototype指向的对象。</p>
-</blockquote>
-<h4 id="for-in-语句"><a href="#for-in-语句" class="headerlink" title="for in 语句"></a>for in 语句</h4><ul>
-<li>for in用来遍历一个对象可枚举的属性</li>
-<li>需要注意：该对象继承的属性也能够被遍历出来</li>
+            <h3 id="input-focus-作为事件触发条件"><a href="#input-focus-作为事件触发条件" class="headerlink" title="input : focus (作为事件触发条件)"></a>input : focus (作为事件触发条件)</h3><ul>
+<li>使用 :focus 作为事件触发条件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 当css为</div><div class="line">input : focus +div &#123;</div><div class="line">            display:block;</div><div class="line">&#125;</div><div class="line">// 当给上面的 div 注册事件的时候会注册注册上,但是不能触发 ,</div><div class="line">因为一旦离开input的框的焦点就会隐藏div , 所以事件不能触发 . 及时代理事件也不能触发</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="in-运算符"><a href="#in-运算符" class="headerlink" title="in 运算符"></a>in 运算符</h4><ul>
-<li>用来判断一个对象能否使用某个属性</li>
-<li>需要注意：in运算符单独使用时，与属性是不是可枚举的没有任何瓜葛</li>
+<h3 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h3><ul>
+<li>使用 js 给具有readonly 的input文本框赋值,不能触发onchange事件 , 此处要手动触发</li>
+<li>onChange事件是失去焦点的时候才能触发 </li>
 </ul>
-<h4 id="delete-运算符"><a href="#delete-运算符" class="headerlink" title="delete 运算符"></a>delete 运算符</h4><ul>
-<li>用来删除对象的属性</li>
+<h3 id="str-replace"><a href="#str-replace" class="headerlink" title="str.replace();"></a>str.replace();</h3><ul>
+<li>替换</li>
 </ul>
-<h4 id="hasOwnProperty和propertyIsEnumerable有什么区别？"><a href="#hasOwnProperty和propertyIsEnumerable有什么区别？" class="headerlink" title="hasOwnProperty和propertyIsEnumerable有什么区别？"></a>hasOwnProperty和propertyIsEnumerable有什么区别？</h4><ul>
-<li>hasOwnProperty用来判断一个对象是否含有某个属性</li>
-<li>propertyIsEnumerable不光用来判断一个对象是否含有某个属性，还要判断这个属性是不是可枚举的</li>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">name = <span class="string">'aaa bbb ccc'</span>;</div><div class="line">uw = name.replace(<span class="regexp">/\b\w+\b/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">word</span>) </span>&#123;</div><div class="line">   <span class="comment">// 将匹配到的字符串传进来 做处理在return 出去 ,</span></div><div class="line">   <span class="comment">//  其实与name.replace(/\b\w+\b/g, "新字段"),相同 </span></div><div class="line">     <span class="built_in">console</span>.log(word)</div><div class="line">     <span class="built_in">console</span>.log(word.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase());</div><div class="line">     <span class="built_in">console</span>.log(word.substring(<span class="number">1</span>))</div><div class="line">     <span class="keyword">return</span> word.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + word.substring(<span class="number">1</span>);</div><div class="line"> &#125;);</div><div class="line"> <span class="built_in">console</span>.log(uw)</div></pre></td></tr></table></figure>
+<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><ul>
+<li><p>相关链接 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined" target="_blank" rel="external">undefined</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void" target="_blank" rel="external"> void 运算符</a> 对给定的表达式进行求值，然后返回 undefined。 </p>
+</li>
+<li><p>javaScript URIs</p>
+</li>
 </ul>
-<h4 id="函数的length属性和arguments对象的length属性有什么区别？"><a href="#函数的length属性和arguments对象的length属性有什么区别？" class="headerlink" title="函数的length属性和arguments对象的length属性有什么区别？"></a>函数的length属性和arguments对象的length属性有什么区别？</h4><ul>
-<li>函数的length属性用来获取形参的个数</li>
-<li>arguments对象的length属性用来获取实参的个数</li>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href="javascript:void(0);"&gt;</div><div class="line">  这个链接点击之后不会做任何事情，如果去掉 void()，</div><div class="line">  点击之后整个页面会被替换成一个字符 0。</div><div class="line">&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;a href="javascript:void(document.body.style.backgroundColor='green');"&gt;</div><div class="line">  点击这个链接会让页面背景变成绿色。</div><div class="line">&lt;/a&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>立即调用函数表达式 <ul>
+<li>在使用立即执行的函数表达式时，可以利用 void 运算符让 JavaScript 引擎把一个函数识别成函数表达式而不是函数声明（语句）。</li>
 </ul>
-<h4 id="Function-和-eval-有什么共同特点？"><a href="#Function-和-eval-有什么共同特点？" class="headerlink" title="Function 和 eval 有什么共同特点？"></a>Function 和 eval 有什么共同特点？</h4><blockquote>
-<p>都可以把字符串转换为代码执行。</p>
-</blockquote>
-<h4 id="静态成员-类成员"><a href="#静态成员-类成员" class="headerlink" title="静态成员(类成员)"></a>静态成员(类成员)</h4><blockquote>
-<p>添加给构造函数自己的属性与方法，称之为静态成员。</p>
-</blockquote>
-<h4 id="实例成员"><a href="#实例成员" class="headerlink" title="实例成员"></a>实例成员</h4><blockquote>
-<p>添加给实例或者构造函数原型中的属性与方法，称之为实例成员。</p>
-</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void function iife() &#123;</div><div class="line">    var bar = function () &#123;&#125;;</div><div class="line">    var baz = function () &#123;&#125;;</div><div class="line">    var foo = function () &#123;</div><div class="line">        bar();</div><div class="line">        baz();</div><div class="line">     &#125;;</div><div class="line">    var biz = function () &#123;&#125;;</div><div class="line"></div><div class="line">    foo();</div><div class="line">    biz();</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+<ul>
+<li>javascript <ul>
+<li>伪协议执行js</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// void (0) 只是加了个运算符号() , 避免0 余其他标识符进行运算</div><div class="line"></div><div class="line">void 0 的返回值是 undefined</div><div class="line"></div><div class="line">// 应用环境</div><div class="line"></div><div class="line">// 阻止a 标签跳转</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: void(0);"</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span>  </div><div class="line"></div><div class="line">// 或者写成这样 , 因为阻止a 标签跳转的原因是javascript的运算结果为undefined , 中间是空值;</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: ;"</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="typeof-运算符"><a href="#typeof-运算符" class="headerlink" title="typeof 运算符"></a>typeof 运算符</h3><ul>
+<li>使用 typeof的是它不会在一个变量没有被声明的时候抛出一个错误。</li>
+</ul>
+<p>-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var x;</div><div class="line">if(x === void 0) &#123;</div><div class="line">    // 执行这些语句</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 没有声明y</div><div class="line">if(y === void 0) &#123;</div><div class="line">    // 抛出一个RenferenceError错误(与`typeof`相比)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="setter-getter"><a href="#setter-getter" class="headerlink" title="setter / getter"></a>setter / getter</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> var obj = &#123;</div><div class="line">			asd:123,</div><div class="line">            val:100,</div><div class="line">			name2:2,</div><div class="line">            get getval()&#123;</div><div class="line">                return this.val;</div><div class="line">            &#125;,</div><div class="line">			get getas()&#123;return this.asd&#125;,</div><div class="line">            set setval(x)&#123;</div><div class="line">                this.val = x;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">//获取</div><div class="line">obj.getval</div><div class="line">// 修改</div><div class="line">obj.setval=&quot;test&quot;</div></pre></td></tr></table></figure>
+<h3 id="变量未声明"><a href="#变量未声明" class="headerlink" title="变量未声明"></a>变量未声明</h3><ul>
+<li>赋值为null</li>
+</ul>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><ul>
+<li></li>
+<li><p>弊端</p>
+<ul>
+<li>在”严格模式”下必须使用”var”;会创建独立作用域;</li>
+<li>无论怎么改造都会创建独立作用域.</li>
+<li>或者说这个只用来判断作用域是否创建</li>
+</ul>
+</li>
+<li>将a.b这样的字符串做分割成数组,没拼接一次转换成js执行一次typeof,如果不存在就创建一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> // 声明一个全局对象nameSpace，用来注册命名空间  </div><div class="line">    var nameSpace = new Object();</div><div class="line">    // 全局对象仅仅存在register函数，参数为名称空间全路径，如&quot;Grandsoft.GEA&quot;  </div><div class="line">    nameSpace.register = function(fullNS) &#123;</div><div class="line">        // 将命名空间切成N部分, 比如Grandsoft、GEA等  </div><div class="line">        var nsArray = fullNS.split(&apos;.&apos;);</div><div class="line">        var sEval = &quot;&quot;;</div><div class="line">        var sNS = &quot;&quot;;</div><div class="line">        for (var i = 0; i &lt; nsArray.length; i++) &#123;</div><div class="line">             </div><div class="line">            if (i != 0) &#123;</div><div class="line">                sNS += &quot;.&quot;;</div><div class="line">            &#125;</div><div class="line">            sNS += nsArray[i];</div><div class="line">            // 依次创建构造命名空间对象（假如不存在的话）的语句  </div><div class="line">            // 比如先创建Grandsoft，然后创建Grandsoft.GEA，依次下去  </div><div class="line">            // consoel.log()中的字符串需要使用单引号在包一层否则执行的时候会报错;</div><div class="line"> </div><div class="line"> </div><div class="line">           sEval += &quot;if (typeof(&quot; + sNS + &quot;) == &apos;undefined&apos;) &#123;&quot; + sNS + &quot; = new Object();&#125;else&#123;console.log(&apos;nameSpace--&quot; + sNS + &quot;已存在-------&apos;)&#125;&quot;;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">// sEval最终拼接为</div><div class="line">// if (typeof(a) == &apos;undefined&apos;) a = new Object();if (typeof(a.b) == &apos;undefined&apos;) a.b = new Object();</div><div class="line">        if (sEval != &quot;&quot;) eval(sEval);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    // 注册命名空间Grandsoft.GEA, Grandsoft.GCM  </div><div class="line">    nameSpace.register(&quot;Grandsoft.GEA&quot;);</div><div class="line">    nameSpace.register(&quot;Grandsoft.GCM&quot;);</div><div class="line">    // 在Grandsoft.GEA命名空间里面声明类Person  </div><div class="line">    Grandsoft.GEA.Person = function(name, age) &#123;</div><div class="line">            this.name = name;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        // 给类Person添加一个公共方法show()  </div><div class="line">    Grandsoft.GEA.Person.prototype.show = function() &#123;</div><div class="line">            alert(this.name + &quot; is &quot; + this.age + &quot; years old!&quot;);</div><div class="line">        &#125;</div><div class="line">        // 演示如何使用类Person  </div><div class="line">    var p = new Grandsoft.GEA.Person(&quot;yanglf&quot;, 25);</div><div class="line">    p.show();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="formData"><a href="#formData" class="headerlink" title="formData"></a>formData</h3><ul>
+<li><p>前端上传代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>exercise<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">    #contents img &#123;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">    &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"uploadForm"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"uploadBox"</span>&gt;</span>上传文件：</div><div class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"uploadFile"</span> <span class="attr">id</span>=<span class="string">"files"</span> <span class="attr">multiple</span>=<span class="string">""</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"contents"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doUpload</span>(<span class="params">$dom</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</div><div class="line">        <span class="keyword">var</span> files = $dom[<span class="number">0</span>].files;</div><div class="line">        <span class="keyword">var</span> dataUrl = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">var</span> imgStr = <span class="string">''</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; files.length; k++) &#123;</div><div class="line">            formData.append(k, files[k]);</div><div class="line">            <span class="built_in">console</span>.log(k)</div><div class="line">            dataUrl = <span class="built_in">window</span>.URL.createObjectURL(files[k]);</div><div class="line">            imgList += <span class="string">'&lt;img src="'</span> + dataUrl + <span class="string">'" alt="" /&gt;'</span>;</div><div class="line">        &#125;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">url</span>: <span class="string">'http://localhost:8002/upload'</span>,</div><div class="line">            <span class="comment">// url: 'http://wx.bokedata.com/yatou/wechat/common/upload',</span></div><div class="line">            <span class="comment">// url: 'http://192.168.0.107:8080/yatou/wechat/common/upload',</span></div><div class="line">            type: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">"JSON"</span>,</div><div class="line">            <span class="attr">data</span>: formData,</div><div class="line">            <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">            <span class="comment">// headers:&#123;</span></div><div class="line">            <span class="comment">//  "Content-Type":"multipart/form-data"</span></div><div class="line">            <span class="comment">// &#125;</span></div><div class="line">            contentType: <span class="literal">false</span>,</div><div class="line">            <span class="attr">processData</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">context</span>: $dom,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"成功"</span>, data)</div><div class="line">                $(<span class="string">"#contents"</span>).append(imgStr);</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log();</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"失败"</span>, data)</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"完成"</span>, data);</div><div class="line">                <span class="comment">//替换input</span></div><div class="line">                $(<span class="keyword">this</span>).parent().html($(<span class="keyword">this</span>).parent().html());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    $(<span class="string">"#uploadForm"</span>).on(<span class="string">"change"</span>, <span class="string">"#files"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> $<span class="keyword">this</span> = $(<span class="keyword">this</span>);</div><div class="line">        doUpload($<span class="keyword">this</span>);</div><div class="line">    &#125;)</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>后台代码</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> formidable = <span class="built_in">require</span>(<span class="string">'formidable'</span>);</div><div class="line"><span class="keyword">var</span> uuid = <span class="built_in">require</span>(<span class="string">'node-uuid'</span>);</div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> allowCrossDomain = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>);</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'GET,PUT,POST,DELETE'</span>);</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type'</span>);</div><div class="line"></div><div class="line">    next();</div><div class="line">&#125;;</div><div class="line">app.use(allowCrossDomain);</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload_path</span>(<span class="params">path</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> _path = <span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/<span class="subst">$&#123;path&#125;</span>`</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        fs.accessSync(_path);</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        fs.mkdirSync(_path);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;_path&#125;</span>/`</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">node_upload</span>(<span class="params">req, callback, next</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> form = <span class="keyword">new</span> formidable.IncomingForm();</div><div class="line">    form.encoding = <span class="string">'utf-8'</span>;</div><div class="line">    form.uploadDir = upload_path(<span class="string">'uploads'</span>);</div><div class="line">    form.maxFieldsSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">    <span class="comment">//解析</span></div><div class="line">    form.parse(req, <span class="function"><span class="keyword">function</span>(<span class="params">err, fields, files</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> file <span class="keyword">in</span> files) &#123;</div><div class="line">            <span class="comment">//后缀名</span></div><div class="line">            <span class="keyword">var</span> extName = <span class="regexp">/\.[^\.]+/</span>.exec(files[file].name);</div><div class="line">            <span class="keyword">var</span> ext = <span class="built_in">Array</span>.isArray(extName) ? extName[<span class="number">0</span>] : <span class="string">''</span>;</div><div class="line">            <span class="comment">//重命名，以防文件重复</span></div><div class="line">            <span class="keyword">var</span> avatarName = uuid() + ext;</div><div class="line">            <span class="comment">//移动的文件目录</span></div><div class="line">            <span class="keyword">var</span> newPath = form.uploadDir + avatarName;</div><div class="line">            fs.renameSync(files[file].path, newPath);</div><div class="line">            fields[file] = &#123;</div><div class="line">                <span class="attr">size</span>: files[file].size,</div><div class="line">                <span class="attr">path</span>: newPath,</div><div class="line">                <span class="attr">name</span>: files[file].name,</div><div class="line">                <span class="attr">type</span>: files[file].type,</div><div class="line">                <span class="attr">extName</span>: ext</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">        callback(<span class="literal">null</span>, fields);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">app.post(<span class="string">'/upload'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    <span class="comment">// console.log(req.body)</span></div><div class="line">    node_upload(req, <span class="function"><span class="keyword">function</span>(<span class="params">err, fields</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="comment">// res.end('1232344')</span></div><div class="line">            res.json(fields);</div><div class="line">        &#125;, <span class="number">1000</span>);</div><div class="line">    &#125;, next);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">http.createServer(app).listen(<span class="number">8002</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Express server listening on port 8002'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><ul>
+<li>使用同步ajax上传文件的时候会是页面阻塞, 请求前面的额代码执行效果不能展示</li>
+<li>与alert(1)原理相同, alert会阻塞页面渲染,渲染dom阶段与看到dom阶段是不同的</li>
+</ul>
 
           
         
@@ -1357,7 +1701,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/24/js初级04((函数))/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/svn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Robert">
@@ -1376,7 +1720,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2013/10/24/js初级04((函数))/" itemprop="url">js初级04(函数)</a></h1>
+                <a class="post-title-link" href="/2016/02/24/svn/" itemprop="url">svn</a></h1>
         
 
         <div class="post-meta">
@@ -1388,8 +1732,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-24T22:14:37+08:00">
-                2013-10-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
+                2016-02-24
               </time>
             
 
@@ -1425,460 +1769,9 @@
       
         
           
-            <h1 id="函数复习"><a href="#函数复习" class="headerlink" title="函数复习"></a>函数复习</h1><h3 id="函数返回值调用时不传参数"><a href="#函数返回值调用时不传参数" class="headerlink" title="函数返回值调用时不传参数"></a>函数返回值调用时不传参数</h3><h4 id="函数调用没有return语句-会默认返回undefined"><a href="#函数调用没有return语句-会默认返回undefined" class="headerlink" title="函数调用没有return语句,会默认返回undefined"></a>函数调用没有return语句,会默认返回undefined</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function f5() &#123;&#125;</div><div class="line">console.log(f5()); //印f5调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用后返回一个基本数据类型"><a href="#函数调用后返回一个基本数据类型" class="headerlink" title="函数调用后返回一个基本数据类型"></a>函数调用后返回一个基本数据类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f6() &#123;</div><div class="line">      return 2;</div><div class="line">&#125;</div><div class="line">console.log(f6()); // 打印f6调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用返回一个对象"><a href="#函数调用返回一个对象" class="headerlink" title="函数调用返回一个对象"></a>函数调用返回一个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f7() &#123;</div><div class="line">    return &#123;&#125;;</div><div class="line">&#125;</div><div class="line">console.log(f7()); // 打印f7调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用返回函数"><a href="#函数调用返回函数" class="headerlink" title="函数调用返回函数"></a>函数调用返回函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f8() &#123;</div><div class="line">      return function() &#123;</div><div class="line">      console.log(&apos;我被返回出去了&apos;);</div><div class="line">   &#125;;</div><div class="line">&#125;</div><div class="line">console.log(f8()); // 打印f8调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用返回另一函数的执行结果"><a href="#函数调用返回另一函数的执行结果" class="headerlink" title="函数调用返回另一函数的执行结果"></a>函数调用返回另一函数的执行结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f9() &#123;</div><div class="line">    return function() &#123;</div><div class="line">        console.log(&apos;我被返回出去了&apos;);</div><div class="line">        return 2;</div><div class="line">    &#125;();</div><div class="line">&#125;</div><div class="line">console.log(f9()); // 打印f9函数中的自调函数调用后的返回值</div></pre></td></tr></table></figure>
-<h3 id="函数返回值调用时传入参数"><a href="#函数返回值调用时传入参数" class="headerlink" title="函数返回值调用时传入参数"></a>函数返回值调用时传入参数</h3><h4 id="f3函数功能：打印传入的第一个参数"><a href="#f3函数功能：打印传入的第一个参数" class="headerlink" title="f3函数功能：打印传入的第一个参数"></a>f3函数功能：打印传入的第一个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f3() &#123;</div><div class="line">    console.log(arguments[0]);</div><div class="line">&#125;</div><div class="line">// 调用f3函数，传入1</div><div class="line">f3(1);</div><div class="line">// 调用f3函数，传入1 + 1的运算结果</div><div class="line">f3(1 + 1);</div></pre></td></tr></table></figure>
-<h5 id="调用f3函数，传入的是f4变量-与上文有联系"><a href="#调用f3函数，传入的是f4变量-与上文有联系" class="headerlink" title="调用f3函数，传入的是f4变量(与上文有联系)"></a>调用f3函数，传入的是f4变量(与上文有联系)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 会具象化这个变量的值，而f4是一个指针指向函数，</div><div class="line">// 具象化后传入的f4变成了指向函数的指针</div><div class="line">function f4() &#123;&#125;</div><div class="line">f3(f4);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是f4的调用后的返回结果，</div><div class="line">// 因为f4没有return语句，所以f4调用后的返回结果为undefined，</div><div class="line">// 最终传入f3的参数变成了undefined</div><div class="line">f3(f4());</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是一个匿名函数</div><div class="line">f3(function() &#123;</div><div class="line">    console.log(&apos;传入f3的是一个匿名函数！&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是一个匿名函数调用后的返回结果</div><div class="line">f3(function() &#123;</div><div class="line">    return &apos;传入f3的是自调函数的返回值！&apos;;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
-<h1 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">            var obj = &#123;&#125;;</div><div class="line">            return obj;</div><div class="line">&#125;</div><div class="line">console.log( fn() === fn() );  // false</div><div class="line"> </div><div class="line">//函数每调用一次都会新生成一个obj并且返回,所以false</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">   var obj = &#123;&#125;;</div><div class="line">        function f() &#123;</div><div class="line">            return obj;</div><div class="line">        &#125;</div><div class="line">        console.log( f() === f() );  //  true</div><div class="line">//对象在全局定义,函数调用只是去全局获取这个对象的地址(函数调用时obj没有被重新定义),所以每次的返回值都是相同的对象地址.</div></pre></td></tr></table></figure>
-<h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><h4 id="变量的所有有效区域-运行环境-统称为作用链"><a href="#变量的所有有效区域-运行环境-统称为作用链" class="headerlink" title="变量的所有有效区域(运行环境),统称为作用链"></a>变量的所有有效区域(运行环境),统称为作用链</h4><blockquote>
-<p>画出下面代码所有变量的影射图</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">var b = 2;</div><div class="line">function add(par1, par2) &#123;</div><div class="line">    var c = 10;</div><div class="line">    return function () &#123;</div><div class="line">        return par1 + par2 + c;</div><div class="line">    &#125;();</div><div class="line">&#125;</div><div class="line">add(a, b);</div></pre></td></tr></table></figure>
-<h1 id="return基本数据类型和对象的区别"><a href="#return基本数据类型和对象的区别" class="headerlink" title="return基本数据类型和对象的区别"></a>return基本数据类型和对象的区别</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">            var a = 1;</div><div class="line">            return a;</div><div class="line">        &#125;</div><div class="line">var a = fn();</div><div class="line">var a2 = fn();</div><div class="line">//fn执行结果是返回一个数值，那么a和a2分别存储返回数值的一个copy版本。</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">     var obj = &#123;&#125;;</div><div class="line">     return obj;</div><div class="line">&#125;</div><div class="line">//fn执行结果是返回一个对象的地址，那么o和o2存储是同一个对象的地址。</div><div class="line">var o = fn();</div><div class="line">var o2 = fn();</div></pre></td></tr></table></figure>
-<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><blockquote>
-<p>以后面试问什么是闭包：可以访问非自身局部变量的函数就是闭包。函数内的函数就是闭包。<br>闭包的特点:利用闭包，可以在任何地方操作一个局部变量。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//如果想要阻止a的释放，必须要借助闭包</div><div class="line">    function fn() &#123;</div><div class="line">        var a = 1;</div><div class="line">        return function() &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">var f = fn();</div><div class="line">var f2 = fn();</div><div class="line">//f调用和f2调用后，得到的a值，是来源与同一个a的。</div><div class="line">console.log(f());</div><div class="line">console.log(f2());</div></pre></td></tr></table></figure>
-<h4 id="闭包应用环境"><a href="#闭包应用环境" class="headerlink" title="闭包应用环境"></a>闭包应用环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//如果想要阻止a的释放，必须要借助闭包</div><div class="line">    function fn() &#123;</div><div class="line">        var a = 1;</div><div class="line">        return function() &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    var f = fn();</div><div class="line">    var f2 = fn();</div><div class="line">    //f调用和f2调用后，得到的a值，是来源与同一个a的。</div><div class="line">    console.log(f());</div><div class="line">    console.log(f2());</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var cache = &#123;&#125;;</div><div class="line">    // 给缓存中添加数据</div><div class="line">    function setCache(key, val) &#123;</div><div class="line">        cache[key] = val;</div><div class="line">    &#125;</div><div class="line">    // 获取缓存中指定的数据</div><div class="line">    function getCache(key) &#123;</div><div class="line">        return cache[key];</div><div class="line">    &#125;</div><div class="line">    function getCacheObj() &#123;</div><div class="line">        var cache = &#123;&#125;;</div><div class="line">        // 给缓存中添加数据</div><div class="line">        function setCache(key, val) &#123;</div><div class="line">            cache[key] = val;</div><div class="line">        &#125;</div><div class="line">        // 获取缓存中指定的数据</div><div class="line">        function getCache(key) &#123;</div><div class="line">            return cache[key];</div><div class="line">        &#125;</div><div class="line">        return &#123;</div><div class="line">            setCache: setCache,</div><div class="line">            getCache: getCache</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    var cacheObj = getCacheObj();</div><div class="line">    cacheObj.setCache(&apos;val&apos;, 888);</div><div class="line">    console.log(cacheObj.getCache(&apos;val&apos;));</div></pre></td></tr></table></figure>
-<h1 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h1><blockquote>
-<p>代码执行时所依赖的环境,函数被调用一次，就会产生一个执行环境。</p>
-</blockquote>
-<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//问题:</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">        for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">            setTimeout(function () &#123;</div><div class="line">                console.log(arr[i]);</div><div class="line">            &#125;, 1000);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">//上面的代码要求，每隔一秒说一句话，找到存在的问题，并解决。</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//上面题解决方法</div><div class="line">//因为传入的定时器的回调,在循环结束之后才执行,所以打印的i值是4</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">        for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">            (function () &#123;</div><div class="line">                var par = i;</div><div class="line">                setTimeout(function () &#123;</div><div class="line">                    console.log(arr[par]);</div><div class="line">                &#125;, 1000 * (par + 1));</div><div class="line">            &#125;)();</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//另一种解决方法</div><div class="line">//let 定义的变量具有块级作用域</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">       for ( let i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">           setTimeout(function () &#123;</div><div class="line">               console.log(arr[i]);</div><div class="line">           &#125;, 1000 * (i + 1));</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function setVal(val) &#123;</div><div class="line">    return function () &#123;</div><div class="line">        return val;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">/*var fn = setVal(566);</div><div class="line">var val = fn();</div><div class="line">console.log(val);*/</div><div class="line"> </div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">    (function () &#123;</div><div class="line">        var fn = setVal(i);</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            console.log(arr[fn()]);</div><div class="line">        &#125;, 0);</div><div class="line">    &#125;)();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">function callback() &#123;</div><div class="line">    console.log(111);</div><div class="line">&#125;</div><div class="line">// setTimeout是全局下的一个函数,</div><div class="line">// 第一个参数要求是回调函数</div><div class="line">// 传入setTimeout的回调函数，是异步执行的(即：不是随着代码的顺序执行)。</div><div class="line">setTimeout(callback, 0);</div><div class="line">console.log(222);</div><div class="line">for ( var i = 0; i &lt; 10; i++ ) &#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/04/js初级02((原型))/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2013/10/04/js初级02((原型))/" itemprop="url">js初级02(原型)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-04T22:14:37+08:00">
-                2013-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="关于-proto-的理解"><a href="#关于-proto-的理解" class="headerlink" title="关于__ proto__的理解"></a>关于__ proto__的理解</h1><p>每个对象那个在创建的的时候否会在其内部初始化一个__ proto<strong>属性,当访问一个对象的属性时,如果这个对象内部不存在这个属性,那么会去\</strong> proto__里面去找,那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链的概念。</p>
-<h1 id="动态创建"><a href="#动态创建" class="headerlink" title="动态创建"></a>动态创建</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//创建一个构造函数</div><div class="line">    function Student(age)&#123;</div><div class="line">            this.age=age;</div><div class="line">    &#125;</div><div class="line">    var stu=new Student(18);</div><div class="line">    Student.prototype.say =function ()&#123;</div><div class="line">        console.log(&quot;hahha&quot;);</div><div class="line">    &#125;</div><div class="line">    console.log(stu);</div></pre></td></tr></table></figure>
-<ul>
-<li>通过Student创建出来的实例会指向Student.prototype,上述方法属于动态在创建(给构造函数.prototype添加了一个方法).给原型添加属性可以在创建实例之前也可以在创建实例之后,实例都可以访问原型中的方法.</li>
-<li>stu可以通难过stu.__proto__获取say.</li>
-<li>也可以通过stu.say()</li>
+            <h3 id="webstorm中没有svn-exe"><a href="#webstorm中没有svn-exe" class="headerlink" title="webstorm中没有svn.exe"></a>webstorm中没有svn.exe</h3><ul>
+<li>安装svn的时候如下图选择<br><img src="/images/svnexe.png" alt="svn安装">  </li>
 </ul>
-<h1 id="原型覆写"><a href="#原型覆写" class="headerlink" title="原型覆写"></a>原型覆写</h1><ul>
-<li><p>相比默认的原型对象construtor属性,会丢失</p>
-</li>
-<li><p>Student.prototype这种方式访问constructor属性不准确,因为会被覆写<br>手动修复在Student.prototype中添加属性”constructor:Student”(不写也没有是他并没有什么卵用)</p>
-</li>
-<li><p>注意:原型覆写注意代码顺序</p>
-</li>
-<li><p>原型覆写是尽量使用新对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">        var obj = &#123;</div><div class="line">            count: function (a, b) &#123;</div><div class="line">                console.log(a + b);</div><div class="line">            &#125;,</div><div class="line">            con: function (a) &#123;</div><div class="line">                console.log(a);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"> </div><div class="line">        // 注意事项3：覆写时尽量使用一个新对象</div><div class="line">        function Student(age) &#123;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        // 覆写构造函数的prototype属性值</div><div class="line">        // 把Student.prototype修改为一个新的自定义对象</div><div class="line">        Student.prototype = obj;</div><div class="line">        // 如果我想修改con方法，那么obj对象也会受到连带影响，因为赋值是地址,两个地址同时指向一个对象</div><div class="line">        // 将来使用obj的时候，极有可能我已经忘记了这里对obj进行过修改，</div><div class="line">        // 就可能出现问题，为了防止自己给自己挖坑，还是不要使用已存在的对象为好。</div><div class="line">        console.log(&quot;--------------------&quot;);</div><div class="line">        Student.prototype.con = function (a) &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">       // var guoJing = new Student(38);</div><div class="line">       // guoJing.run();</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="实例与实例之间的继承"><a href="#实例与实例之间的继承" class="headerlink" title="实例与实例之间的继承"></a>实例与实例之间的继承</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var o1=&#123;</div><div class="line">        value:100</div><div class="line">    &#125;</div><div class="line">    var o2=&#123;&#125;;</div><div class="line">    o2.__proto__=o1;</div><div class="line">    console.log(o2.value);</div><div class="line">    console.log(o1);</div><div class="line">    console.log(o2);</div><div class="line">    //o1,o2均为实例,o2.__proto__指向o1</div></pre></td></tr></table></figure>
-<h1 id="对象与对象之间的继承-混入"><a href="#对象与对象之间的继承-混入" class="headerlink" title="对象与对象之间的继承(混入)"></a>对象与对象之间的继承(混入)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var o=&#123;val:100&#125;</div><div class="line">    var o2=&#123;&#125;</div><div class="line">    for(var key in o)&#123;</div><div class="line">        o2[key]=o[key]</div><div class="line">    &#125;</div><div class="line">    console.log(o2);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h1 id="内置对象不可枚举"><a href="#内置对象不可枚举" class="headerlink" title="内置对象不可枚举"></a>内置对象不可枚举</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;value:100&#125;;</div><div class="line">obj.toString</div><div class="line">obj.valueOf</div><div class="line">for(var key in obj)&#123;</div><div class="line">    console.log(key)//只能把我们自己的属性遍历出来了</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="另一种方法-混入原型中"><a href="#另一种方法-混入原型中" class="headerlink" title="另一种方法(混入原型中)"></a>另一种方法(混入原型中)</h1><ul>
-<li>注意:在jQuery中也是这样用的</li>
-<li>在jQuery中有个extend方法;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//    创建一个对象</div><div class="line">    var obj=&#123;</div><div class="line">        say:function ()&#123;</div><div class="line">                console.log(this.name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">//    创建一个构造函数</div><div class="line">    function Animal(name)&#123;</div><div class="line">            this.name=name;</div><div class="line">    &#125;</div><div class="line">    for(var key in obj)&#123;</div><div class="line">        Animal.prototype[key]=obj[key];</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">//    通过Animal创建实例</div><div class="line">    var dog=new Animal(&quot;大黄&quot;);</div><div class="line">    dog.say();</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>extend函数封装</li>
-<li>本质就是把多个对象的属性一次copy到原型对象中</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function extend(o1,o2)&#123;</div><div class="line">    for(var key in o2)&#123;</div><div class="line">        o1[key]=o2[key]</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">extend(dog.prototype,&#123;</div><div class="line">    val:100;</div><div class="line">    name:&quot;ll&quot;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="copy继承的注意"><a href="#copy继承的注意" class="headerlink" title="copy继承的注意"></a>copy继承的注意</h2><ol>
-<li><p>实现copy继承所需的函数名没有硬性要求</p>
-</li>
-<li><p>乱用会造成内存浪费</p>
-</li>
-<li><p>通常都是配合原型来使用(对原型进行扩展)</p>
-</li>
-</ol>
-<h1 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h1><ul>
-<li>Object是一个内置的构造函数</li>
-<li>在Object身上有很多方法</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//创建一个对象</div><div class="line">    var o1 = &#123;val: 100&#125;</div><div class="line">    //创建一个构造函数</div><div class="line">    function Person(name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">    var per = new Person(&quot;ll&quot;)</div><div class="line">    //指定per继承O1,即per.__proto__===obj</div><div class="line">    //调用Object.create方法时会返回一个新对象这个新对象的地址赋值给per</div><div class="line">    //并让per中的__proto__指向O1;</div><div class="line">    per = Object.create(o1)</div><div class="line">    console.log(per.val);</div></pre></td></tr></table></figure>
-<h1 id="Object-create加原型组合"><a href="#Object-create加原型组合" class="headerlink" title="Object.create加原型组合"></a>Object.create加原型组合</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//创建两个构造函数</div><div class="line">       function Animal()&#123;</div><div class="line">               this.name=1;</div><div class="line">       &#125;</div><div class="line">       function human()&#123;</div><div class="line">               this.age=123;</div><div class="line">       &#125;</div><div class="line">       human.prototype=new Animal();</div><div class="line">       //创建实例</div><div class="line">       var person=new human();</div><div class="line">       console.log(person.name);</div></pre></td></tr></table></figure>
-<h1 id="扩展1"><a href="#扩展1" class="headerlink" title="扩展1"></a>扩展1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">// 需求：Person的实例可以使用Animal原型里面的方法</div><div class="line">        function Animal(name, age, sex) &#123;</div><div class="line">            this.name = name;</div><div class="line">            this.age = age;</div><div class="line">            this.sex = sex;</div><div class="line">        &#125;</div><div class="line">        Animal.prototype = &#123;</div><div class="line">            fn: function () &#123;</div><div class="line">                // 谁调用fn，this指向谁</div><div class="line">                console.log(this.name);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        // 人类都是动物，动物不一定是人类，所以动物拥有的属性人类一定也有</div><div class="line">        function Person(name, age, sex) &#123;</div><div class="line">            /*</div><div class="line">            * 复用Animal构造函数里的代码解决思路：</div><div class="line">            * 1、Animal里面有一些this.xx = xx的代码，</div><div class="line">            * 2、如果，我能够让Animal里面的this指向Person的实例，</div><div class="line">            * 3、那么Animal里面的代码含义就变成了给Person的实例添加xx属性。</div><div class="line">            *</div><div class="line">            * 那么问题来了，如何让Animal函数执行时，里面的this指向Person的实例：</div><div class="line">            * 1、把Animal函数作为属性添加到Person实例自身，</div><div class="line">            * 2、然后通过Person实例调用Animal函数，那么Animal执行时里面的this就指向了Person实例</div><div class="line">            * */</div><div class="line">            // 这种代码复用的方式：</div><div class="line">            // 有地方叫它 对象冒充，也叫属性盗窃，也叫属性继承，</div><div class="line">            // 最简单明了好理解的叫法是：构造函数借用</div><div class="line">            // 借用Animal函数，给Person实例添加属性</div><div class="line">            this.__Animal__ = Animal;</div><div class="line">            // 调用Animal函数时，里的this指向了当前Person的实例</div><div class="line">            this.__Animal__(name, age, sex);</div><div class="line">        &#125;</div><div class="line">        // 这一行代码，为了让Person的实例能给使用Animal原型里面的东西</div><div class="line">        Person.prototype = Object.create(Animal.prototype);</div><div class="line">        var huangYaoShi = new Person(&apos;黄药师&apos;, 888, &apos;男&apos;);</div><div class="line">        console.log(huangYaoShi.age);</div></pre></td></tr></table></figure>
-<h1 id="扩展2-extend"><a href="#扩展2-extend" class="headerlink" title="扩展2(extend)"></a>扩展2(extend)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">        * 需求：</div><div class="line">        *</div><div class="line">        * 给Fn构造函数添加一个extend函数，</div><div class="line">        * 用来给构造函数添加静态成员。</div><div class="line">        *</div><div class="line">        * 给Fn的原型也添加一个extend函数，</div><div class="line">        * 用来给将来的实例添加实例成员。</div><div class="line">        * */</div><div class="line">        function Fn() &#123; &#125;</div><div class="line">        // 给Fn添加一个静态方法，供将来给Fn扩展其他静态成员</div><div class="line">        Fn.extend = function (obj) &#123;</div><div class="line">            for ( var key in obj ) &#123;</div><div class="line">                this[key] = obj[key];</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        // 给Fn添加静态成员</div><div class="line">        Fn.extend(&#123;</div><div class="line">            value: 100,</div><div class="line">            max: 888</div><div class="line">        &#125;);</div><div class="line">        /*----------------------------------------------------------------------*/</div><div class="line">        // 给Fn原型添加一个实例方法，供将来给Fn的原型扩展其他实例成员</div><div class="line">        // 完成这个需求，添加到Fn的静态方法与添加到原型的实例方法一致，</div><div class="line">        // 为了代码的复用，一般实例方法会利用静态方法实现。</div><div class="line">        Fn.prototype.extend = Fn.extend;</div><div class="line">        // 给Fn的原型添加实例成员</div><div class="line">        Fn.prototype.extend(&#123;</div><div class="line">            add: function () &#123;&#125;,</div><div class="line">            count: function () &#123;&#125;</div><div class="line">        &#125;);</div><div class="line">        console.log(Fn.value);</div><div class="line">        console.log(Fn.prototype.count);</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/09/15/js初级01(js基本数据类型)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2013/09/15/js初级01(js基本数据类型)/" itemprop="url">js初级01(js基本数据类型)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-09-15T22:14:37+08:00">
-                2013-09-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="JavaScript-基本组成"><a href="#JavaScript-基本组成" class="headerlink" title="JavaScript 基本组成"></a>JavaScript 基本组成</h2><ul>
-<li>JavaScript由几部分构成？<blockquote>
-<p>ECMAScript、DOM、BOM</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h4 id="数据类型有哪些？"><a href="#数据类型有哪些？" class="headerlink" title="数据类型有哪些？"></a>数据类型有哪些？</h4><ul>
-<li><p>基本数据类型<br>number、string、boolean、null、undefined</p>
-</li>
-<li><p>复杂数据类型<br>object</p>
-</li>
-</ul>
-<h4 id="ECMAScript内置对象有哪些？"><a href="#ECMAScript内置对象有哪些？" class="headerlink" title="ECMAScript内置对象有哪些？"></a>ECMAScript内置对象有哪些？</h4><ul>
-<li>Array、Math、Date、Object、String、Number、Boolean、Function、Error、RegExp</li>
-</ul>
-<h4 id="如何判断数据类型？"><a href="#如何判断数据类型？" class="headerlink" title="如何判断数据类型？"></a>如何判断数据类型？</h4><ul>
-<li>typeof</li>
-<li>typeof无法判断null类型的数据，反过来说typeof判断object类型的数据可能存在误判</li>
-<li>typeof可以判断Function类型的对象</li>
-</ul>
-<h2 id="基本类型与引用类型的赋值问题"><a href="#基本类型与引用类型的赋值问题" class="headerlink" title="基本类型与引用类型的赋值问题"></a>基本类型与引用类型的赋值问题</h2><h4 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h4><ul>
-<li>赋的是具体的值</li>
-</ul>
-<h4 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h4><ul>
-<li>赋的是对象的地址</li>
-</ul>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符 + %"></a>算术运算符 + %</h4><ul>
-<li>算术运算、字符串连接、把数据类型转换为number</li>
-<li>取余数</li>
-</ul>
-<h4 id="逻辑运算符-amp-amp"><a href="#逻辑运算符-amp-amp" class="headerlink" title="逻辑运算符 &amp;&amp; || !"></a>逻辑运算符 &amp;&amp; || !</h4><ul>
-<li>&amp;&amp; 从左往右依次把数据转换为boolean类型，如果是false，则返回对应的数据；<br>如果一直没有找到，则返回最后一个数据。</li>
-<li>|| 从左往右依次把数据转换为boolean类型，如果是true，则返回对应的数据；<br>如果一直没有找到，则返回最后一个数据。</li>
-<li>! 把数据转换为boolean类型，然后取反</li>
-</ul>
-<h4 id="相等运算符"><a href="#相等运算符" class="headerlink" title="相等运算符 == === != !=="></a>相等运算符 == === != !==</h4><ul>
-<li>=== 类型与值必须全等</li>
-<li>== 会先进行数据类型转换，然后比较（具体转换规则，下面有。）</li>
-</ul>
-<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符 ? :"></a>三元运算符 ? :</h4><ul>
-<li>问号前面的表达式结果为true，执行冒号前的表达式，否则执行后面的表达式。</li>
-</ul>
-<h2 id="布尔类型转换"><a href="#布尔类型转换" class="headerlink" title="布尔类型转换"></a>布尔类型转换</h2><h4 id="如何把数据转换为布尔类型？"><a href="#如何把数据转换为布尔类型？" class="headerlink" title="如何把数据转换为布尔类型？"></a>如何把数据转换为布尔类型？</h4><ul>
-<li>!! Boolean</li>
-</ul>
-<h4 id="哪些数据在转换为布尔类型时结果为false？"><a href="#哪些数据在转换为布尔类型时结果为false？" class="headerlink" title="哪些数据在转换为布尔类型时结果为false？"></a>哪些数据在转换为布尔类型时结果为false？</h4><ul>
-<li>0、undefined、null、NaN、’’</li>
-<li>所有的对象转换后为boolean类型，都为true</li>
-</ul>
-<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><h4 id="分支语句"><a href="#分支语句" class="headerlink" title="分支语句"></a>分支语句</h4><ul>
-<li>if else、switch case</li>
-</ul>
-<h4 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h4><ul>
-<li>for、while、do while、for in</li>
-</ul>
-<h4 id="break和continue的作用是什么？"><a href="#break和continue的作用是什么？" class="headerlink" title="break和continue的作用是什么？"></a>break和continue的作用是什么？</h4><ul>
-<li>break：结束循环。</li>
-<li>continue：跳出当前循环，继续下一次循环</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h4 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h4><ul>
-<li>函数声明式</li>
-<li>函数表达式</li>
-<li>Function</li>
-</ul>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
-<li>对函数中重复执行代码中的不同部分的抽象提取</li>
-<li>形参是用来接收实参传递过来的值。</li>
-<li>练习：写一个函数，函数接收一个参数并打印，如果参数的值是null或undefined，则不打印。</li>
-</ul>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><ul>
-<li>如果没有return语句，则为undefined，如果有则为对应的值。</li>
-</ul>
-<h4 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h4><ul>
-<li>arguments是一个代表实参的对象，</li>
-<li>可以通过下标的方式获取实参，</li>
-<li>可以通过length属性获取实参的个数</li>
-</ul>
-<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><ul>
-<li>谁调用就指向谁。</li>
-</ul>
-<h4 id="错误抛出"><a href="#错误抛出" class="headerlink" title="错误抛出"></a>错误抛出</h4><ul>
-<li>throw 自定义抛出错误。</li>
-</ul>
-<h2 id="debugger与断点"><a href="#debugger与断点" class="headerlink" title="debugger与断点"></a>debugger与断点</h2><h1 id="号"><a href="#号" class="headerlink" title="+号"></a>+号</h1><ul>
-<li>如果两边含有字符串或者对象，那么转换为string之后再相加</li>
-<li>除此之外，两数相加，转换为number之后再相加</li>
-</ul>
-<h1 id="号-1"><a href="#号-1" class="headerlink" title="-号"></a>-号</h1><ul>
-<li>把两边数据转换为number之后再相减</li>
-</ul>
-<h1 id="运算符比较规则"><a href="#运算符比较规则" class="headerlink" title="==运算符比较规则"></a>==运算符比较规则</h1><blockquote>
-<p>约定：非空数据类型表示除null和undefined两种数据类型。</p>
-</blockquote>
-<ul>
-<li>任何数据和NaN相比结果都为false</li>
-<li>null等于undefined</li>
-<li>null和非空类型相比结果为false</li>
-<li>undefined和非空类型相比结果为false</li>
-<li>数字和非空类型比较，先转换为数字再比较</li>
-<li>布尔和非空类型比较，先转换为数字再比较</li>
-<li>对象与对象比较内存地址</li>
-<li>对象与字符串，对象先转换为字符串再比较</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>类型</th>
-<th>规律</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NaN</td>
-<td>任意类型</td>
-<td>false</td>
-</tr>
-<tr>
-<td>null</td>
-<td>undefined</td>
-<td>true</td>
-</tr>
-<tr>
-<td>null</td>
-<td>非空类型</td>
-<td>false</td>
-</tr>
-<tr>
-<td>undefined</td>
-<td>非空类型</td>
-<td>false</td>
-</tr>
-<tr>
-<td>数字</td>
-<td>非空类型</td>
-<td>转换为数字再比较</td>
-</tr>
-<tr>
-<td>布尔</td>
-<td>非空类型</td>
-<td>转换为数字再比较</td>
-</tr>
-<tr>
-<td>对象</td>
-<td>对象</td>
-<td>内存地址比较</td>
-</tr>
-<tr>
-<td>对象</td>
-<td>字符串</td>
-<td>转换为字符串再比较</td>
-</tr>
-</tbody>
-</table>
 
           
         
@@ -1916,6 +1809,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1958,7 +1855,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1971,7 +1868,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
