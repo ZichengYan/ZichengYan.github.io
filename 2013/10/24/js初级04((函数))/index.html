@@ -1,0 +1,711 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript 初级," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="函数复习函数返回值调用时不传参数函数调用没有return语句,会默认返回undefined12function f5() &amp;#123;&amp;#125;console.log(f5()); //印f5调用后的返回值 函数调用后返回一个基本数据类型1234function f6() &amp;#123;      return 2;&amp;#125;console.log(f6()); // 打印f6调用后的返回值 函">
+<meta name="keywords" content="javascript 初级">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js初级04(函数)">
+<meta property="og:url" content="http://yoursite.com/2013/10/24/js初级04((函数))/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="函数复习函数返回值调用时不传参数函数调用没有return语句,会默认返回undefined12function f5() &amp;#123;&amp;#125;console.log(f5()); //印f5调用后的返回值 函数调用后返回一个基本数据类型1234function f6() &amp;#123;      return 2;&amp;#125;console.log(f6()); // 打印f6调用后的返回值 函">
+<meta property="og:updated_time" content="2017-07-17T12:36:46.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js初级04(函数)">
+<meta name="twitter:description" content="函数复习函数返回值调用时不传参数函数调用没有return语句,会默认返回undefined12function f5() &amp;#123;&amp;#125;console.log(f5()); //印f5调用后的返回值 函数调用后返回一个基本数据类型1234function f6() &amp;#123;      return 2;&amp;#125;console.log(f6()); // 打印f6调用后的返回值 函">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/10/24/js初级04((函数))/"/>
+
+
+
+
+
+  <title>js初级04(函数) | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/24/js初级04((函数))/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js初级04(函数)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-24T22:14:37+08:00">
+                2013-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="函数复习"><a href="#函数复习" class="headerlink" title="函数复习"></a>函数复习</h1><h3 id="函数返回值调用时不传参数"><a href="#函数返回值调用时不传参数" class="headerlink" title="函数返回值调用时不传参数"></a>函数返回值调用时不传参数</h3><h4 id="函数调用没有return语句-会默认返回undefined"><a href="#函数调用没有return语句-会默认返回undefined" class="headerlink" title="函数调用没有return语句,会默认返回undefined"></a>函数调用没有return语句,会默认返回undefined</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function f5() &#123;&#125;</div><div class="line">console.log(f5()); //印f5调用后的返回值</div></pre></td></tr></table></figure>
+<h4 id="函数调用后返回一个基本数据类型"><a href="#函数调用后返回一个基本数据类型" class="headerlink" title="函数调用后返回一个基本数据类型"></a>函数调用后返回一个基本数据类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f6() &#123;</div><div class="line">      return 2;</div><div class="line">&#125;</div><div class="line">console.log(f6()); // 打印f6调用后的返回值</div></pre></td></tr></table></figure>
+<h4 id="函数调用返回一个对象"><a href="#函数调用返回一个对象" class="headerlink" title="函数调用返回一个对象"></a>函数调用返回一个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f7() &#123;</div><div class="line">    return &#123;&#125;;</div><div class="line">&#125;</div><div class="line">console.log(f7()); // 打印f7调用后的返回值</div></pre></td></tr></table></figure>
+<h4 id="函数调用返回函数"><a href="#函数调用返回函数" class="headerlink" title="函数调用返回函数"></a>函数调用返回函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f8() &#123;</div><div class="line">      return function() &#123;</div><div class="line">      console.log(&apos;我被返回出去了&apos;);</div><div class="line">   &#125;;</div><div class="line">&#125;</div><div class="line">console.log(f8()); // 打印f8调用后的返回值</div></pre></td></tr></table></figure>
+<h4 id="函数调用返回另一函数的执行结果"><a href="#函数调用返回另一函数的执行结果" class="headerlink" title="函数调用返回另一函数的执行结果"></a>函数调用返回另一函数的执行结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f9() &#123;</div><div class="line">    return function() &#123;</div><div class="line">        console.log(&apos;我被返回出去了&apos;);</div><div class="line">        return 2;</div><div class="line">    &#125;();</div><div class="line">&#125;</div><div class="line">console.log(f9()); // 打印f9函数中的自调函数调用后的返回值</div></pre></td></tr></table></figure>
+<h3 id="函数返回值调用时传入参数"><a href="#函数返回值调用时传入参数" class="headerlink" title="函数返回值调用时传入参数"></a>函数返回值调用时传入参数</h3><h4 id="f3函数功能：打印传入的第一个参数"><a href="#f3函数功能：打印传入的第一个参数" class="headerlink" title="f3函数功能：打印传入的第一个参数"></a>f3函数功能：打印传入的第一个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f3() &#123;</div><div class="line">    console.log(arguments[0]);</div><div class="line">&#125;</div><div class="line">// 调用f3函数，传入1</div><div class="line">f3(1);</div><div class="line">// 调用f3函数，传入1 + 1的运算结果</div><div class="line">f3(1 + 1);</div></pre></td></tr></table></figure>
+<h5 id="调用f3函数，传入的是f4变量-与上文有联系"><a href="#调用f3函数，传入的是f4变量-与上文有联系" class="headerlink" title="调用f3函数，传入的是f4变量(与上文有联系)"></a>调用f3函数，传入的是f4变量(与上文有联系)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 会具象化这个变量的值，而f4是一个指针指向函数，</div><div class="line">// 具象化后传入的f4变成了指向函数的指针</div><div class="line">function f4() &#123;&#125;</div><div class="line">f3(f4);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是f4的调用后的返回结果，</div><div class="line">// 因为f4没有return语句，所以f4调用后的返回结果为undefined，</div><div class="line">// 最终传入f3的参数变成了undefined</div><div class="line">f3(f4());</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是一个匿名函数</div><div class="line">f3(function() &#123;</div><div class="line">    console.log(&apos;传入f3的是一个匿名函数！&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是一个匿名函数调用后的返回结果</div><div class="line">f3(function() &#123;</div><div class="line">    return &apos;传入f3的是自调函数的返回值！&apos;;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
+<h1 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">            var obj = &#123;&#125;;</div><div class="line">            return obj;</div><div class="line">&#125;</div><div class="line">console.log( fn() === fn() );  // false</div><div class="line"> </div><div class="line">//函数每调用一次都会新生成一个obj并且返回,所以false</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">   var obj = &#123;&#125;;</div><div class="line">        function f() &#123;</div><div class="line">            return obj;</div><div class="line">        &#125;</div><div class="line">        console.log( f() === f() );  //  true</div><div class="line">//对象在全局定义,函数调用只是去全局获取这个对象的地址(函数调用时obj没有被重新定义),所以每次的返回值都是相同的对象地址.</div></pre></td></tr></table></figure>
+<h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><h4 id="变量的所有有效区域-运行环境-统称为作用链"><a href="#变量的所有有效区域-运行环境-统称为作用链" class="headerlink" title="变量的所有有效区域(运行环境),统称为作用链"></a>变量的所有有效区域(运行环境),统称为作用链</h4><blockquote>
+<p>画出下面代码所有变量的影射图</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">var b = 2;</div><div class="line">function add(par1, par2) &#123;</div><div class="line">    var c = 10;</div><div class="line">    return function () &#123;</div><div class="line">        return par1 + par2 + c;</div><div class="line">    &#125;();</div><div class="line">&#125;</div><div class="line">add(a, b);</div></pre></td></tr></table></figure>
+<h1 id="return基本数据类型和对象的区别"><a href="#return基本数据类型和对象的区别" class="headerlink" title="return基本数据类型和对象的区别"></a>return基本数据类型和对象的区别</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">            var a = 1;</div><div class="line">            return a;</div><div class="line">        &#125;</div><div class="line">var a = fn();</div><div class="line">var a2 = fn();</div><div class="line">//fn执行结果是返回一个数值，那么a和a2分别存储返回数值的一个copy版本。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">     var obj = &#123;&#125;;</div><div class="line">     return obj;</div><div class="line">&#125;</div><div class="line">//fn执行结果是返回一个对象的地址，那么o和o2存储是同一个对象的地址。</div><div class="line">var o = fn();</div><div class="line">var o2 = fn();</div></pre></td></tr></table></figure>
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><blockquote>
+<p>以后面试问什么是闭包：可以访问非自身局部变量的函数就是闭包。函数内的函数就是闭包。<br>闭包的特点:利用闭包，可以在任何地方操作一个局部变量。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//如果想要阻止a的释放，必须要借助闭包</div><div class="line">    function fn() &#123;</div><div class="line">        var a = 1;</div><div class="line">        return function() &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">var f = fn();</div><div class="line">var f2 = fn();</div><div class="line">//f调用和f2调用后，得到的a值，是来源与同一个a的。</div><div class="line">console.log(f());</div><div class="line">console.log(f2());</div></pre></td></tr></table></figure>
+<h4 id="闭包应用环境"><a href="#闭包应用环境" class="headerlink" title="闭包应用环境"></a>闭包应用环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//如果想要阻止a的释放，必须要借助闭包</div><div class="line">    function fn() &#123;</div><div class="line">        var a = 1;</div><div class="line">        return function() &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    var f = fn();</div><div class="line">    var f2 = fn();</div><div class="line">    //f调用和f2调用后，得到的a值，是来源与同一个a的。</div><div class="line">    console.log(f());</div><div class="line">    console.log(f2());</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var cache = &#123;&#125;;</div><div class="line">    // 给缓存中添加数据</div><div class="line">    function setCache(key, val) &#123;</div><div class="line">        cache[key] = val;</div><div class="line">    &#125;</div><div class="line">    // 获取缓存中指定的数据</div><div class="line">    function getCache(key) &#123;</div><div class="line">        return cache[key];</div><div class="line">    &#125;</div><div class="line">    function getCacheObj() &#123;</div><div class="line">        var cache = &#123;&#125;;</div><div class="line">        // 给缓存中添加数据</div><div class="line">        function setCache(key, val) &#123;</div><div class="line">            cache[key] = val;</div><div class="line">        &#125;</div><div class="line">        // 获取缓存中指定的数据</div><div class="line">        function getCache(key) &#123;</div><div class="line">            return cache[key];</div><div class="line">        &#125;</div><div class="line">        return &#123;</div><div class="line">            setCache: setCache,</div><div class="line">            getCache: getCache</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    var cacheObj = getCacheObj();</div><div class="line">    cacheObj.setCache(&apos;val&apos;, 888);</div><div class="line">    console.log(cacheObj.getCache(&apos;val&apos;));</div></pre></td></tr></table></figure>
+<h1 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h1><blockquote>
+<p>代码执行时所依赖的环境,函数被调用一次，就会产生一个执行环境。</p>
+</blockquote>
+<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//问题:</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">        for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">            setTimeout(function () &#123;</div><div class="line">                console.log(arr[i]);</div><div class="line">            &#125;, 1000);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">//上面的代码要求，每隔一秒说一句话，找到存在的问题，并解决。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//上面题解决方法</div><div class="line">//因为传入的定时器的回调,在循环结束之后才执行,所以打印的i值是4</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">        for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">            (function () &#123;</div><div class="line">                var par = i;</div><div class="line">                setTimeout(function () &#123;</div><div class="line">                    console.log(arr[par]);</div><div class="line">                &#125;, 1000 * (par + 1));</div><div class="line">            &#125;)();</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//另一种解决方法</div><div class="line">//let 定义的变量具有块级作用域</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">       for ( let i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">           setTimeout(function () &#123;</div><div class="line">               console.log(arr[i]);</div><div class="line">           &#125;, 1000 * (i + 1));</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function setVal(val) &#123;</div><div class="line">    return function () &#123;</div><div class="line">        return val;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">/*var fn = setVal(566);</div><div class="line">var val = fn();</div><div class="line">console.log(val);*/</div><div class="line"> </div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">    (function () &#123;</div><div class="line">        var fn = setVal(i);</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            console.log(arr[fn()]);</div><div class="line">        &#125;, 0);</div><div class="line">    &#125;)();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">function callback() &#123;</div><div class="line">    console.log(111);</div><div class="line">&#125;</div><div class="line">// setTimeout是全局下的一个函数,</div><div class="line">// 第一个参数要求是回调函数</div><div class="line">// 传入setTimeout的回调函数，是异步执行的(即：不是随着代码的顺序执行)。</div><div class="line">setTimeout(callback, 0);</div><div class="line">console.log(222);</div><div class="line">for ( var i = 0; i &lt; 10; i++ ) &#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript-初级/" rel="tag"># javascript 初级</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/10/04/js初级02((原型))/" rel="next" title="js初级02(原型)">
+                <i class="fa fa-chevron-left"></i> js初级02(原型)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/10/24/js初级03((原型链总结))/" rel="prev" title="js初级03(原型链总结)">
+                js初级03(原型链总结) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数复习"><span class="nav-number">1.</span> <span class="nav-text">函数复习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数返回值调用时不传参数"><span class="nav-number">1.0.1.</span> <span class="nav-text">函数返回值调用时不传参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数调用没有return语句-会默认返回undefined"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">函数调用没有return语句,会默认返回undefined</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数调用后返回一个基本数据类型"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">函数调用后返回一个基本数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数调用返回一个对象"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">函数调用返回一个对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数调用返回函数"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">函数调用返回函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数调用返回另一函数的执行结果"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">函数调用返回另一函数的执行结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数返回值调用时传入参数"><span class="nav-number">1.0.2.</span> <span class="nav-text">函数返回值调用时传入参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#f3函数功能：打印传入的第一个参数"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">f3函数功能：打印传入的第一个参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#调用f3函数，传入的是f4变量-与上文有联系"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">调用f3函数，传入的是f4变量(与上文有联系)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数调用"><span class="nav-number">2.</span> <span class="nav-text">函数调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域链"><span class="nav-number">3.</span> <span class="nav-text">作用域链</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量的所有有效区域-运行环境-统称为作用链"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">变量的所有有效区域(运行环境),统称为作用链</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#return基本数据类型和对象的区别"><span class="nav-number">4.</span> <span class="nav-text">return基本数据类型和对象的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包"><span class="nav-number">5.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包应用环境"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">闭包应用环境</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行环境"><span class="nav-number">6.</span> <span class="nav-text">执行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面试题"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">面试题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

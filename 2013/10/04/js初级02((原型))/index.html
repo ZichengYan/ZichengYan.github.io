@@ -1,0 +1,727 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript 初级," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="关于__ proto__的理解每个对象那个在创建的的时候否会在其内部初始化一个__ proto属性,当访问一个对象的属性时,如果这个对象内部不存在这个属性,那么会去\ proto__里面去找,那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链的概念。 动态创建123456789//创建一个构造函数">
+<meta name="keywords" content="javascript 初级">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js初级02(原型)">
+<meta property="og:url" content="http://yoursite.com/2013/10/04/js初级02((原型))/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="关于__ proto__的理解每个对象那个在创建的的时候否会在其内部初始化一个__ proto属性,当访问一个对象的属性时,如果这个对象内部不存在这个属性,那么会去\ proto__里面去找,那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链的概念。 动态创建123456789//创建一个构造函数">
+<meta property="og:updated_time" content="2017-07-17T12:32:46.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js初级02(原型)">
+<meta name="twitter:description" content="关于__ proto__的理解每个对象那个在创建的的时候否会在其内部初始化一个__ proto属性,当访问一个对象的属性时,如果这个对象内部不存在这个属性,那么会去\ proto__里面去找,那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链的概念。 动态创建123456789//创建一个构造函数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/10/04/js初级02((原型))/"/>
+
+
+
+
+
+  <title>js初级02(原型) | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/04/js初级02((原型))/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js初级02(原型)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-04T22:14:37+08:00">
+                2013-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="关于-proto-的理解"><a href="#关于-proto-的理解" class="headerlink" title="关于__ proto__的理解"></a>关于__ proto__的理解</h1><p>每个对象那个在创建的的时候否会在其内部初始化一个__ proto<strong>属性,当访问一个对象的属性时,如果这个对象内部不存在这个属性,那么会去\</strong> proto__里面去找,那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链的概念。</p>
+<h1 id="动态创建"><a href="#动态创建" class="headerlink" title="动态创建"></a>动态创建</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//创建一个构造函数</div><div class="line">    function Student(age)&#123;</div><div class="line">            this.age=age;</div><div class="line">    &#125;</div><div class="line">    var stu=new Student(18);</div><div class="line">    Student.prototype.say =function ()&#123;</div><div class="line">        console.log(&quot;hahha&quot;);</div><div class="line">    &#125;</div><div class="line">    console.log(stu);</div></pre></td></tr></table></figure>
+<ul>
+<li>通过Student创建出来的实例会指向Student.prototype,上述方法属于动态在创建(给构造函数.prototype添加了一个方法).给原型添加属性可以在创建实例之前也可以在创建实例之后,实例都可以访问原型中的方法.</li>
+<li>stu可以通难过stu.__proto__获取say.</li>
+<li>也可以通过stu.say()</li>
+</ul>
+<h1 id="原型覆写"><a href="#原型覆写" class="headerlink" title="原型覆写"></a>原型覆写</h1><ul>
+<li><p>相比默认的原型对象construtor属性,会丢失</p>
+</li>
+<li><p>Student.prototype这种方式访问constructor属性不准确,因为会被覆写<br>手动修复在Student.prototype中添加属性”constructor:Student”(不写也没有是他并没有什么卵用)</p>
+</li>
+<li><p>注意:原型覆写注意代码顺序</p>
+</li>
+<li><p>原型覆写是尽量使用新对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">        var obj = &#123;</div><div class="line">            count: function (a, b) &#123;</div><div class="line">                console.log(a + b);</div><div class="line">            &#125;,</div><div class="line">            con: function (a) &#123;</div><div class="line">                console.log(a);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"> </div><div class="line">        // 注意事项3：覆写时尽量使用一个新对象</div><div class="line">        function Student(age) &#123;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        // 覆写构造函数的prototype属性值</div><div class="line">        // 把Student.prototype修改为一个新的自定义对象</div><div class="line">        Student.prototype = obj;</div><div class="line">        // 如果我想修改con方法，那么obj对象也会受到连带影响，因为赋值是地址,两个地址同时指向一个对象</div><div class="line">        // 将来使用obj的时候，极有可能我已经忘记了这里对obj进行过修改，</div><div class="line">        // 就可能出现问题，为了防止自己给自己挖坑，还是不要使用已存在的对象为好。</div><div class="line">        console.log(&quot;--------------------&quot;);</div><div class="line">        Student.prototype.con = function (a) &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">       // var guoJing = new Student(38);</div><div class="line">       // guoJing.run();</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实例与实例之间的继承"><a href="#实例与实例之间的继承" class="headerlink" title="实例与实例之间的继承"></a>实例与实例之间的继承</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var o1=&#123;</div><div class="line">        value:100</div><div class="line">    &#125;</div><div class="line">    var o2=&#123;&#125;;</div><div class="line">    o2.__proto__=o1;</div><div class="line">    console.log(o2.value);</div><div class="line">    console.log(o1);</div><div class="line">    console.log(o2);</div><div class="line">    //o1,o2均为实例,o2.__proto__指向o1</div></pre></td></tr></table></figure>
+<h1 id="对象与对象之间的继承-混入"><a href="#对象与对象之间的继承-混入" class="headerlink" title="对象与对象之间的继承(混入)"></a>对象与对象之间的继承(混入)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var o=&#123;val:100&#125;</div><div class="line">    var o2=&#123;&#125;</div><div class="line">    for(var key in o)&#123;</div><div class="line">        o2[key]=o[key]</div><div class="line">    &#125;</div><div class="line">    console.log(o2);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h1 id="内置对象不可枚举"><a href="#内置对象不可枚举" class="headerlink" title="内置对象不可枚举"></a>内置对象不可枚举</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;value:100&#125;;</div><div class="line">obj.toString</div><div class="line">obj.valueOf</div><div class="line">for(var key in obj)&#123;</div><div class="line">    console.log(key)//只能把我们自己的属性遍历出来了</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="另一种方法-混入原型中"><a href="#另一种方法-混入原型中" class="headerlink" title="另一种方法(混入原型中)"></a>另一种方法(混入原型中)</h1><ul>
+<li>注意:在jQuery中也是这样用的</li>
+<li>在jQuery中有个extend方法;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//    创建一个对象</div><div class="line">    var obj=&#123;</div><div class="line">        say:function ()&#123;</div><div class="line">                console.log(this.name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">//    创建一个构造函数</div><div class="line">    function Animal(name)&#123;</div><div class="line">            this.name=name;</div><div class="line">    &#125;</div><div class="line">    for(var key in obj)&#123;</div><div class="line">        Animal.prototype[key]=obj[key];</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">//    通过Animal创建实例</div><div class="line">    var dog=new Animal(&quot;大黄&quot;);</div><div class="line">    dog.say();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>extend函数封装</li>
+<li>本质就是把多个对象的属性一次copy到原型对象中</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function extend(o1,o2)&#123;</div><div class="line">    for(var key in o2)&#123;</div><div class="line">        o1[key]=o2[key]</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">extend(dog.prototype,&#123;</div><div class="line">    val:100;</div><div class="line">    name:&quot;ll&quot;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="copy继承的注意"><a href="#copy继承的注意" class="headerlink" title="copy继承的注意"></a>copy继承的注意</h2><ol>
+<li><p>实现copy继承所需的函数名没有硬性要求</p>
+</li>
+<li><p>乱用会造成内存浪费</p>
+</li>
+<li><p>通常都是配合原型来使用(对原型进行扩展)</p>
+</li>
+</ol>
+<h1 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h1><ul>
+<li>Object是一个内置的构造函数</li>
+<li>在Object身上有很多方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//创建一个对象</div><div class="line">    var o1 = &#123;val: 100&#125;</div><div class="line">    //创建一个构造函数</div><div class="line">    function Person(name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">    var per = new Person(&quot;ll&quot;)</div><div class="line">    //指定per继承O1,即per.__proto__===obj</div><div class="line">    //调用Object.create方法时会返回一个新对象这个新对象的地址赋值给per</div><div class="line">    //并让per中的__proto__指向O1;</div><div class="line">    per = Object.create(o1)</div><div class="line">    console.log(per.val);</div></pre></td></tr></table></figure>
+<h1 id="Object-create加原型组合"><a href="#Object-create加原型组合" class="headerlink" title="Object.create加原型组合"></a>Object.create加原型组合</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//创建两个构造函数</div><div class="line">       function Animal()&#123;</div><div class="line">               this.name=1;</div><div class="line">       &#125;</div><div class="line">       function human()&#123;</div><div class="line">               this.age=123;</div><div class="line">       &#125;</div><div class="line">       human.prototype=new Animal();</div><div class="line">       //创建实例</div><div class="line">       var person=new human();</div><div class="line">       console.log(person.name);</div></pre></td></tr></table></figure>
+<h1 id="扩展1"><a href="#扩展1" class="headerlink" title="扩展1"></a>扩展1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">// 需求：Person的实例可以使用Animal原型里面的方法</div><div class="line">        function Animal(name, age, sex) &#123;</div><div class="line">            this.name = name;</div><div class="line">            this.age = age;</div><div class="line">            this.sex = sex;</div><div class="line">        &#125;</div><div class="line">        Animal.prototype = &#123;</div><div class="line">            fn: function () &#123;</div><div class="line">                // 谁调用fn，this指向谁</div><div class="line">                console.log(this.name);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        // 人类都是动物，动物不一定是人类，所以动物拥有的属性人类一定也有</div><div class="line">        function Person(name, age, sex) &#123;</div><div class="line">            /*</div><div class="line">            * 复用Animal构造函数里的代码解决思路：</div><div class="line">            * 1、Animal里面有一些this.xx = xx的代码，</div><div class="line">            * 2、如果，我能够让Animal里面的this指向Person的实例，</div><div class="line">            * 3、那么Animal里面的代码含义就变成了给Person的实例添加xx属性。</div><div class="line">            *</div><div class="line">            * 那么问题来了，如何让Animal函数执行时，里面的this指向Person的实例：</div><div class="line">            * 1、把Animal函数作为属性添加到Person实例自身，</div><div class="line">            * 2、然后通过Person实例调用Animal函数，那么Animal执行时里面的this就指向了Person实例</div><div class="line">            * */</div><div class="line">            // 这种代码复用的方式：</div><div class="line">            // 有地方叫它 对象冒充，也叫属性盗窃，也叫属性继承，</div><div class="line">            // 最简单明了好理解的叫法是：构造函数借用</div><div class="line">            // 借用Animal函数，给Person实例添加属性</div><div class="line">            this.__Animal__ = Animal;</div><div class="line">            // 调用Animal函数时，里的this指向了当前Person的实例</div><div class="line">            this.__Animal__(name, age, sex);</div><div class="line">        &#125;</div><div class="line">        // 这一行代码，为了让Person的实例能给使用Animal原型里面的东西</div><div class="line">        Person.prototype = Object.create(Animal.prototype);</div><div class="line">        var huangYaoShi = new Person(&apos;黄药师&apos;, 888, &apos;男&apos;);</div><div class="line">        console.log(huangYaoShi.age);</div></pre></td></tr></table></figure>
+<h1 id="扩展2-extend"><a href="#扩展2-extend" class="headerlink" title="扩展2(extend)"></a>扩展2(extend)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">        * 需求：</div><div class="line">        *</div><div class="line">        * 给Fn构造函数添加一个extend函数，</div><div class="line">        * 用来给构造函数添加静态成员。</div><div class="line">        *</div><div class="line">        * 给Fn的原型也添加一个extend函数，</div><div class="line">        * 用来给将来的实例添加实例成员。</div><div class="line">        * */</div><div class="line">        function Fn() &#123; &#125;</div><div class="line">        // 给Fn添加一个静态方法，供将来给Fn扩展其他静态成员</div><div class="line">        Fn.extend = function (obj) &#123;</div><div class="line">            for ( var key in obj ) &#123;</div><div class="line">                this[key] = obj[key];</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        // 给Fn添加静态成员</div><div class="line">        Fn.extend(&#123;</div><div class="line">            value: 100,</div><div class="line">            max: 888</div><div class="line">        &#125;);</div><div class="line">        /*----------------------------------------------------------------------*/</div><div class="line">        // 给Fn原型添加一个实例方法，供将来给Fn的原型扩展其他实例成员</div><div class="line">        // 完成这个需求，添加到Fn的静态方法与添加到原型的实例方法一致，</div><div class="line">        // 为了代码的复用，一般实例方法会利用静态方法实现。</div><div class="line">        Fn.prototype.extend = Fn.extend;</div><div class="line">        // 给Fn的原型添加实例成员</div><div class="line">        Fn.prototype.extend(&#123;</div><div class="line">            add: function () &#123;&#125;,</div><div class="line">            count: function () &#123;&#125;</div><div class="line">        &#125;);</div><div class="line">        console.log(Fn.value);</div><div class="line">        console.log(Fn.prototype.count);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript-初级/" rel="tag"># javascript 初级</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/09/15/js初级01(js基本数据类型)/" rel="next" title="js初级01(js基本数据类型)">
+                <i class="fa fa-chevron-left"></i> js初级01(js基本数据类型)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/10/24/js初级04((函数))/" rel="prev" title="js初级04(函数)">
+                js初级04(函数) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于-proto-的理解"><span class="nav-number">1.</span> <span class="nav-text">关于__ proto__的理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态创建"><span class="nav-number">2.</span> <span class="nav-text">动态创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型覆写"><span class="nav-number">3.</span> <span class="nav-text">原型覆写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例与实例之间的继承"><span class="nav-number">3.1.</span> <span class="nav-text">实例与实例之间的继承</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象与对象之间的继承-混入"><span class="nav-number">4.</span> <span class="nav-text">对象与对象之间的继承(混入)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置对象不可枚举"><span class="nav-number">5.</span> <span class="nav-text">内置对象不可枚举</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另一种方法-混入原型中"><span class="nav-number">6.</span> <span class="nav-text">另一种方法(混入原型中)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#copy继承的注意"><span class="nav-number">6.1.</span> <span class="nav-text">copy继承的注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Object-create"><span class="nav-number">7.</span> <span class="nav-text">Object.create</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Object-create加原型组合"><span class="nav-number">8.</span> <span class="nav-text">Object.create加原型组合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展1"><span class="nav-number">9.</span> <span class="nav-text">扩展1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展2-extend"><span class="nav-number">10.</span> <span class="nav-text">扩展2(extend)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

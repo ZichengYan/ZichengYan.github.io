@@ -1,0 +1,689 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="es6," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="webpack1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162// 这是webpack的配置文件// 在这里可以直接写node代码 var path = require(&amp;apos;path&amp;apos;) var ht">
+<meta name="keywords" content="es6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6">
+<meta property="og:url" content="http://yoursite.com/2017/03/15/react/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="webpack1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162// 这是webpack的配置文件// 在这里可以直接写node代码 var path = require(&amp;apos;path&amp;apos;) var ht">
+<meta property="og:updated_time" content="2017-07-17T12:49:03.879Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="es6">
+<meta name="twitter:description" content="webpack1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162// 这是webpack的配置文件// 在这里可以直接写node代码 var path = require(&amp;apos;path&amp;apos;) var ht">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/15/react/"/>
+
+
+
+
+
+  <title>es6 | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/15/react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">es6</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-15T23:10:30+08:00">
+                2017-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">// 这是webpack的配置文件</div><div class="line">// 在这里可以直接写node代码</div><div class="line"> </div><div class="line">var path = require(&apos;path&apos;)</div><div class="line"> </div><div class="line">var htmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)</div><div class="line"> </div><div class="line">module.exports =&#123;</div><div class="line">    entry:path.resolve(__dirname, &apos;./src/index.js&apos;) , // 入器</div><div class="line">    output:&#123;</div><div class="line">        path:&apos;dist&apos;, // 输出目录</div><div class="line">        filename:&apos;bundle.js&apos;, // 输出的文件名</div><div class="line">    &#125;,</div><div class="line">    module:&#123;</div><div class="line">        loaders:[</div><div class="line">            &#123;</div><div class="line">                test:/\.less$/,</div><div class="line">                exclude:/node_modules/, // 禁止webpack去这个目录中查找</div><div class="line">                loader:&apos;style!css!less&apos;  // -loader可以不写</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                test:/\.js$/,</div><div class="line">                exclude:/node_modules/, // 禁止webpack去这个目录中查找</div><div class="line">                loader:&apos;babel-loader&apos;,  // -loader可以省略</div><div class="line">                // `npm install babel-loader --save-dev`</div><div class="line">                query:&#123;</div><div class="line">                    presets:[&apos;react&apos;,&apos;es2015&apos;]</div><div class="line">                    // `npm install babel-preset-es2015`</div><div class="line">                    // `npm install babel-preset-react`</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    // 插件</div><div class="line">    plugins:[</div><div class="line">        new htmlWebpackPlugin(&#123;</div><div class="line">            // 生成的html的文件名</div><div class="line">            filename:&apos;index.html&apos;,</div><div class="line">            template:&apos;./src/index.html&apos; //要处理的html</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// loaders</div><div class="line">// 1. less-loader 转换less语法</div><div class="line">//  1.1 `npm install less-loader --save-dev`</div><div class="line">//      1.1.1 `npm install less --save-dev`</div><div class="line">//  1.2 `npm install css-loader --save-dev`</div><div class="line">//  1.3 `npm install style-loader --save-dev`</div><div class="line"> </div><div class="line">// 2.babel-loader 转换其他语法为es5语法</div><div class="line">//  2.1 `npm install babel-loader --save-dev`</div><div class="line">//      2.1.1 `npm install babel-core --save-dev` </div><div class="line">//  2.2 `npm install babel-preset-es2015 --save-dev`  // 转换es6为es5</div><div class="line">//  2.3  `npm install babel-preset-react --save-dev`  // 转换react为es5</div><div class="line">// webpack 2.3 需要</div><div class="line">//   `npm install webpack --save-dev`</div><div class="line"> </div><div class="line"> </div><div class="line">// plugins</div><div class="line">//  1. html-webpack-plugin  可以把html生成到输出目录,并且自动引用打包后的文件</div><div class="line">//    `npm install html-webpack-plugin --save-dev`</div></pre></td></tr></table></figure>
+<h2 id="react"><a href="#react" class="headerlink" title="react"></a>react</h2><h3 id="定义组件方式"><a href="#定义组件方式" class="headerlink" title="定义组件方式"></a>定义组件方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div></pre></td><td class="code"><pre><div class="line">// 1.引包</div><div class="line">import React from &apos;react&apos;;</div><div class="line">import TopLess from &apos;./Top.less&apos;;</div><div class="line"> </div><div class="line">// TodoItem</div><div class="line">import TodoItem from &apos;../todoitem/TodoItem.js&apos;;</div><div class="line">import Footer from   &apos;../footer/Footer.js&apos;</div><div class="line"> </div><div class="line">// 2.创建组件</div><div class="line">class Top extends React.Component&#123;</div><div class="line">    constructor()&#123;</div><div class="line">        super();</div><div class="line">        // 给一些初始化的数据来显示</div><div class="line">        this.state=&#123;</div><div class="line">            data:[</div><div class="line">            &#123;id:1, name:&apos;小胆&apos;,completed:true &#125;,</div><div class="line">            &#123;id:2, name:&apos;小月&apos;,completed:true &#125;,</div><div class="line">            &#123;id:3, name:&apos;小旦&apos;,completed:true &#125;,</div><div class="line">            &#123;id:4, name:&apos;小一&apos;,completed:true,isShowing:false&#125;</div><div class="line">            ],</div><div class="line">            newtodos:&apos;&apos; // 这是新添加的任务名</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        return(</div><div class="line">            &lt;section className=&quot;todoapp&quot;&gt;</div><div class="line">            &lt;header className=&quot;header&quot;&gt;</div><div class="line">                &lt;h1&gt;todos&lt;/h1&gt;</div><div class="line">                &lt;form  onSubmit=&#123;this.addhandler.bind(this)&#125;&gt;</div><div class="line">                    &lt;input</div><div class="line">                    onChange=&#123;this.newtodoChange.bind(this)&#125;</div><div class="line">                    value=&#123;this.state.newtodos&#125; className=&quot;new-todo&quot; placeholder=&quot;What needs to be done?&quot; /&gt;</div><div class="line">                &lt;/form&gt;</div><div class="line">            &lt;/header&gt;</div><div class="line">            &lt;section className=&quot;main&quot;&gt;</div><div class="line">                &lt;input className=&quot;toggle-all&quot; type=&quot;checkbox&quot; /&gt;</div><div class="line">                &lt;label htmlFor=&quot;toggle-all&quot;&gt;Mark all as complete&lt;/label&gt;</div><div class="line">                &lt;ul className=&quot;todo-list&quot;&gt;</div><div class="line">                    &#123;</div><div class="line">                        this.state.data.map( item =&gt; &#123;</div><div class="line">                            return (</div><div class="line">                                &lt;TodoItem </div><div class="line">                                key=&#123;item.id&#125;</div><div class="line">                                myitem=&#123;item&#125; //向子组件传值</div><div class="line">                                mychangeTodoItem=&#123;this.changeTodoItem.bind(this)&#125;</div><div class="line">                                /&gt;</div><div class="line">                                )</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &lt;/ul&gt;</div><div class="line">            &lt;/section&gt;</div><div class="line">            &lt;Footer /&gt;</div><div class="line">        &lt;/section&gt;</div><div class="line">            )</div><div class="line">    &#125;</div><div class="line">    // 这个方法用来当前任务的内容</div><div class="line">    changeTodoItem(item)&#123;</div><div class="line">        // 遍历this.state.data</div><div class="line">    let newData =   this.state.data.map( tmp =&gt;&#123;</div><div class="line">            if(tmp.id == item.id)&#123;</div><div class="line">                tmp.name = item.name</div><div class="line">            &#125;</div><div class="line">            return tmp</div><div class="line">        &#125; )</div><div class="line">    this.setState(&#123;</div><div class="line">        data: newData</div><div class="line">     &#125;)</div><div class="line">    &#125;</div><div class="line">    // 这个方法里，只是获取文本的值，然后赋给this.state.newtodos</div><div class="line">    newtodoChange(event)&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            newtodos:event.target.value</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">    //添加任务,当我按下回车键时触发</div><div class="line">    addhandler(event)&#123;</div><div class="line">        // 0. 禁止默认的提交事件</div><div class="line">        event.preventDefault()</div><div class="line">        // 如果是空字符串，就直接return,不执行后面代码</div><div class="line">        if(!this.state.newtodos.trim())&#123;</div><div class="line">            return</div><div class="line">        &#125;</div><div class="line">        // 1.得到用户输入的内容</div><div class="line">        //this.state.newtodos</div><div class="line">        // 2.把内容添加到this.state.data中。</div><div class="line">        this.state.data.push(&#123;</div><div class="line">            id:Math.random(),</div><div class="line">            name:this.state.newtodos,</div><div class="line">            completed:false</div><div class="line">             &#125;)</div><div class="line">        // 清空新任务</div><div class="line">        this.state.newtodos=&apos;&apos;;</div><div class="line">        // 为了方便操作先直接修改this.state.data的值,</div><div class="line">        // 然后再调用 this.setState(&#123;&#125;)来更新界面</div><div class="line">        this.setState(&#123;&#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// 3.暴露</div><div class="line">// module.exports Top</div><div class="line">// es6</div><div class="line">export default Top</div><div class="line"> </div><div class="line">//子组件=======================================================================</div><div class="line">//名字开头字母必须大写</div><div class="line">class TodoItem extends React.Component&#123;</div><div class="line">    constructor()&#123;</div><div class="line">        super();</div><div class="line">        this.state=&#123;</div><div class="line">            isShowing:false</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;li className=&#123;classnames(&#123;&apos;editing&apos;:this.state.isShowing&#125;)&#125;&gt;</div><div class="line">                &lt;div className=&quot;view&quot;&gt;</div><div class="line">                 &lt;input className=&quot;toggle&quot; type=&quot;checkbox&quot; /&gt;</div><div class="line">                    &#123;</div><div class="line">                        // 双击时，显示文本框,</div><div class="line">                        // 在文本框中编辑对应的值</div><div class="line">                        // 在文本框中onChange事件中，调用父组件的方法,</div><div class="line">                        // 来修改数据</div><div class="line">                    &#125;</div><div class="line">                    &lt;label</div><div class="line">                    onDoubleClick=&#123;()=&gt;&#123;</div><div class="line">                        this.setState(&#123;</div><div class="line">                            isShowing:true</div><div class="line">                        &#125;)</div><div class="line">                    &#125;&#125;</div><div class="line">                    &gt;&#123;this.props.myitem.name&#125;&lt;/label&gt;</div><div class="line">                     &lt;button className=&quot;destroy&quot;&gt;&lt;/button&gt;</div><div class="line">                        &lt;/div&gt;</div><div class="line">                &lt;input</div><div class="line">                onChange=&#123;(event)=&gt;&#123;</div><div class="line">                    this.props.mychangeTodoItem(&#123;</div><div class="line">                        id:this.props.myitem.id, //子组件调用父组件传过来的东西</div><div class="line">                        name:event.target.value</div><div class="line">                    &#125;)</div><div class="line">                &#125;&#125;</div><div class="line">                className=&quot;edit&quot; value=&#123;this.props.myitem.name&#125; /&gt;</div><div class="line">             &lt;/li&gt;</div><div class="line">            )</div><div class="line">    &#125;</div><div class="line">    // 改变当前元素的name值</div><div class="line">    changeTodoItem(event)&#123;</div><div class="line">        this.props.myitem.name = event.target.value;</div><div class="line">        this.setState(&#123;&#125;)//修改值后要手动刷新</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// 3.暴露出去</div><div class="line">// module.exports</div><div class="line">export default TodoItem</div></pre></td></tr></table></figure>
+<h3 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h3><ul>
+<li><todoitem key="{item.id}" myitem="{item}" 向子组件传值="" mychangetodoitem="{this.changeTodoItem.bind(this)}"></todoitem></li>
+<li>子组件使用 <code>{this.props.myitem.name}</code></li>
+</ul>
+<h3 id="子组件修改父组件中的值"><a href="#子组件修改父组件中的值" class="headerlink" title="子组件修改父组件中的值"></a>子组件修改父组件中的值</h3><ul>
+<li>传个方法过去 </li>
+</ul>
+<h3 id="Component生命周期"><a href="#Component生命周期" class="headerlink" title="Component生命周期"></a>Component生命周期</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">// 1.引包</div><div class="line">import React from &apos;react&apos;;</div><div class="line">import ReactDom from &apos;react-dom&apos;;</div><div class="line"> </div><div class="line"> </div><div class="line">// 2.创建组件</div><div class="line">class Life extends React.Component&#123;</div><div class="line"> </div><div class="line">  // A,最先执行</div><div class="line">  constructor()&#123;</div><div class="line">    super();</div><div class="line">    this.state=&#123;</div><div class="line">      haha:&apos;哈哈&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // B,这个方法会在render之前执行. 表明组件即将要添加到dom中</div><div class="line">  componentWillMount()&#123;</div><div class="line">    console.log(&apos;哈哈，我是componentWillMount&apos;)</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // C返回一个组件！</div><div class="line">  render()&#123;</div><div class="line">    console.log(&apos;哈哈，我是render&apos;)</div><div class="line">    return(</div><div class="line">      &lt;div id=&quot;xx&quot;&gt;</div><div class="line">        &#123;this.state.haha&#125;</div><div class="line">      &lt;/div&gt;</div><div class="line">      )</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // D.渲染完成之后的事件(表明dom结构已经生成)</div><div class="line">  componentDidMount()&#123;</div><div class="line">    // 如果要做dom操作，就可以在这里进行</div><div class="line">    console.log(&apos;哈哈！我是DidMount&apos;)</div><div class="line">    this.setState(&#123;haha:&apos;哈哈哈哈!&apos;&#125;)</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // 当调用this.setState来改变this.state时，这个方法就会被自动调用</div><div class="line">  // 调用之后就会再调用render方法</div><div class="line">  componentWillUpdate()&#123;</div><div class="line">    console.log(&apos;哈哈！ 我是WillUpdate&apos;)</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // 这个方法会在render调用之后调用,第一次render调用时不会调用它!</div><div class="line">  componentDidUpdate()&#123;</div><div class="line">    console.log(&apos;哈哈！我是DidUpdate&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"> </div><div class="line">// 3.渲染组件</div><div class="line">ReactDom.render(</div><div class="line">  &lt;Life /&gt;,</div><div class="line">  document.getElementById(&apos;box&apos;)</div><div class="line">  )</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/es6/" rel="tag"># es6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/15/nodejs/" rel="next" title="nodejs">
+                <i class="fa fa-chevron-left"></i> nodejs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/24/gulp配置/" rel="prev" title="gulp配置">
+                gulp配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack"><span class="nav-number">1.</span> <span class="nav-text">webpack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react"><span class="nav-number">2.</span> <span class="nav-text">react</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义组件方式"><span class="nav-number">2.1.</span> <span class="nav-text">定义组件方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#父组件向子组件传值"><span class="nav-number">2.2.</span> <span class="nav-text">父组件向子组件传值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子组件修改父组件中的值"><span class="nav-number">2.3.</span> <span class="nav-text">子组件修改父组件中的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Component生命周期"><span class="nav-number">2.4.</span> <span class="nav-text">Component生命周期</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
