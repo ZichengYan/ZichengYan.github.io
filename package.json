@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "hexo clean && hexo s --port 5000",
+    "start1": "hexo clean && hexo s --port 5000",
     "build": "hexo clean && hexo g && hexo d"
   }
 }
