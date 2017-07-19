@@ -1082,6 +1082,159 @@ git pull</code></p>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/23/angular(mix)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/23/angular(mix)/" itemprop="url">angular路由</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-23T08:10:03+08:00">
+                2016-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Api和WebApi"><a href="#Api和WebApi" class="headerlink" title="Api和WebApi"></a>Api和WebApi</h2><ul>
+<li>Api <ul>
+<li><code>Application Programming Interface</code>, 应用程序编程接口</li>
+<li>通常是指方法的集合</li>
+</ul>
+</li>
+<li>WebApi<ul>
+<li><code>Web Application Programming Interface</code>, 网络应用程序编程接口</li>
+<li>通常是指通过发送get、post数据请求不同路径获取数据</li>
+</ul>
+</li>
+<li>接口文档&amp;Api文档</li>
+<li>常用Api和WebApi<ul>
+<li>百度地图：<code>http://lbsyun.baidu.com/</code></li>
+<li>百度api：<code>http://apistore.baidu.com/</code></li>
+<li>豆瓣api：<code>https://developers.douban.com/wiki/?title=api_v2</code></li>
+</ul>
+</li>
+<li>常用检测工具PostMan</li>
+</ul>
+<p>头信息 <code>Access-Control-Allow-Origin:*</code> 百度天气api里面有豆瓣的api里面没有</p>
+<h2 id="http"><a href="#http" class="headerlink" title="$http"></a>$http</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">angular提供了$http服务来同服务端进行通信，$http服务队浏览器的XMLHttpRequest对象进行了封装，</div><div class="line">让我们可以以ajax的方式来从服务器请求数据。</div><div class="line">$http服务是一个接受一个参数的函数，参数的类型是对象，用来配置生成的http的请求</div><div class="line">&#123;</div><div class="line">    method: &apos;GET&apos;,//发送get请求</div><div class="line">    url: &apos;http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname=北京&amp;cityid=101010300&apos;,</div><div class="line">    headers:&#123;</div><div class="line">        &apos;apikey&apos;:&apos;8a8efad7ed263d1b8cac9e3354fc16b5&apos;//你的key</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">   $http(参数).then(function(data) &#123;</div><div class="line">            //成功的回调函数</div><div class="line">            console.log(&apos;successCallback&apos;);</div><div class="line">            console.log(data);</div><div class="line">            $scope.jsonData=data;</div><div class="line">        &#125;,function(data) &#123;</div><div class="line">            //失败的回调函数</div><div class="line">            console.log(&apos;errorCallback&apos;);</div><div class="line">            console.log(data);</div><div class="line">        &#125;)</div></pre></td></tr></table></figure>
+<p>##跨域</p>
+<h3 id="script标签跨域-这就是jsonp"><a href="#script标签跨域-这就是jsonp" class="headerlink" title="script标签跨域(这就是jsonp)"></a>script标签跨域(这就是jsonp)</h3><ul>
+<li>场景：需要快捷方便的使用接口的时候</li>
+<li><p>原理：1.动态创建script标签，</p>
+<pre><code>2. src指向服务器的js的文件地址
+3.约定传输的callback参数
+4.返回并执行
+</code></pre></li>
+<li><p>window.name,iframe, postMessage</p>
+<ul>
+<li>在同一个标签页是共用一个name</li>
+</ul>
+</li>
+</ul>
+<h3 id="angular-jsonp"><a href="#angular-jsonp" class="headerlink" title="angular jsonp"></a>angular jsonp</h3><ul>
+<li>$http</li>
+</ul>
+<p>angular.callbacks</p>
+<h3 id="百度api"><a href="#百度api" class="headerlink" title="百度api"></a>百度api</h3><p>百度天气 支持ajax直接跨域请求 原因<code>Access-Control-Allow-Origin →*</code></p>
+<h3 id="豆瓣api"><a href="#豆瓣api" class="headerlink" title="豆瓣api"></a>豆瓣api</h3><p>豆瓣不支持<code>Access-Control-Allow-Origin</code> 跨域</p>
+<h4 id="jsonp方法"><a href="#jsonp方法" class="headerlink" title="jsonp方法"></a>jsonp方法</h4><h4 id="理解封装的jsonp方法"><a href="#理解封装的jsonp方法" class="headerlink" title="理解封装的jsonp方法"></a>理解封装的jsonp方法</h4>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/24/npm配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1238,6 +1391,283 @@ git pull</code></p>
 </ul>
 <h3 id="iconv-lite"><a href="#iconv-lite" class="headerlink" title="iconv-lite"></a>iconv-lite</h3><ul>
 <li>转码</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/23/angular(prim)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/23/angular(prim)/" itemprop="url">angular路由</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-23T11:12:35+08:00">
+                2016-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="mvvm"><a href="#mvvm" class="headerlink" title="mvvm"></a>mvvm</h2><h3 id="scope"><a href="#scope" class="headerlink" title="$scope"></a>$scope</h3><ul>
+<li>视图和控制器之间的数据桥梁</li>
+<li>用于在视图和控制器之间传递数据</li>
+<li>$scope的生命周期<br>创建、链接、更新、销毁</li>
+</ul>
+<p><img src="./pic/angular-mvvm.png" alt="$scope"></p>
+<h3 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h3><ul>
+<li>$scope 实际上就是MVVM中所谓的VM（视图模型）</li>
+<li>正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架<h2 id="Angular全局Api使用"><a href="#Angular全局Api使用" class="headerlink" title="Angular全局Api使用"></a>Angular全局Api使用</h2></li>
+<li>数据比较API<ul>
+<li>angular.isArray()    判断给定的对象是否为数组。</li>
+<li>angular.isDate()    判断给定的对象是否为日期类型。</li>
+<li>angular.isDefined()    判断给定的对象是否定义过。</li>
+<li>angular.isElement()    判断给定的对象是否为一个DOM元素。</li>
+<li>angular.isFunction()    判断给定的对象是否为一个函数。</li>
+<li>angular.isNumber()    判断给定的对象是否为数字。</li>
+<li>angular.isObject()    判断给定的对象是否为object类型。</li>
+<li>angular.isString()    判断给定的对象是否为字符串。</li>
+<li>angular.isUndefined()    判断给定的对象是否没有定义过（与angular.isDefined()相反）。</li>
+<li>angular.equals()    判断给定的两个对象是否相等。</li>
+</ul>
+</li>
+<li>其他API使用<ul>
+<li>angular.lowercase()    将字符串转换为小写形式。</li>
+<li>angular.uppercase()    将字符串转换为大写形式。</li>
+<li>angular.copy()    深拷贝一个对象或数组。</li>
+<li>angular.forEach()    遍历对象或数组中的每一个元素并执行一个函数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"><span class="keyword">var</span> values = &#123;<span class="attr">name</span>: <span class="string">'feifei'</span>, <span class="attr">gender</span>: <span class="string">'zhuzhu'</span>&#125;;</div><div class="line">angular.forEach(values, <span class="function"><span class="keyword">function</span>(<span class="params">value, key</span>) </span>&#123;</div><div class="line">&#125;);</div><div class="line"> </div><div class="line"><span class="keyword">var</span> objs =[<span class="number">1</span>,<span class="number">2</span>];</div><div class="line">angular.forEach(objs, <span class="function"><span class="keyword">function</span>(<span class="params">data,index,array</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="built_in">console</span>.log(index);</div><div class="line">    <span class="built_in">console</span>.log(array);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="控制器的作用"><a href="#控制器的作用" class="headerlink" title="控制器的作用"></a>控制器的作用</h3><pre><code>- 初始化属性
+- 暴露属性或者行为
+- 监视数据变化
+  $scope.name=&apos;&apos;;
+    $scope.$watch(&apos;name&apos;,function (newVal,oldVal) {
+        console.log(newVal);
+        console.log(oldVal);
+    })
+</code></pre><h3 id="控制器代码压缩问题"><a href="#控制器代码压缩问题" class="headerlink" title="控制器代码压缩问题"></a>控制器代码压缩问题</h3><pre><code>- 当代码进行js压缩时候controller里面的内容会被当成变量替换掉，
+为了防止这个问题发生在controller中出现 controller(&apos;myCtrl&apos;,[&apos;$scop&apos;,function($scope){}])
+</code></pre><h3 id="控制器的多种写法"><a href="#控制器的多种写法" class="headerlink" title="控制器的多种写法"></a>控制器的多种写法</h3><ul>
+<li>1.标准写法<br> app.controller(‘myCtrl’,function(){})</li>
+<li>2.早期使用 （angular-1.2.29版本）<br>function  myController(\$scope) {<pre><code>$scope.name=&quot;angular早期使用&quot;;
+</code></pre>}  </li>
+<li><ol>
+<li>fuction写在外面（写在外面不能被压缩）<br>function otherCtrl($scope) {<br> $scope.name=’123’;<br>}<br>app.controller(‘myCtrl’,otherCtrl)</li>
+</ol>
+<ul>
+<li><ol>
+<li>fuction写在外面（写在外面不能被压缩）<br>function otherCtrl(otherscope) {<br>otherscope.name=’123’;<br>}<br>//依赖注入<br>otherCtrl.$inject=[‘$scope’];//这里对方法添加$inject<br>app.controller(‘myCtrl’,otherCtrl)</li>
+</ol>
+</li>
+<li><ol>
+<li>面向对象方法使用<ul>
+<li>1.控制器的function不写改为引用function app.controller(‘myCtrl’,demoCtrl);</li>
+<li>2.创建一个面向对象的function ` function demoCtrl() {<pre><code>this.name=&apos;123&apos;;
+</code></pre>} `</li>
+<li>3.使用的时候添加 <code>as scope</code> ng-controller=”myCtrl as scope”<br>#依赖注入</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>没事你不要来找我，有事我会去找你。</li>
+<li>原理<br>框架在调用方法的过程中通过获取到传递的参数，然后框架内部将方法toString处理以后，<br>再通过正则表达式将其获取到然后依次实例化。<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在 AngularJS 中将前缀为 ng- 这种属性称之为指令，其作用就是为 DOM 元素调用方法、定义行为绑定数据等</li>
+<li><p>简单说：当一个 Angular 应用启动，Angular 就会遍历 DOM 树来解析 HTML，根据指令不同，完成不同操作</p>
+</li>
+<li><p>ng-bind</p>
+<ul>
+<li>用来解决表达式闪烁问题</li>
+<li><p><code>&lt;p ng-bind=&quot;数据模型&quot;&gt;&lt;/p&gt;替代了</code></p>
+<p>   </p><p ng-bind="name"></p><p></p>
+<p><em>注意：只能够在双标签中使用ng-bind指令</em></p>
+</li>
+</ul>
+</li>
+<li><p>ng-cloak</p>
+<ul>
+<li>用来解决表达式闪烁问题</li>
+<li>写一个样式使页面的元素隐藏<style>
+  .ng-cloak{
+      display: none;
+  }
+</style></li>
+<li><code>&lt;p class=&quot;ng-cloak&quot;&gt;&lt;/p&gt;</code></li>
+<li>利用angular在加载会移除页面上所以名为ng-cloak的样式名的特性。</li>
+</ul>
+</li>
+<li>页面安全的问题<br> 直接编写一些  <script>
+      document.write('<script>alert("");<\/script>')
+  </script></li>
+<li><p>ngSanitize模块</p>
+<pre><code>`npm install angular-sanitize`
+</code></pre><ul>
+<li>在module的中括号中添加ngSanitize</li>
+<li>使用的是ng-bind-html指令来渲染数据模型。<p ng-bind-html="name"></p>
+</li>
+</ul>
+</li>
+<li><p>ng-repeat</p>
+<ul>
+<li>可以用来循环输出数组</li>
+<li>写在哪个元素上就是循环哪个元素。</li>
+<li><p>语法：类似于forin 循环</p>
+<blockquote>
+<p><code>&lt;div ng-repeat=&quot;item in data &quot;&gt;&lt;/div&gt;</code></p>
+</blockquote>
+</li>
+<li><p>还可以用来渲染key,value对</p>
+</li>
+<li>ng-repeat 在遍历里会暴露一些数据模型,<ul>
+<li>$even:提供了一个布尔值，当为true时表示当前数据是第偶数条数据,从索引0开始计算</li>
+<li>$odd:提供了一个布尔值，当为true时表示当前数据是第奇数条数据,从索引0开始计算<br>ng-class:</li>
+</ul>
+</li>
+<li>从多种样式中选择一个样式<ul>
+<li>语法：类似于从一个key,value对象中获取其中一个属性的值</li>
+<li>ng-class=”{‘A’:’red’,’B’:’blue’,’C’:’green’}”</li>
+</ul>
+</li>
+<li>从多种样式中选择多个<ul>
+<li>语法：也是写一个key,value对象，这里的key是我们提供的类样式名，value是一个布尔值，为true时对应的key会被作为样式名加入到class中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>ng-hide/ng-show</p>
+<ul>
+<li>ng-hide：需要一个布尔值：当为true时为隐藏当前元素</li>
+<li>ng-show: 需要一个布尔值：当为true时为显示当前元素</li>
+</ul>
+<p>ng-switch:与ng-switch-when同用，类似与js中的switch case</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小明"</span>&gt;</span>我是小明<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小红"</span>&gt;</span>我是小红<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小月"</span>&gt;</span>我是小月<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="其他常用指令"><a href="#其他常用指令" class="headerlink" title="其他常用指令"></a>其他常用指令</h3><ul>
+<li>ng-checked：<ul>
+<li>单选/复选是否选中,是单向数据绑定</li>
+</ul>
+</li>
+<li>ng-selected：<ul>
+<li>是否选中</li>
+</ul>
+</li>
+<li>ng-disabled：<ul>
+<li>是否禁用</li>
+</ul>
+</li>
+<li>ng-readonly：<ul>
+<li>是否只读</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用事件指令"><a href="#常用事件指令" class="headerlink" title="常用事件指令"></a>常用事件指令</h3><p>不同于以上的功能性指令，Angular还定义了一些用于和事件绑定的指令：</p>
+<ul>
+<li>ng-blur：失去焦点</li>
+<li>ng-focus：获得焦点</li>
+<li>ng-change：改变事件</li>
+<li>ng-click： ng-click=”add()”</li>
+<li>ng-dblclick：双击事件</li>
+<li>ng-submit： 表单提交事件</li>
 </ul>
 
           
@@ -1513,299 +1943,6 @@ git pull</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/原生javascript/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/02/24/原生javascript/" itemprop="url">原生js</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
-                2016-02-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="input-focus-作为事件触发条件"><a href="#input-focus-作为事件触发条件" class="headerlink" title="input : focus (作为事件触发条件)"></a>input : focus (作为事件触发条件)</h3><ul>
-<li>使用 :focus 作为事件触发条件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 当css为</div><div class="line">input : focus +div &#123;</div><div class="line">            display:block;</div><div class="line">&#125;</div><div class="line">// 当给上面的 div 注册事件的时候会注册注册上,但是不能触发 ,</div><div class="line">因为一旦离开input的框的焦点就会隐藏div , 所以事件不能触发 . 及时代理事件也不能触发</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h3><ul>
-<li>使用 js 给具有readonly 的input文本框赋值,不能触发onchange事件 , 此处要手动触发</li>
-<li>onChange事件是失去焦点的时候才能触发 </li>
-</ul>
-<h3 id="str-replace"><a href="#str-replace" class="headerlink" title="str.replace();"></a>str.replace();</h3><ul>
-<li>替换</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">name = <span class="string">'aaa bbb ccc'</span>;</div><div class="line">uw = name.replace(<span class="regexp">/\b\w+\b/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">word</span>) </span>&#123;</div><div class="line">   <span class="comment">// 将匹配到的字符串传进来 做处理在return 出去 ,</span></div><div class="line">   <span class="comment">//  其实与name.replace(/\b\w+\b/g, "新字段"),相同 </span></div><div class="line">     <span class="built_in">console</span>.log(word)</div><div class="line">     <span class="built_in">console</span>.log(word.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase());</div><div class="line">     <span class="built_in">console</span>.log(word.substring(<span class="number">1</span>))</div><div class="line">     <span class="keyword">return</span> word.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + word.substring(<span class="number">1</span>);</div><div class="line"> &#125;);</div><div class="line"> <span class="built_in">console</span>.log(uw)</div></pre></td></tr></table></figure>
-<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><ul>
-<li><p>相关链接 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined" target="_blank" rel="external">undefined</a></p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void" target="_blank" rel="external"> void 运算符</a> 对给定的表达式进行求值，然后返回 undefined。 </p>
-</li>
-<li><p>javaScript URIs</p>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href="javascript:void(0);"&gt;</div><div class="line">  这个链接点击之后不会做任何事情，如果去掉 void()，</div><div class="line">  点击之后整个页面会被替换成一个字符 0。</div><div class="line">&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;a href="javascript:void(document.body.style.backgroundColor='green');"&gt;</div><div class="line">  点击这个链接会让页面背景变成绿色。</div><div class="line">&lt;/a&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>立即调用函数表达式 <ul>
-<li>在使用立即执行的函数表达式时，可以利用 void 运算符让 JavaScript 引擎把一个函数识别成函数表达式而不是函数声明（语句）。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void function iife() &#123;</div><div class="line">    var bar = function () &#123;&#125;;</div><div class="line">    var baz = function () &#123;&#125;;</div><div class="line">    var foo = function () &#123;</div><div class="line">        bar();</div><div class="line">        baz();</div><div class="line">     &#125;;</div><div class="line">    var biz = function () &#123;&#125;;</div><div class="line"></div><div class="line">    foo();</div><div class="line">    biz();</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
-<ul>
-<li>javascript <ul>
-<li>伪协议执行js</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// void (0) 只是加了个运算符号() , 避免0 余其他标识符进行运算</div><div class="line"></div><div class="line">void 0 的返回值是 undefined</div><div class="line"></div><div class="line">// 应用环境</div><div class="line"></div><div class="line">// 阻止a 标签跳转</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: void(0);"</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span>  </div><div class="line"></div><div class="line">// 或者写成这样 , 因为阻止a 标签跳转的原因是javascript的运算结果为undefined , 中间是空值;</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: ;"</span>&gt;</span> <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="typeof-运算符"><a href="#typeof-运算符" class="headerlink" title="typeof 运算符"></a>typeof 运算符</h3><ul>
-<li>使用 typeof的是它不会在一个变量没有被声明的时候抛出一个错误。</li>
-</ul>
-<p>-</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var x;</div><div class="line">if(x === void 0) &#123;</div><div class="line">    // 执行这些语句</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 没有声明y</div><div class="line">if(y === void 0) &#123;</div><div class="line">    // 抛出一个RenferenceError错误(与`typeof`相比)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="setter-getter"><a href="#setter-getter" class="headerlink" title="setter / getter"></a>setter / getter</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> var obj = &#123;</div><div class="line">			asd:123,</div><div class="line">            val:100,</div><div class="line">			name2:2,</div><div class="line">            get getval()&#123;</div><div class="line">                return this.val;</div><div class="line">            &#125;,</div><div class="line">			get getas()&#123;return this.asd&#125;,</div><div class="line">            set setval(x)&#123;</div><div class="line">                this.val = x;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">//获取</div><div class="line">obj.getval</div><div class="line">// 修改</div><div class="line">obj.setval=&quot;test&quot;</div></pre></td></tr></table></figure>
-<h3 id="变量未声明"><a href="#变量未声明" class="headerlink" title="变量未声明"></a>变量未声明</h3><ul>
-<li>赋值为null</li>
-</ul>
-<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><ul>
-<li></li>
-<li><p>弊端</p>
-<ul>
-<li>在”严格模式”下必须使用”var”;会创建独立作用域;</li>
-<li>无论怎么改造都会创建独立作用域.</li>
-<li>或者说这个只用来判断作用域是否创建</li>
-</ul>
-</li>
-<li>将a.b这样的字符串做分割成数组,没拼接一次转换成js执行一次typeof,如果不存在就创建一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> // 声明一个全局对象nameSpace，用来注册命名空间  </div><div class="line">    var nameSpace = new Object();</div><div class="line">    // 全局对象仅仅存在register函数，参数为名称空间全路径，如&quot;Grandsoft.GEA&quot;  </div><div class="line">    nameSpace.register = function(fullNS) &#123;</div><div class="line">        // 将命名空间切成N部分, 比如Grandsoft、GEA等  </div><div class="line">        var nsArray = fullNS.split(&apos;.&apos;);</div><div class="line">        var sEval = &quot;&quot;;</div><div class="line">        var sNS = &quot;&quot;;</div><div class="line">        for (var i = 0; i &lt; nsArray.length; i++) &#123;</div><div class="line">             </div><div class="line">            if (i != 0) &#123;</div><div class="line">                sNS += &quot;.&quot;;</div><div class="line">            &#125;</div><div class="line">            sNS += nsArray[i];</div><div class="line">            // 依次创建构造命名空间对象（假如不存在的话）的语句  </div><div class="line">            // 比如先创建Grandsoft，然后创建Grandsoft.GEA，依次下去  </div><div class="line">            // consoel.log()中的字符串需要使用单引号在包一层否则执行的时候会报错;</div><div class="line"> </div><div class="line"> </div><div class="line">           sEval += &quot;if (typeof(&quot; + sNS + &quot;) == &apos;undefined&apos;) &#123;&quot; + sNS + &quot; = new Object();&#125;else&#123;console.log(&apos;nameSpace--&quot; + sNS + &quot;已存在-------&apos;)&#125;&quot;;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">// sEval最终拼接为</div><div class="line">// if (typeof(a) == &apos;undefined&apos;) a = new Object();if (typeof(a.b) == &apos;undefined&apos;) a.b = new Object();</div><div class="line">        if (sEval != &quot;&quot;) eval(sEval);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    // 注册命名空间Grandsoft.GEA, Grandsoft.GCM  </div><div class="line">    nameSpace.register(&quot;Grandsoft.GEA&quot;);</div><div class="line">    nameSpace.register(&quot;Grandsoft.GCM&quot;);</div><div class="line">    // 在Grandsoft.GEA命名空间里面声明类Person  </div><div class="line">    Grandsoft.GEA.Person = function(name, age) &#123;</div><div class="line">            this.name = name;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        // 给类Person添加一个公共方法show()  </div><div class="line">    Grandsoft.GEA.Person.prototype.show = function() &#123;</div><div class="line">            alert(this.name + &quot; is &quot; + this.age + &quot; years old!&quot;);</div><div class="line">        &#125;</div><div class="line">        // 演示如何使用类Person  </div><div class="line">    var p = new Grandsoft.GEA.Person(&quot;yanglf&quot;, 25);</div><div class="line">    p.show();</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="formData"><a href="#formData" class="headerlink" title="formData"></a>formData</h3><ul>
-<li><p>前端上传代码</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>exercise<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">    #contents img &#123;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">    &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"uploadForm"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"uploadBox"</span>&gt;</span>上传文件：</div><div class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"uploadFile"</span> <span class="attr">id</span>=<span class="string">"files"</span> <span class="attr">multiple</span>=<span class="string">""</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"contents"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doUpload</span>(<span class="params">$dom</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</div><div class="line">        <span class="keyword">var</span> files = $dom[<span class="number">0</span>].files;</div><div class="line">        <span class="keyword">var</span> dataUrl = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">var</span> imgStr = <span class="string">''</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; files.length; k++) &#123;</div><div class="line">            formData.append(k, files[k]);</div><div class="line">            <span class="built_in">console</span>.log(k)</div><div class="line">            dataUrl = <span class="built_in">window</span>.URL.createObjectURL(files[k]);</div><div class="line">            imgList += <span class="string">'&lt;img src="'</span> + dataUrl + <span class="string">'" alt="" /&gt;'</span>;</div><div class="line">        &#125;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">url</span>: <span class="string">'http://localhost:8002/upload'</span>,</div><div class="line">            <span class="comment">// url: 'http://wx.bokedata.com/yatou/wechat/common/upload',</span></div><div class="line">            <span class="comment">// url: 'http://192.168.0.107:8080/yatou/wechat/common/upload',</span></div><div class="line">            type: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">"JSON"</span>,</div><div class="line">            <span class="attr">data</span>: formData,</div><div class="line">            <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">            <span class="comment">// headers:&#123;</span></div><div class="line">            <span class="comment">//  "Content-Type":"multipart/form-data"</span></div><div class="line">            <span class="comment">// &#125;</span></div><div class="line">            contentType: <span class="literal">false</span>,</div><div class="line">            <span class="attr">processData</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">context</span>: $dom,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"成功"</span>, data)</div><div class="line">                $(<span class="string">"#contents"</span>).append(imgStr);</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log();</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"失败"</span>, data)</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">"完成"</span>, data);</div><div class="line">                <span class="comment">//替换input</span></div><div class="line">                $(<span class="keyword">this</span>).parent().html($(<span class="keyword">this</span>).parent().html());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    $(<span class="string">"#uploadForm"</span>).on(<span class="string">"change"</span>, <span class="string">"#files"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> $<span class="keyword">this</span> = $(<span class="keyword">this</span>);</div><div class="line">        doUpload($<span class="keyword">this</span>);</div><div class="line">    &#125;)</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>后台代码</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> formidable = <span class="built_in">require</span>(<span class="string">'formidable'</span>);</div><div class="line"><span class="keyword">var</span> uuid = <span class="built_in">require</span>(<span class="string">'node-uuid'</span>);</div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> allowCrossDomain = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>);</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'GET,PUT,POST,DELETE'</span>);</div><div class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type'</span>);</div><div class="line"></div><div class="line">    next();</div><div class="line">&#125;;</div><div class="line">app.use(allowCrossDomain);</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload_path</span>(<span class="params">path</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> _path = <span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/<span class="subst">$&#123;path&#125;</span>`</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        fs.accessSync(_path);</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        fs.mkdirSync(_path);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;_path&#125;</span>/`</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">node_upload</span>(<span class="params">req, callback, next</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> form = <span class="keyword">new</span> formidable.IncomingForm();</div><div class="line">    form.encoding = <span class="string">'utf-8'</span>;</div><div class="line">    form.uploadDir = upload_path(<span class="string">'uploads'</span>);</div><div class="line">    form.maxFieldsSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">    <span class="comment">//解析</span></div><div class="line">    form.parse(req, <span class="function"><span class="keyword">function</span>(<span class="params">err, fields, files</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> file <span class="keyword">in</span> files) &#123;</div><div class="line">            <span class="comment">//后缀名</span></div><div class="line">            <span class="keyword">var</span> extName = <span class="regexp">/\.[^\.]+/</span>.exec(files[file].name);</div><div class="line">            <span class="keyword">var</span> ext = <span class="built_in">Array</span>.isArray(extName) ? extName[<span class="number">0</span>] : <span class="string">''</span>;</div><div class="line">            <span class="comment">//重命名，以防文件重复</span></div><div class="line">            <span class="keyword">var</span> avatarName = uuid() + ext;</div><div class="line">            <span class="comment">//移动的文件目录</span></div><div class="line">            <span class="keyword">var</span> newPath = form.uploadDir + avatarName;</div><div class="line">            fs.renameSync(files[file].path, newPath);</div><div class="line">            fields[file] = &#123;</div><div class="line">                <span class="attr">size</span>: files[file].size,</div><div class="line">                <span class="attr">path</span>: newPath,</div><div class="line">                <span class="attr">name</span>: files[file].name,</div><div class="line">                <span class="attr">type</span>: files[file].type,</div><div class="line">                <span class="attr">extName</span>: ext</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">        callback(<span class="literal">null</span>, fields);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">app.post(<span class="string">'/upload'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    <span class="comment">// console.log(req.body)</span></div><div class="line">    node_upload(req, <span class="function"><span class="keyword">function</span>(<span class="params">err, fields</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="comment">// res.end('1232344')</span></div><div class="line">            res.json(fields);</div><div class="line">        &#125;, <span class="number">1000</span>);</div><div class="line">    &#125;, next);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">http.createServer(app).listen(<span class="number">8002</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Express server listening on port 8002'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><ul>
-<li>使用同步ajax上传文件的时候会是页面阻塞, 请求前面的额代码执行效果不能展示</li>
-<li>与alert(1)原理相同, alert会阻塞页面渲染,渲染dom阶段与看到dom阶段是不同的</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/svn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/02/24/svn/" itemprop="url">svn</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
-                2016-02-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="webstorm中没有svn-exe"><a href="#webstorm中没有svn-exe" class="headerlink" title="webstorm中没有svn.exe"></a>webstorm中没有svn.exe</h3><ul>
-<li>安装svn的时候如下图选择<br><img src="/images/svnexe.png" alt="svn安装">  </li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1855,7 +1992,7 @@ git pull</code></p>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1868,7 +2005,7 @@ git pull</code></p>
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

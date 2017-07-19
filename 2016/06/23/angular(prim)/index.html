@@ -1,0 +1,848 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="angular," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="mvvm$scope 视图和控制器之间的数据桥梁 用于在视图和控制器之间传递数据 $scope的生命周期创建、链接、更新、销毁   ViewModel $scope 实际上就是MVVM中所谓的VM（视图模型） 正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架Angular全局Api使用 数据比较API angular.isAr">
+<meta name="keywords" content="angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular路由">
+<meta property="og:url" content="http://yoursite.com/2016/06/23/angular(prim)/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="mvvm$scope 视图和控制器之间的数据桥梁 用于在视图和控制器之间传递数据 $scope的生命周期创建、链接、更新、销毁   ViewModel $scope 实际上就是MVVM中所谓的VM（视图模型） 正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架Angular全局Api使用 数据比较API angular.isAr">
+<meta property="og:image" content="http://yoursite.com/2016/06/23/angular(prim)/pic/angular-mvvm.png">
+<meta property="og:updated_time" content="2017-07-19T12:27:45.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular路由">
+<meta name="twitter:description" content="mvvm$scope 视图和控制器之间的数据桥梁 用于在视图和控制器之间传递数据 $scope的生命周期创建、链接、更新、销毁   ViewModel $scope 实际上就是MVVM中所谓的VM（视图模型） 正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架Angular全局Api使用 数据比较API angular.isAr">
+<meta name="twitter:image" content="http://yoursite.com/2016/06/23/angular(prim)/pic/angular-mvvm.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/23/angular(prim)/"/>
+
+
+
+
+
+  <title>angular路由 | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/23/angular(prim)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">angular路由</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-23T11:12:35+08:00">
+                2016-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="mvvm"><a href="#mvvm" class="headerlink" title="mvvm"></a>mvvm</h2><h3 id="scope"><a href="#scope" class="headerlink" title="$scope"></a>$scope</h3><ul>
+<li>视图和控制器之间的数据桥梁</li>
+<li>用于在视图和控制器之间传递数据</li>
+<li>$scope的生命周期<br>创建、链接、更新、销毁</li>
+</ul>
+<p><img src="./pic/angular-mvvm.png" alt="$scope"></p>
+<h3 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h3><ul>
+<li>$scope 实际上就是MVVM中所谓的VM（视图模型）</li>
+<li>正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架<h2 id="Angular全局Api使用"><a href="#Angular全局Api使用" class="headerlink" title="Angular全局Api使用"></a>Angular全局Api使用</h2></li>
+<li>数据比较API<ul>
+<li>angular.isArray()    判断给定的对象是否为数组。</li>
+<li>angular.isDate()    判断给定的对象是否为日期类型。</li>
+<li>angular.isDefined()    判断给定的对象是否定义过。</li>
+<li>angular.isElement()    判断给定的对象是否为一个DOM元素。</li>
+<li>angular.isFunction()    判断给定的对象是否为一个函数。</li>
+<li>angular.isNumber()    判断给定的对象是否为数字。</li>
+<li>angular.isObject()    判断给定的对象是否为object类型。</li>
+<li>angular.isString()    判断给定的对象是否为字符串。</li>
+<li>angular.isUndefined()    判断给定的对象是否没有定义过（与angular.isDefined()相反）。</li>
+<li>angular.equals()    判断给定的两个对象是否相等。</li>
+</ul>
+</li>
+<li>其他API使用<ul>
+<li>angular.lowercase()    将字符串转换为小写形式。</li>
+<li>angular.uppercase()    将字符串转换为大写形式。</li>
+<li>angular.copy()    深拷贝一个对象或数组。</li>
+<li>angular.forEach()    遍历对象或数组中的每一个元素并执行一个函数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"><span class="keyword">var</span> values = &#123;<span class="attr">name</span>: <span class="string">'feifei'</span>, <span class="attr">gender</span>: <span class="string">'zhuzhu'</span>&#125;;</div><div class="line">angular.forEach(values, <span class="function"><span class="keyword">function</span>(<span class="params">value, key</span>) </span>&#123;</div><div class="line">&#125;);</div><div class="line"> </div><div class="line"><span class="keyword">var</span> objs =[<span class="number">1</span>,<span class="number">2</span>];</div><div class="line">angular.forEach(objs, <span class="function"><span class="keyword">function</span>(<span class="params">data,index,array</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="built_in">console</span>.log(index);</div><div class="line">    <span class="built_in">console</span>.log(array);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="控制器的作用"><a href="#控制器的作用" class="headerlink" title="控制器的作用"></a>控制器的作用</h3><pre><code>- 初始化属性
+- 暴露属性或者行为
+- 监视数据变化
+  $scope.name=&apos;&apos;;
+    $scope.$watch(&apos;name&apos;,function (newVal,oldVal) {
+        console.log(newVal);
+        console.log(oldVal);
+    })
+</code></pre><h3 id="控制器代码压缩问题"><a href="#控制器代码压缩问题" class="headerlink" title="控制器代码压缩问题"></a>控制器代码压缩问题</h3><pre><code>- 当代码进行js压缩时候controller里面的内容会被当成变量替换掉，
+为了防止这个问题发生在controller中出现 controller(&apos;myCtrl&apos;,[&apos;$scop&apos;,function($scope){}])
+</code></pre><h3 id="控制器的多种写法"><a href="#控制器的多种写法" class="headerlink" title="控制器的多种写法"></a>控制器的多种写法</h3><ul>
+<li>1.标准写法<br> app.controller(‘myCtrl’,function(){})</li>
+<li>2.早期使用 （angular-1.2.29版本）<br>function  myController(\$scope) {<pre><code>$scope.name=&quot;angular早期使用&quot;;
+</code></pre>}  </li>
+<li><ol>
+<li>fuction写在外面（写在外面不能被压缩）<br>function otherCtrl($scope) {<br> $scope.name=’123’;<br>}<br>app.controller(‘myCtrl’,otherCtrl)</li>
+</ol>
+<ul>
+<li><ol>
+<li>fuction写在外面（写在外面不能被压缩）<br>function otherCtrl(otherscope) {<br>otherscope.name=’123’;<br>}<br>//依赖注入<br>otherCtrl.$inject=[‘$scope’];//这里对方法添加$inject<br>app.controller(‘myCtrl’,otherCtrl)</li>
+</ol>
+</li>
+<li><ol>
+<li>面向对象方法使用<ul>
+<li>1.控制器的function不写改为引用function app.controller(‘myCtrl’,demoCtrl);</li>
+<li>2.创建一个面向对象的function ` function demoCtrl() {<pre><code>this.name=&apos;123&apos;;
+</code></pre>} `</li>
+<li>3.使用的时候添加 <code>as scope</code> ng-controller=”myCtrl as scope”<br>#依赖注入</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>没事你不要来找我，有事我会去找你。</li>
+<li>原理<br>框架在调用方法的过程中通过获取到传递的参数，然后框架内部将方法toString处理以后，<br>再通过正则表达式将其获取到然后依次实例化。<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在 AngularJS 中将前缀为 ng- 这种属性称之为指令，其作用就是为 DOM 元素调用方法、定义行为绑定数据等</li>
+<li><p>简单说：当一个 Angular 应用启动，Angular 就会遍历 DOM 树来解析 HTML，根据指令不同，完成不同操作</p>
+</li>
+<li><p>ng-bind</p>
+<ul>
+<li>用来解决表达式闪烁问题</li>
+<li><p><code>&lt;p ng-bind=&quot;数据模型&quot;&gt;&lt;/p&gt;替代了</code></p>
+<p>   </p><p ng-bind="name"></p><p></p>
+<p><em>注意：只能够在双标签中使用ng-bind指令</em></p>
+</li>
+</ul>
+</li>
+<li><p>ng-cloak</p>
+<ul>
+<li>用来解决表达式闪烁问题</li>
+<li>写一个样式使页面的元素隐藏<style>
+  .ng-cloak{
+      display: none;
+  }
+</style></li>
+<li><code>&lt;p class=&quot;ng-cloak&quot;&gt;&lt;/p&gt;</code></li>
+<li>利用angular在加载会移除页面上所以名为ng-cloak的样式名的特性。</li>
+</ul>
+</li>
+<li>页面安全的问题<br> 直接编写一些  <script>
+      document.write('<script>alert("");<\/script>')
+  </script></li>
+<li><p>ngSanitize模块</p>
+<pre><code>`npm install angular-sanitize`
+</code></pre><ul>
+<li>在module的中括号中添加ngSanitize</li>
+<li>使用的是ng-bind-html指令来渲染数据模型。<p ng-bind-html="name"></p>
+</li>
+</ul>
+</li>
+<li><p>ng-repeat</p>
+<ul>
+<li>可以用来循环输出数组</li>
+<li>写在哪个元素上就是循环哪个元素。</li>
+<li><p>语法：类似于forin 循环</p>
+<blockquote>
+<p><code>&lt;div ng-repeat=&quot;item in data &quot;&gt;&lt;/div&gt;</code></p>
+</blockquote>
+</li>
+<li><p>还可以用来渲染key,value对</p>
+</li>
+<li>ng-repeat 在遍历里会暴露一些数据模型,<ul>
+<li>$even:提供了一个布尔值，当为true时表示当前数据是第偶数条数据,从索引0开始计算</li>
+<li>$odd:提供了一个布尔值，当为true时表示当前数据是第奇数条数据,从索引0开始计算<br>ng-class:</li>
+</ul>
+</li>
+<li>从多种样式中选择一个样式<ul>
+<li>语法：类似于从一个key,value对象中获取其中一个属性的值</li>
+<li>ng-class=”{‘A’:’red’,’B’:’blue’,’C’:’green’}”</li>
+</ul>
+</li>
+<li>从多种样式中选择多个<ul>
+<li>语法：也是写一个key,value对象，这里的key是我们提供的类样式名，value是一个布尔值，为true时对应的key会被作为样式名加入到class中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>ng-hide/ng-show</p>
+<ul>
+<li>ng-hide：需要一个布尔值：当为true时为隐藏当前元素</li>
+<li>ng-show: 需要一个布尔值：当为true时为显示当前元素</li>
+</ul>
+<p>ng-switch:与ng-switch-when同用，类似与js中的switch case</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小明"</span>&gt;</span>我是小明<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小红"</span>&gt;</span>我是小红<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小月"</span>&gt;</span>我是小月<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="其他常用指令"><a href="#其他常用指令" class="headerlink" title="其他常用指令"></a>其他常用指令</h3><ul>
+<li>ng-checked：<ul>
+<li>单选/复选是否选中,是单向数据绑定</li>
+</ul>
+</li>
+<li>ng-selected：<ul>
+<li>是否选中</li>
+</ul>
+</li>
+<li>ng-disabled：<ul>
+<li>是否禁用</li>
+</ul>
+</li>
+<li>ng-readonly：<ul>
+<li>是否只读</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用事件指令"><a href="#常用事件指令" class="headerlink" title="常用事件指令"></a>常用事件指令</h3><p>不同于以上的功能性指令，Angular还定义了一些用于和事件绑定的指令：</p>
+<ul>
+<li>ng-blur：失去焦点</li>
+<li>ng-focus：获得焦点</li>
+<li>ng-change：改变事件</li>
+<li>ng-click： ng-click=”add()”</li>
+<li>ng-dblclick：双击事件</li>
+<li>ng-submit： 表单提交事件</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/15/es6/" rel="next" title="es6">
+                <i class="fa fa-chevron-left"></i> es6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/24/npm配置/" rel="prev" title="npm配置">
+                npm配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mvvm"><span class="nav-number">1.</span> <span class="nav-text">mvvm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scope"><span class="nav-number">1.1.</span> <span class="nav-text">$scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewModel"><span class="nav-number">1.2.</span> <span class="nav-text">ViewModel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Angular全局Api使用"><span class="nav-number">2.</span> <span class="nav-text">Angular全局Api使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">3.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器的作用"><span class="nav-number">3.1.</span> <span class="nav-text">控制器的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器代码压缩问题"><span class="nav-number">3.2.</span> <span class="nav-text">控制器代码压缩问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器的多种写法"><span class="nav-number">3.3.</span> <span class="nav-text">控制器的多种写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令"><span class="nav-number">3.4.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他常用指令"><span class="nav-number">3.5.</span> <span class="nav-text">其他常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用事件指令"><span class="nav-number">3.6.</span> <span class="nav-text">常用事件指令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
