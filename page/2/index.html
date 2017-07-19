@@ -253,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/svn/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/09{node进阶express进阶morgan_body-parser_取参数方法_RESful规范_热面重定向}/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Robert">
@@ -272,7 +272,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/02/24/svn/" itemprop="url">svn</a></h1>
+                <a class="post-title-link" href="/2017/07/19/09{node进阶express进阶morgan_body-parser_取参数方法_RESful规范_热面重定向}/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -284,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
-                2016-02-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T22:33:43+08:00">
+                2017-07-19
               </time>
             
 
@@ -321,8 +321,191 @@
       
         
           
-            <h3 id="webstorm中没有svn-exe"><a href="#webstorm中没有svn-exe" class="headerlink" title="webstorm中没有svn.exe"></a>webstorm中没有svn.exe</h3><ul>
-<li>安装svn的时候如下图选择<br><img src="/images/svnexe.png" alt="svn安装">  </li>
+            <hr>
+<p> title: node 入门02<br> date: 2016-10-02 22:00:00</p>
+<h2 id="tags-node"><a href="#tags-node" class="headerlink" title=" tags: node"></a> tags: node</h2><p>#1.模型对象化</p>
+<ul>
+<li>不只是方法，而是曝露完整的对象，用对象的方式在层之间传递</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function User(user) &#123;</div><div class="line">	this.id=user.id;</div><div class="line">  ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>添加方法<br><code>User.addUser= function () {};</code></li>
+<li>曝露方法<br><code>module.exports = User;</code><br>#2.express进阶</li>
+</ul>
+<p>###2.1express的中间件morgan</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">https://github.com/expressjs/morgan#url</div><div class="line">- morgan 是用来展示http请求的这么一个中间件</div><div class="line">var logger = require(&apos;morgan&apos;);</div><div class="line">app.use(logger(&apos;dev&apos;));</div><div class="line">###2.2express的中间件body-parser</div><div class="line">bodyParser用于解析客户端请求的body中的内容,内部使用JSON编码处理,url编码处理.</div><div class="line">var bodyParser = require(&apos;body-parser&apos;);</div><div class="line">//解析json</div><div class="line">app.use(bodyParser.json()); // for parsing application/json </div><div class="line">//解析表单传输的数据</div><div class="line">app.use(bodyParser.urlencoded(&#123; extended: true &#125;)); // for parsing application/x-www-form-urlencoded</div><div class="line">app.post(&apos;/&apos;, function (req, res) &#123;</div><div class="line">  console.log(req.body);</div><div class="line">  res.json(req.body);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>###2.3 req取参数的3种方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">expressjs里的请求参数，4.x里只有3种</div><div class="line">req.params</div><div class="line">req.body</div><div class="line">req.query</div><div class="line">已经废弃的api</div><div class="line">req.param(Deprecated. Use either req.params, req.body or req.query, as applicable.)</div><div class="line">- 2.3.1. req.params</div><div class="line">//用get请求传输过来的参数</div><div class="line">app.get(&apos;/user/:id&apos;, function(req, res)&#123;</div><div class="line">  res.send(&apos;user &apos; + req.params.id);</div><div class="line">&#125;);</div><div class="line">俗点：取带冒号的参数</div></pre></td></tr></table></figure>
+<ul>
+<li>2.3.2. req.body</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">可以肯定的一点是req.body一定是post请求，express里依赖的中间件必须有bodyParser，不然req.body是没有的。</div><div class="line">- 2.3.3. req.query</div><div class="line"></div><div class="line">query是querystring</div><div class="line"></div><div class="line">说明req.query不一定是get</div><div class="line"></div><div class="line">// GET /search?q=tobi+ferret</div><div class="line">req.query.q</div><div class="line">// =&gt; &quot;tobi ferret&quot;</div><div class="line"></div><div class="line">// GET /shoes?order=desc&amp;shoe[color]=blue&amp;shoe[type]=converse</div><div class="line">req.query.order</div><div class="line">// =&gt; &quot;desc&quot;</div><div class="line"></div><div class="line">req.query.shoe.color</div><div class="line">// =&gt; &quot;blue&quot;</div><div class="line"></div><div class="line">req.query.shoe.type</div><div class="line">// =&gt; &quot;converse&quot;</div><div class="line">因为有变态的写法</div><div class="line"></div><div class="line">// POST /search?q=tobi+ferret</div><div class="line">&#123;a:1,b:2&#125;</div><div class="line">req.query.q</div><div class="line">// =&gt; &quot;tobi ferret&quot;</div><div class="line">post里看不的，用req.body取。</div></pre></td></tr></table></figure>
+<p>#3.RESTful</p>
+<h3 id="RESTful是什么？"><a href="#RESTful是什么？" class="headerlink" title="RESTful是什么？"></a>RESTful是什么？</h3><ul>
+<li>一种软件架构风格，设计风格而不是标准，只是提供了一组设计原则和约束条件。<br>它主要用于客户端和服务器交互类的软件。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</li>
+<li>GET /user  获取user信息列表<br>GET /user/17  查看id为17的具体的user信息<br>POST /user    新建一个user<br>PUT /user/17  更新id为17的user信息<br>DELETE /user/17 删除id为17的user信息<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3>REST这个词，是Roy Thomas Fielding在他2000年的博士论文中提出的。<br>Fielding是一个非常重要的人，他是HTTP协议（1.0版和1.1版）的主要设计者、Apache服务器软件的作者之一、Apache基金会的第一任主席。<br>所以，他的这篇论文一经发表，就引起了关注，并且立即对互联网开发产生了深远的影响。<br>Fielding将他对互联网软件的架构原则，定名为REST，即Representational State Transfer的缩写。我对这个词组的翻译是”表现层状态转化”。<br>如果一个架构符合REST原则，就称它为RESTful架构。<br>约定俗成由于配置<br>#4 基于cookie与session的登录模块<h3 id="session-cookie配合使用"><a href="#session-cookie配合使用" class="headerlink" title="session cookie配合使用"></a>session cookie配合使用</h3></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">app.use(session(&#123;</div><div class="line">       secret: &apos;itcast-secret&apos;,</div><div class="line">       name: &apos;itcast-name&apos;,</div><div class="line">       cookie: &#123;maxAge: 8000000000 &#125;,</div><div class="line">       resave: false,</div><div class="line">       saveUninitialized: true,</div><div class="line">&#125;));</div></pre></td></tr></table></figure>
+<ul>
+<li>secret:用于对sessionID的cookie进行签名，可以是一个string(一个secret)或者数组(多个secret)。<br>如果指定了一个数组那么只会用 第一个元素对sessionID的cookie进行签名，其他的用于验证请求中的签名。</li>
+<li>resave : 是指每次请求都重新设置session cookie，假设你的cookie是10分钟过期，每次请求都会再设置10分钟</li>
+<li>saveUninitialized: 是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid<br>req.session.属性添加<h3 id="express-session配置项详解"><a href="#express-session配置项详解" class="headerlink" title="express-session配置项详解"></a>express-session配置项详解</h3></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/liangklfang/article/details/50998959</div><div class="line"></div><div class="line">//共用代码的编写</div><div class="line">router.get(&apos;/news&apos;,function(req,res,next)&#123;</div><div class="line">     if (!req.session.user) &#123;</div><div class="line">         return res.redirect(&apos;/login.html&apos;);</div><div class="line">     &#125;</div><div class="line">    next();</div><div class="line">&#125;)</div><div class="line">router.get(&apos;/news&apos;,function(req,res,next)&#123;</div><div class="line">      </div><div class="line">	//res.send(&apos;给你新闻页面&apos;);</div><div class="line">	//页面跳转</div><div class="line">	res.redirect(&apos;/news.html&apos;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/24/微信开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/24/微信开发/" itemprop="url">微信开发</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T23:10:11+08:00">
+                2017-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="测试账号开发"><a href="#测试账号开发" class="headerlink" title="测试账号开发"></a>测试账号开发</h1><h3 id="微信交互流程"><a href="#微信交互流程" class="headerlink" title="微信交互流程"></a>微信交互流程</h3><ul>
+<li>票据<br><img src="/images/wx01.jpg" alt="票据流程">  </li>
+</ul>
+<p>### </p>
+<h3 id="测试账号"><a href="#测试账号" class="headerlink" title="测试账号"></a>测试账号</h3><ul>
+<li>下图中的两个地方的功能是互斥的</li>
+<li>红框中是走微信自己的服务器 , 里面会有一些预定义的功能 ,会与微信自己的服务器交互</li>
+<li>绿色框中是开发者自己的服务器 , 启用后红框中的功能也就不能使用的了 ,因为微信客户端会将时间推送到开发者的服务器中</li>
+<li>测试账号是直接开启了开发者模式 , 所以整套配置都需要开发者自己配置</li>
+<li>微信会由客户端推送事件到开发者的服务器 , 服务器会对其作出相应 ,在返回给客户端 , 这些api都要从<code>https://mp.weixin.qq.com/wiki/9/2c15b20a16019ae613d413e30cac8ea1.html</code>开发者文档中获取<br><img src="/images/wx02.png" alt="票据流程"> </li>
+</ul>
+<h3 id="xml转化成json"><a href="#xml转化成json" class="headerlink" title="xml转化成json"></a>xml转化成json</h3><ul>
+<li><code>xml2js</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">xml2hs.parseString(</div><div class="line">   xml,</div><div class="line">   &#123;trim:true&#125;,</div><div class="line">   function(error,content)&#123;</div><div class="line">            </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安全域名不能带http"><a href="#安全域名不能带http" class="headerlink" title="安全域名不能带http"></a>安全域名不能带http</h3><p><img src="/images/wx03.jpg" alt="票据流程"> </p>
+<h3 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h3><ul>
+<li>官方的直接拿来用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">var createNonceStr = function () &#123;</div><div class="line">  return Math.random().toString(36).substr(2, 15);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var createTimestamp = function () &#123;</div><div class="line">  return parseInt(new Date().getTime() / 1000) + &apos;&apos;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var raw = function (args) &#123;</div><div class="line">  var keys = Object.keys(args);</div><div class="line">  keys = keys.sort()</div><div class="line">  var newArgs = &#123;&#125;;</div><div class="line">  keys.forEach(function (key) &#123;</div><div class="line">    newArgs[key.toLowerCase()] = args[key];</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  var string = &apos;&apos;;</div><div class="line">  for (var k in newArgs) &#123;</div><div class="line">    string += &apos;&amp;&apos; + k + &apos;=&apos; + newArgs[k];</div><div class="line">  &#125;</div><div class="line">  string = string.substr(1);</div><div class="line">  return string;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/**</div><div class="line">* @synopsis 签名算法 </div><div class="line">*</div><div class="line">* @param jsapi_ticket 用于签名的 jsapi_ticket</div><div class="line">* @param url 用于签名的 url ，注意必须动态获取，不能 hardcode</div><div class="line">*</div><div class="line">* @returns</div><div class="line">*/</div><div class="line">var sign = function (jsapi_ticket, url) &#123;</div><div class="line">  var ret = &#123;</div><div class="line">    jsapi_ticket: jsapi_ticket,</div><div class="line">    nonceStr: createNonceStr(),</div><div class="line">    timestamp: createTimestamp(),</div><div class="line">    url: url</div><div class="line">  &#125;;</div><div class="line">  var string = raw(ret);</div><div class="line">      jsSHA = require(&apos;jssha&apos;);</div><div class="line">      shaObj = new jsSHA(string, &apos;TEXT&apos;);</div><div class="line">  ret.signature = shaObj.getHash(&apos;SHA-1&apos;, &apos;HEX&apos;);</div><div class="line">  return ret;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">module.exports = sign;</div></pre></td></tr></table></figure>
+<h3 id="签名参数"><a href="#签名参数" class="headerlink" title="签名参数"></a>签名参数</h3><ul>
+<li>当签名参数添加上appid的时候,会弹出签名错误的提示框 , 删掉就好的 , </li>
+<li>暂且认定返回参数只能返回5个 ( 错误的解释 )</li>
+<li>解释 : 当进行签名算法时是使用的raw() , 这个签名算法只需要四个参数(jsapi_ticket , noncestr ,timestamp ,url)</li>
+<li><p>直接定义在里面会导致签名错误 , 所以签名算法之后在添加appID字段是没有问题的 .<br><img src="/images/wx05.png" alt="签名"> </p>
+<h3 id="官方wx-js"><a href="#官方wx-js" class="headerlink" title="官方wx.js"></a>官方wx.js</h3></li>
+<li>要使用官方最新版的1.2版本 , 第一1.2版本的额不能在使用choseImage 中的 localids作为图路径使用</li>
+</ul>
+<h3 id="必须要关注测试账号才能在关注的账号中调用jssdk"><a href="#必须要关注测试账号才能在关注的账号中调用jssdk" class="headerlink" title="必须要关注测试账号才能在关注的账号中调用jssdk"></a>必须要关注测试账号才能在关注的账号中调用jssdk</h3><h3 id="微信当前网页跳到对话窗口"><a href="#微信当前网页跳到对话窗口" class="headerlink" title="微信当前网页跳到对话窗口"></a>微信当前网页跳到对话窗口</h3><ul>
+<li>该方法直接使用</li>
+<li>WeixinJSBridge.call(‘closeWindow’)<h3 id="ajax后退"><a href="#ajax后退" class="headerlink" title="ajax后退"></a>ajax后退</h3></li>
+<li>后退添加锚点得方式解决</li>
+</ul>
+<h3 id="weui在iphone上点击没有效果"><a href="#weui在iphone上点击没有效果" class="headerlink" title="weui在iphone上点击没有效果"></a>weui在iphone上点击没有效果</h3><p>-<code>&lt;body ontouchstart= &quot; &quot; &gt;</code></p>
+<p>###　微信清空缓存</p>
+<ul>
+<li>debugx5.qq.com 只支持安卓</li>
+</ul>
+<h3 id="使用weui-js"><a href="#使用weui-js" class="headerlink" title="使用weui.js"></a>使用weui.js</h3><ul>
+<li>使用时间插件的时候推荐使用原生js的方法注册事件</li>
+<li>时间插件使用jQuery注册事件的时候会导致iphone不能正常运行</li>
+</ul>
+<h3 id="微信使用jssdk"><a href="#微信使用jssdk" class="headerlink" title="微信使用jssdk"></a>微信使用jssdk</h3><ul>
+<li>使用开发工具开发的时候这里的连接需要填安全域名<br><img src="/images/wx06.png" alt="jssdk"> </li>
 </ul>
 
           
@@ -367,7 +550,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/bower配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/24/gulp配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Robert">
@@ -386,7 +569,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/02/24/bower配置/" itemprop="url">bower配置</a></h1>
+                <a class="post-title-link" href="/2017/04/24/gulp配置/" itemprop="url">gulp配置</a></h1>
         
 
         <div class="post-meta">
@@ -398,8 +581,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T09:14:37+08:00">
-                2016-02-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T09:14:37+08:00">
+                2017-04-24
               </time>
             
 
@@ -435,849 +618,1542 @@
       
         
           
-            <h3 id="指定bower配置"><a href="#指定bower配置" class="headerlink" title="指定bower配置"></a>指定bower配置</h3><ol>
-<li>创建文件名为<code>.bowerrc</code> 的文件 , 放在根目录下</li>
-<li>文件内容<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;directory&quot;: &quot;bower_components&quot;,  //指定文件路径</div><div class="line">  &quot;registry&quot;: &quot;http://bower.herokuapp.com&quot;,   // 指定加载仓库</div><div class="line">  &quot;strict-ssl&quot;: false  // 防止被墙</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+            <h1 id="大公司是怎么样开发和部署前端代码的"><a href="#大公司是怎么样开发和部署前端代码的" class="headerlink" title="大公司是怎么样开发和部署前端代码的"></a><a href="https://www.zhihu.com/question/20790576" target="_blank" rel="external">大公司是怎么样开发和部署前端代码的</a></h1><h1 id="cdn资源"><a href="#cdn资源" class="headerlink" title="cdn资源"></a>cdn资源</h1><ul>
+<li>静态资源 CDN 公共库是指一些服务商将我们常用的 JavaScript 库存放到网上，方便开发者直接调用，并且还对其提供 CDN 加速，这样一来可以让用户加速访问这些资源，二来还可节约自己服务器的流量。  </li>
+<li><a href="http://cdn.code.baidu.com/" target="_blank" rel="external">百度静态资源公共库</a><ul>
+<li><code>http://cdn.code.baidu.com/</code></li>
+<li>提供的库比较全，但是不支持 https，使用了 https 加密站点使用会出现警告。</li>
+</ul>
+</li>
+<li><a href="http://lib.sinaapp.com/" target="_blank" rel="external">新浪云计算公共库</a><ul>
+<li><code>http://lib.sinaapp.com/</code></li>
+<li>支持的库比较少，但是支持 https。</li>
+</ul>
+</li>
+<li><a href="http://libs.useso.com/" target="_blank" rel="external">360网站卫士常用前端公共库</a><ul>
+<li><code>http://libs.useso.com/</code></li>
+<li>除了提供前端库之外，只需替换一下域名，360 就可以让你继续使用 Google 提供的前端公共库和免费字体库。但是同样最大的问题，不支持 https。</li>
+</ul>
+</li>
+<li><a href="http://staticfile.org/" target="_blank" rel="external">七牛云存储开放静态资源文件</a><ul>
+<li><code>http://staticfile.org/</code></li>
+<li>国内目前最全的前端库了，使用 https 要换用另外一个域名：<code>https://dn-staticfile.qbox.me/</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="常用cdn资源"><a href="#常用cdn资源" class="headerlink" title="常用cdn资源"></a>常用cdn资源</h2><ul>
+<li>jquery <ul>
+<li><code>http://cdn.staticfile.org/jquery/3.2.1/jquery.js</code></li>
+<li><code>https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js</code></li>
+<li><code>https://cdn.staticfile.org/jquery/3.2.1/jquery.min.map</code></li>
+</ul>
+</li>
+<li>angular <ul>
+<li><code>https://cdn.staticfile.org/angular.js/1.5.9/angular.js</code></li>
+<li><code>https://cdn.staticfile.org/angular.js/1.5.9/angular.min.js</code></li>
+<li><code>https://cdn.staticfile.org/angular.js/1.5.9/angular.min.js.map</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><h2 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h2><ul>
+<li>gulp-less 编译LESS文件</li>
+<li>gulp-autoprefixer 添加CSS私有前缀</li>
+<li>gulp-cssmin 压缩CSS</li>
+<li>gulp-rname重命名</li>
+<li>gulp-imagemin 图片压缩</li>
+<li>gulp-uglify 压缩Javascript</li>
+<li>gulp-concat 合并</li>
+<li>gulp-htmlmin 压缩HTML</li>
+<li>gulp-rev 添加版本号 <ul>
+<li>版本号替换的只有当内容修改了之后才会更换版本号 , 因为修改版本号就是解决缓存问题 , 但是我的文件并没有进行修改 , 如果强制做了版本号修改,那么缓存资源就浪费了</li>
+</ul>
+</li>
+<li>gulp-rev-collector 内容替换</li>
+<li>gulp-useref  替换文件注释块 ,合并输出(不可控制,例如只使用其替换注释快的功能是不行的)</li>
+<li>gulp-if  </li>
+</ul>
+<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><ul>
+<li>@import url(“./index.less”);<ul>
+<li>需要注意行尾的分号</li>
+</ul>
+</li>
+</ul>
+<h4 id="压缩css-gulp-cssmin"><a href="#压缩css-gulp-cssmin" class="headerlink" title="压缩css(gulp-cssmin)"></a>压缩css(gulp-cssmin)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// 这个文件里可配置一些信息</div><div class="line">// 来支配gulp如何工作</div><div class="line"></div><div class="line">// 引入包</div><div class="line">var gulp = require(&apos;gulp&apos;);</div><div class="line"></div><div class="line">// 具体负责压缩任务</div><div class="line">var cssmin = require(&apos;gulp-cssmin&apos;);</div><div class="line"></div><div class="line">// gulp 是一个对象，此对象下有一系列方法可</div><div class="line">// 以实现压缩合并等功能</div><div class="line"></div><div class="line">// 通过任务来实现不同资源（css、js、imgage）进行不同处理</div><div class="line">gulp.task(&apos;css&apos;, function () &#123;</div><div class="line">   // console.log(&apos;压缩css&apos;);</div><div class="line">   // 通过gulp所要压缩资源的位置（路径）</div><div class="line">   gulp.src(&apos;./css/main.css&apos;)</div><div class="line">      .pipe(cssmin())</div><div class="line">      .pipe(gulp.dest(&apos;./css/main.min.css&apos;));</div><div class="line"></div><div class="line">   // gulp 是一个总指挥，不参与具体事务</div><div class="line">   // 通过调用gulp插件(基于nodejs的)来实现</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 调用任务，通过命令行进行调用</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;);</div><div class="line">var cssmin = require(&apos;gulp-cssmin&apos;)</div><div class="line">var autoprefixer = require(&apos;gulp-autoprefixer&apos;)</div><div class="line">var less = require(&apos;gulp-less&apos;)</div><div class="line">gulp.task(&apos;css&apos;, function() &#123;</div><div class="line">    gulp.src(&apos;./css/main.less&apos;)</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(cssmin())</div><div class="line">        .pipe(autoprefixer(&#123;</div><div class="line">            browsers: [&apos;last 5 version&apos;]</div><div class="line">        &#125;))        </div><div class="line">        .pipe(gulp.dest(&apos;./dist1/css&apos;))</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="加私有化前缀-gulp-autoprefixer"><a href="#加私有化前缀-gulp-autoprefixer" class="headerlink" title="加私有化前缀(gulp-autoprefixer)"></a>加私有化前缀(gulp-autoprefixer)</h4><ul>
+<li>因为当时chrome浏览器属性处于测试阶段,需要加上私有化前缀才能使用</li>
+</ul>
+<h4 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;image&apos;, function() &#123;</div><div class="line">    gulp.src(&apos;./src/img/**/*&apos;,&#123;base:&quot;./src&quot;&#125;)//两个**是代表递归操作,&#123;base会将这个目录下的目录搬到./dist目录下,即执行后为./dist/img/文件&#125;</div><div class="line">        .pipe(img())</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;))</div><div class="line">    console.log(111);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="js合并压缩"><a href="#js合并压缩" class="headerlink" title="js合并压缩"></a>js合并压缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;js&apos;, function() &#123;</div><div class="line">    gulp.src(&apos;./src/js/*&apos;,&#123;base:&quot;./src&quot;&#125;)</div><div class="line">        .pipe(uglify())  //压缩</div><div class="line">        .pipe(concat(&apos;./js/all.js&apos;))  //合并</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;))</div><div class="line">    console.log(111);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="html压缩"><a href="#html压缩" class="headerlink" title="html压缩"></a>html压缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;html&apos;, function() &#123;</div><div class="line">    gulp.src(&apos;./src/*.html&apos;, &#123; base: &quot;./src&quot; &#125;)</div><div class="line">        .pipe(htmlmin(&#123; </div><div class="line">          collapseWhitespace: true, //去掉空白符号</div><div class="line">          minifyCSS: true, //压缩css</div><div class="line">          removeComments:true,//去掉注释</div><div class="line">          minifyJS:true &#125;))//压缩js代码</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;))</div><div class="line">    console.log(111);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="js压缩"><a href="#js压缩" class="headerlink" title="js压缩"></a>js压缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;js&apos;, function() &#123;</div><div class="line">    gulp.src(&apos;./src/js/*&apos;, &#123; base: &quot;./src&quot; &#125;)</div><div class="line">        .pipe(uglify())</div><div class="line">        .pipe(concat(&apos;./js/all.js&apos;))</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;))</div><div class="line">    console.log(111);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">``` </div><div class="line"></div><div class="line">#### 添加版本号</div><div class="line"></div><div class="line">- 因为浏览器缓存功能</div></pre></td></tr></table></figure>
+<p>gulp.task(‘css’, function() {<br>    gulp.src(‘./src/css/main.less’, { base: “./src” })<br>        .pipe(less())<br>        .pipe(cssmin())<br>        .pipe(rev()) //给名字加上版本号<br>        .pipe(autoprefixer({<br>            browsers: [‘last 5 version’]<br>        }))<br>        .pipe(gulp.dest(‘./dist’))<br>        .pipe(rev.manifest()) //收集替换信息<br>        .pipe(rename(‘css-reanem.json’))//修改名称<br>        .pipe(gulp.dest(‘./dist/rev’))<br>})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">#### 替换引用</div><div class="line"></div><div class="line">- rev</div></pre></td></tr></table></figure>
+<p>//替换内容<br>gulp.task(‘rev’,function () {<br>  gulp.src([‘./dist/rev/*.json’,’./dist/html.html’])<br>  .pipe(revCollector())<br>  .pipe(gulp.dest(‘./dist’));</p>
+<p>})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- gulp-useref</div></pre></td></tr></table></figure>
+<p>gulp.task(‘useref’, function() {<br>    gulp.src(‘./src/html.html’)<br>        .pipe(useref())<br>        .pipe(gulpif(‘*.js’,uglify()))//判断html文件中如果是js文件那么就压缩<br>        .pipe(gulp.dest(‘./dist’));<br>})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"> </div></pre></td></tr></table></figure>
+<p>//替换<br> <!-- build:js ./js/all.js --><br>    <script src="js/js.js"></script><br>    <script src="js/js2.js"></script><br>  <!-- endbuild --></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<!-- build:remove --> 
+<pre><code>&lt;script src=&quot;js/js.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/js2.js&quot;&gt;&lt;/script&gt;
+</code></pre>  <!-- endbuild -->
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"># gulp完整版</div><div class="line"></div><div class="line">### gulpfile.js</div><div class="line"></div><div class="line">- userf</div><div class="line"></div><div class="line">```js</div><div class="line">const gulp = require(&apos;gulp&apos;);</div><div class="line">const gulpSequence = require(&apos;gulp-sequence&apos;);</div><div class="line">const cssmin = require(&apos;gulp-minify-css&apos;);</div><div class="line">const htmlmin = require(&apos;gulp-htmlmin&apos;);</div><div class="line">const rev = require(&apos;gulp-rev&apos;);</div><div class="line">const revCollector = require(&apos;gulp-rev-collector&apos;);</div><div class="line">const clean = require(&apos;gulp-clean&apos;);</div><div class="line">const rename = require(&apos;gulp-rename&apos;);</div><div class="line">const gulpif = require(&apos;gulp-if&apos;);</div><div class="line">const base64 = require(&apos;gulp-base64&apos;);</div><div class="line">const useref = require(&apos;gulp-useref&apos;);</div><div class="line">const concat = require(&apos;gulp-concat&apos;);</div><div class="line">const cssimport = require(&apos;gulp-cssimport&apos;);</div><div class="line">const uglify = require(&apos;gulp-uglify&apos;);</div><div class="line">const babel = require(&quot;gulp-babel&quot;); //转为es5 否则html压缩的时候会报错 </div><div class="line"></div><div class="line">const src = &#123;</div><div class="line">    bower: &#123;</div><div class="line">        css: [</div><div class="line">            &apos;./bower_components/font-awesome/css/font-awesome.min.css&apos;,//字体图标</div><div class="line">            &apos;./bower_components/weui/dist/style/weui.min.css&apos;,//weui css库</div><div class="line">        ],</div><div class="line">        js: [</div><div class="line">            &apos;./bower_components/jquery/dist/jquery.min.js&apos;,//jquery</div><div class="line">            &apos;./bower_components/art-template/dist/template.js&apos;,//artTemplate模板</div><div class="line">            &apos;./bower_components/i18next/i18next.min.js&apos;,//国际化核心插件</div><div class="line">            &apos;./bower_components/jquery-i18next/jquery-i18next.min.js&apos;,//国际化扩展插件</div><div class="line">            &apos;./bower_components/weui.js/dist/weui.min.js&apos;,//weui js库</div><div class="line">            &apos;./bower_components/fastclick/lib/fastclick.js&apos;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//清空</div><div class="line">gulp.task(&apos;clean&apos;, function () &#123;</div><div class="line">    return gulp.src(&apos;./dist&apos;)</div><div class="line">        .pipe(clean());</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//css</div><div class="line">gulp.task(&apos;css&apos;, function () &#123;</div><div class="line">    console.log(&apos;css  finished&apos;);</div><div class="line">    return gulp.src([&apos;./theme/default/css/**/*.css&apos;, &apos;!./theme/default/css/main.css&apos;], &#123;base: &quot;./&quot;&#125;)</div><div class="line">        .pipe(gulpif(&apos;*.css&apos;, cssimport()))</div><div class="line">        //.pipe(gulpif(&apos;*.css&apos;),base64())</div><div class="line">        .pipe(cssmin(&#123;&#125;))</div><div class="line">        .pipe(rev()) //给名字加上版本号</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;))</div><div class="line">        .pipe(rev.manifest()) //收集替换信息</div><div class="line">        .pipe(rename(&apos;css-rename.json&apos;))//修改名称</div><div class="line">        .pipe(gulp.dest(&apos;./dist/rev&apos;));// 保存位置</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//image</div><div class="line">gulp.task(&apos;image&apos;, function () &#123;</div><div class="line">    console.log(&apos;image  finished&apos;);</div><div class="line">    return gulp.src([&apos;./theme/default/images/**/*&apos;], &#123;base: &quot;./&quot;&#125;)</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;));// 保存位置</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//html</div><div class="line">gulp.task(&apos;html&apos;, function () &#123;</div><div class="line">    var options = &#123;</div><div class="line">        removeComments: true,//清除HTML注释</div><div class="line">        //collapseWhitespace: true,//压缩HTML</div><div class="line">        //collapseBooleanAttributes: true,//省略布尔属性的值 &lt;input checked=&quot;true&quot;/&gt; ==&gt; &lt;input /&gt;</div><div class="line">        removeEmptyAttributes: true,//删除所有空格作属性值 &lt;input id=&quot;&quot; /&gt; ==&gt; &lt;input /&gt;</div><div class="line">        //removeScriptTypeAttributes: true,//删除&lt;script&gt;的type=&quot;text/javascript&quot;</div><div class="line">        //removeStyleLinkTypeAttributes: true,//删除&lt;style&gt;和&lt;link&gt;的type=&quot;text/css&quot;</div><div class="line">        minifyJS: true,//压缩页面JS</div><div class="line">        minifyCSS: true//压缩页面CSS</div><div class="line">    &#125;;</div><div class="line">    console.log(&apos;html  finished&apos;);</div><div class="line">    return gulp.src([&apos;./html/**/*&apos;, &apos;./index.html&apos;, &apos;./clear.html&apos;], &#123;base: &quot;./&quot;&#125;)</div><div class="line">        .pipe(useref())</div><div class="line">        .pipe(htmlmin(options))</div><div class="line">        .pipe(gulp.dest(&apos;./dist&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//js</div><div class="line">gulp.task(&apos;js&apos;, function () &#123;</div><div class="line">    console.log(&apos;js  finished&apos;);</div><div class="line">const condition = function (f) &#123;</div><div class="line">    if (f.path.endsWith(&apos;config.js&apos;)) &#123;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line">    return gulp.src(&apos;./js/**/*&apos;, &#123;base: &quot;./&quot;&#125;)</div><div class="line">                  .pipe(stripDebug()) // 清除console debugger alert</div><div class="line">        .pipe(gulpif(condition, uglify()))// 压缩js</div><div class="line">        .pipe(gulpif(&apos;*.js&apos;, rev())) //给名字加上版本号</div><div class="line">         .pipe(gulp.dest(&apos;./dist/&apos;))</div><div class="line">        .pipe(rev.manifest()) //收集替换信息</div><div class="line">         .pipe(rename(&apos;js-rename.json&apos;))//修改名称</div><div class="line">         .pipe(gulp.dest(&apos;./dist/rev&apos;));// 保存位置;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//bower静态资源</div><div class="line">gulp.task(&apos;bower&apos;, function () &#123;</div><div class="line">    console.log(&apos;bower静态资源  finished&apos;);</div><div class="line">    return gulp.src(&apos;./bower_components/**/*&apos;, &#123;base: &quot;./&quot;&#125;)</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//插件</div><div class="line">gulp.task(&apos;plugins&apos;, function () &#123;</div><div class="line">    console.log(&apos;插件  finished&apos;);</div><div class="line">    return gulp.src(&apos;./plugins/**/*&apos;, &#123;base: &quot;./&quot;&#125;)</div><div class="line">        .pipe(gulp.dest(&apos;./dist/&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">//替换css,js引用</div><div class="line">gulp.task(&apos;rev&apos;, function () &#123;</div><div class="line">    console.log(&apos;替换css,js引用&apos;);</div><div class="line">    return gulp.src(</div><div class="line">        [&apos;./dist/rev/**/*.json&apos;,</div><div class="line">            &apos;./dist/html/**/*.html&apos;,</div><div class="line">            &apos;./dist/*.html&apos;,</div><div class="line">            &apos;./dist/js/**/*.js&apos;],</div><div class="line">        &#123;base: &apos;./dist&apos;&#125;)</div><div class="line">        .pipe(revCollector(&#123;replaceReved:true &#125;))</div><div class="line">        .pipe(gulp.dest(&apos;./dist&apos;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line">// parallel &apos;js&apos;, &apos;bower&apos;, &apos;plugins&apos;,</div><div class="line"></div><div class="line"></div><div class="line">// parallel &apos;html&apos;   &apos;css&apos;</div><div class="line"></div><div class="line">// gulp.task(&apos;default&apos;, [&apos;js&apos;, &apos;bower&apos;, &apos;plugins&apos;, &apos;html&apos;, &apos;css&apos;]);</div><div class="line"></div><div class="line">gulp.task(&apos;default&apos;, gulpSequence(&apos;clean&apos;, [&apos;js&apos;, &apos;bower&apos;, &apos;plugins&apos;, &apos;css&apos;, &apos;html&apos;], &apos;image&apos;, &apos;rev&apos;));</div><div class="line">//gulp.task(&apos;default&apos;, gulpSequence(&apos;clean&apos;, [&apos;css&apos;, &apos;html&apos;], &apos;rev&apos;));</div></pre></td></tr></table></figure>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;itopwx&quot;,</div><div class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</div><div class="line">  &quot;description&quot;: &quot;&quot;,</div><div class="line">  &quot;main&quot;: &quot;gulpfile.js&quot;,</div><div class="line">  &quot;dependencies&quot;: &#123;</div><div class="line">    &quot;gulp&quot;: &quot;^3.9.1&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;devDependencies&quot;: &#123;</div><div class="line">&quot;babel-plugin-add-module-exports&quot;: &quot;^0.2.1&quot;,//babel-1  三个配合使用</div><div class="line">&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,//babel-2   三个配合使用</div><div class="line">&quot;gulp-babel&quot;: &quot;^6.1.2&quot;,//babel-3   三个配合使用 ,否则会报错</div><div class="line">&quot;gulp&quot;: &quot;^3.9.1&quot;,</div><div class="line">&quot;gulp-base64&quot;: &quot;^0.1.3&quot;,</div><div class="line">&quot;gulp-clean&quot;: &quot;^0.3.2&quot;,</div><div class="line">&quot;gulp-concat&quot;: &quot;^2.6.1&quot;,</div><div class="line">&quot;gulp-cssimport&quot;: &quot;^5.0.0&quot;,</div><div class="line">&quot;gulp-htmlmin&quot;: &quot;^3.0.0&quot;,</div><div class="line">&quot;gulp-if&quot;: &quot;^2.0.2&quot;,</div><div class="line">&quot;gulp-less&quot;: &quot;^3.3.0&quot;,</div><div class="line">&quot;gulp-minify-css&quot;: &quot;^1.2.4&quot;,</div><div class="line">&quot;gulp-rename&quot;: &quot;^1.2.2&quot;,</div><div class="line">&quot;gulp-rev&quot;: &quot;^7.1.2&quot;,</div><div class="line">&quot;gulp-rev-collector&quot;: &quot;^1.1.1&quot;,</div><div class="line">&quot;gulp-sequence&quot;: &quot;^0.4.6&quot;,</div><div class="line">&quot;gulp-strip-debug&quot;: &quot;^1.1.0&quot;,</div><div class="line">&quot;gulp-uglify&quot;: &quot;^2.1.2&quot;,</div><div class="line">&quot;gulp-useref&quot;: &quot;^3.1.2&quot;  </div><div class="line">&#125;,</div><div class="line">  &quot;scripts&quot;: &#123;</div><div class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;author&quot;: &quot;robert&quot;,</div><div class="line">  &quot;license&quot;: &quot;ISC&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/15/react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/15/react/" itemprop="url">es6</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-15T23:10:30+08:00">
+                2017-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">// 这是webpack的配置文件</div><div class="line">// 在这里可以直接写node代码</div><div class="line"> </div><div class="line">var path = require(&apos;path&apos;)</div><div class="line"> </div><div class="line">var htmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)</div><div class="line"> </div><div class="line">module.exports =&#123;</div><div class="line">    entry:path.resolve(__dirname, &apos;./src/index.js&apos;) , // 入器</div><div class="line">    output:&#123;</div><div class="line">        path:&apos;dist&apos;, // 输出目录</div><div class="line">        filename:&apos;bundle.js&apos;, // 输出的文件名</div><div class="line">    &#125;,</div><div class="line">    module:&#123;</div><div class="line">        loaders:[</div><div class="line">            &#123;</div><div class="line">                test:/\.less$/,</div><div class="line">                exclude:/node_modules/, // 禁止webpack去这个目录中查找</div><div class="line">                loader:&apos;style!css!less&apos;  // -loader可以不写</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                test:/\.js$/,</div><div class="line">                exclude:/node_modules/, // 禁止webpack去这个目录中查找</div><div class="line">                loader:&apos;babel-loader&apos;,  // -loader可以省略</div><div class="line">                // `npm install babel-loader --save-dev`</div><div class="line">                query:&#123;</div><div class="line">                    presets:[&apos;react&apos;,&apos;es2015&apos;]</div><div class="line">                    // `npm install babel-preset-es2015`</div><div class="line">                    // `npm install babel-preset-react`</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    // 插件</div><div class="line">    plugins:[</div><div class="line">        new htmlWebpackPlugin(&#123;</div><div class="line">            // 生成的html的文件名</div><div class="line">            filename:&apos;index.html&apos;,</div><div class="line">            template:&apos;./src/index.html&apos; //要处理的html</div><div class="line">        &#125;)</div><div class="line">    ]</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// loaders</div><div class="line">// 1. less-loader 转换less语法</div><div class="line">//  1.1 `npm install less-loader --save-dev`</div><div class="line">//      1.1.1 `npm install less --save-dev`</div><div class="line">//  1.2 `npm install css-loader --save-dev`</div><div class="line">//  1.3 `npm install style-loader --save-dev`</div><div class="line"> </div><div class="line">// 2.babel-loader 转换其他语法为es5语法</div><div class="line">//  2.1 `npm install babel-loader --save-dev`</div><div class="line">//      2.1.1 `npm install babel-core --save-dev` </div><div class="line">//  2.2 `npm install babel-preset-es2015 --save-dev`  // 转换es6为es5</div><div class="line">//  2.3  `npm install babel-preset-react --save-dev`  // 转换react为es5</div><div class="line">// webpack 2.3 需要</div><div class="line">//   `npm install webpack --save-dev`</div><div class="line"> </div><div class="line"> </div><div class="line">// plugins</div><div class="line">//  1. html-webpack-plugin  可以把html生成到输出目录,并且自动引用打包后的文件</div><div class="line">//    `npm install html-webpack-plugin --save-dev`</div></pre></td></tr></table></figure>
+<h2 id="react"><a href="#react" class="headerlink" title="react"></a>react</h2><h3 id="定义组件方式"><a href="#定义组件方式" class="headerlink" title="定义组件方式"></a>定义组件方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div></pre></td><td class="code"><pre><div class="line">// 1.引包</div><div class="line">import React from &apos;react&apos;;</div><div class="line">import TopLess from &apos;./Top.less&apos;;</div><div class="line"> </div><div class="line">// TodoItem</div><div class="line">import TodoItem from &apos;../todoitem/TodoItem.js&apos;;</div><div class="line">import Footer from   &apos;../footer/Footer.js&apos;</div><div class="line"> </div><div class="line">// 2.创建组件</div><div class="line">class Top extends React.Component&#123;</div><div class="line">    constructor()&#123;</div><div class="line">        super();</div><div class="line">        // 给一些初始化的数据来显示</div><div class="line">        this.state=&#123;</div><div class="line">            data:[</div><div class="line">            &#123;id:1, name:&apos;小胆&apos;,completed:true &#125;,</div><div class="line">            &#123;id:2, name:&apos;小月&apos;,completed:true &#125;,</div><div class="line">            &#123;id:3, name:&apos;小旦&apos;,completed:true &#125;,</div><div class="line">            &#123;id:4, name:&apos;小一&apos;,completed:true,isShowing:false&#125;</div><div class="line">            ],</div><div class="line">            newtodos:&apos;&apos; // 这是新添加的任务名</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        return(</div><div class="line">            &lt;section className=&quot;todoapp&quot;&gt;</div><div class="line">            &lt;header className=&quot;header&quot;&gt;</div><div class="line">                &lt;h1&gt;todos&lt;/h1&gt;</div><div class="line">                &lt;form  onSubmit=&#123;this.addhandler.bind(this)&#125;&gt;</div><div class="line">                    &lt;input</div><div class="line">                    onChange=&#123;this.newtodoChange.bind(this)&#125;</div><div class="line">                    value=&#123;this.state.newtodos&#125; className=&quot;new-todo&quot; placeholder=&quot;What needs to be done?&quot; /&gt;</div><div class="line">                &lt;/form&gt;</div><div class="line">            &lt;/header&gt;</div><div class="line">            &lt;section className=&quot;main&quot;&gt;</div><div class="line">                &lt;input className=&quot;toggle-all&quot; type=&quot;checkbox&quot; /&gt;</div><div class="line">                &lt;label htmlFor=&quot;toggle-all&quot;&gt;Mark all as complete&lt;/label&gt;</div><div class="line">                &lt;ul className=&quot;todo-list&quot;&gt;</div><div class="line">                    &#123;</div><div class="line">                        this.state.data.map( item =&gt; &#123;</div><div class="line">                            return (</div><div class="line">                                &lt;TodoItem </div><div class="line">                                key=&#123;item.id&#125;</div><div class="line">                                myitem=&#123;item&#125; //向子组件传值</div><div class="line">                                mychangeTodoItem=&#123;this.changeTodoItem.bind(this)&#125;</div><div class="line">                                /&gt;</div><div class="line">                                )</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &lt;/ul&gt;</div><div class="line">            &lt;/section&gt;</div><div class="line">            &lt;Footer /&gt;</div><div class="line">        &lt;/section&gt;</div><div class="line">            )</div><div class="line">    &#125;</div><div class="line">    // 这个方法用来当前任务的内容</div><div class="line">    changeTodoItem(item)&#123;</div><div class="line">        // 遍历this.state.data</div><div class="line">    let newData =   this.state.data.map( tmp =&gt;&#123;</div><div class="line">            if(tmp.id == item.id)&#123;</div><div class="line">                tmp.name = item.name</div><div class="line">            &#125;</div><div class="line">            return tmp</div><div class="line">        &#125; )</div><div class="line">    this.setState(&#123;</div><div class="line">        data: newData</div><div class="line">     &#125;)</div><div class="line">    &#125;</div><div class="line">    // 这个方法里，只是获取文本的值，然后赋给this.state.newtodos</div><div class="line">    newtodoChange(event)&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            newtodos:event.target.value</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">    //添加任务,当我按下回车键时触发</div><div class="line">    addhandler(event)&#123;</div><div class="line">        // 0. 禁止默认的提交事件</div><div class="line">        event.preventDefault()</div><div class="line">        // 如果是空字符串，就直接return,不执行后面代码</div><div class="line">        if(!this.state.newtodos.trim())&#123;</div><div class="line">            return</div><div class="line">        &#125;</div><div class="line">        // 1.得到用户输入的内容</div><div class="line">        //this.state.newtodos</div><div class="line">        // 2.把内容添加到this.state.data中。</div><div class="line">        this.state.data.push(&#123;</div><div class="line">            id:Math.random(),</div><div class="line">            name:this.state.newtodos,</div><div class="line">            completed:false</div><div class="line">             &#125;)</div><div class="line">        // 清空新任务</div><div class="line">        this.state.newtodos=&apos;&apos;;</div><div class="line">        // 为了方便操作先直接修改this.state.data的值,</div><div class="line">        // 然后再调用 this.setState(&#123;&#125;)来更新界面</div><div class="line">        this.setState(&#123;&#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// 3.暴露</div><div class="line">// module.exports Top</div><div class="line">// es6</div><div class="line">export default Top</div><div class="line"> </div><div class="line">//子组件=======================================================================</div><div class="line">//名字开头字母必须大写</div><div class="line">class TodoItem extends React.Component&#123;</div><div class="line">    constructor()&#123;</div><div class="line">        super();</div><div class="line">        this.state=&#123;</div><div class="line">            isShowing:false</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        return (</div><div class="line">            &lt;li className=&#123;classnames(&#123;&apos;editing&apos;:this.state.isShowing&#125;)&#125;&gt;</div><div class="line">                &lt;div className=&quot;view&quot;&gt;</div><div class="line">                 &lt;input className=&quot;toggle&quot; type=&quot;checkbox&quot; /&gt;</div><div class="line">                    &#123;</div><div class="line">                        // 双击时，显示文本框,</div><div class="line">                        // 在文本框中编辑对应的值</div><div class="line">                        // 在文本框中onChange事件中，调用父组件的方法,</div><div class="line">                        // 来修改数据</div><div class="line">                    &#125;</div><div class="line">                    &lt;label</div><div class="line">                    onDoubleClick=&#123;()=&gt;&#123;</div><div class="line">                        this.setState(&#123;</div><div class="line">                            isShowing:true</div><div class="line">                        &#125;)</div><div class="line">                    &#125;&#125;</div><div class="line">                    &gt;&#123;this.props.myitem.name&#125;&lt;/label&gt;</div><div class="line">                     &lt;button className=&quot;destroy&quot;&gt;&lt;/button&gt;</div><div class="line">                        &lt;/div&gt;</div><div class="line">                &lt;input</div><div class="line">                onChange=&#123;(event)=&gt;&#123;</div><div class="line">                    this.props.mychangeTodoItem(&#123;</div><div class="line">                        id:this.props.myitem.id, //子组件调用父组件传过来的东西</div><div class="line">                        name:event.target.value</div><div class="line">                    &#125;)</div><div class="line">                &#125;&#125;</div><div class="line">                className=&quot;edit&quot; value=&#123;this.props.myitem.name&#125; /&gt;</div><div class="line">             &lt;/li&gt;</div><div class="line">            )</div><div class="line">    &#125;</div><div class="line">    // 改变当前元素的name值</div><div class="line">    changeTodoItem(event)&#123;</div><div class="line">        this.props.myitem.name = event.target.value;</div><div class="line">        this.setState(&#123;&#125;)//修改值后要手动刷新</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// 3.暴露出去</div><div class="line">// module.exports</div><div class="line">export default TodoItem</div></pre></td></tr></table></figure>
+<h3 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h3><ul>
+<li><todoitem key="{item.id}" myitem="{item}" 向子组件传值="" mychangetodoitem="{this.changeTodoItem.bind(this)}"></todoitem></li>
+<li>子组件使用 <code>{this.props.myitem.name}</code></li>
+</ul>
+<h3 id="子组件修改父组件中的值"><a href="#子组件修改父组件中的值" class="headerlink" title="子组件修改父组件中的值"></a>子组件修改父组件中的值</h3><ul>
+<li>传个方法过去 </li>
+</ul>
+<h3 id="Component生命周期"><a href="#Component生命周期" class="headerlink" title="Component生命周期"></a>Component生命周期</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">// 1.引包</div><div class="line">import React from &apos;react&apos;;</div><div class="line">import ReactDom from &apos;react-dom&apos;;</div><div class="line"> </div><div class="line"> </div><div class="line">// 2.创建组件</div><div class="line">class Life extends React.Component&#123;</div><div class="line"> </div><div class="line">  // A,最先执行</div><div class="line">  constructor()&#123;</div><div class="line">    super();</div><div class="line">    this.state=&#123;</div><div class="line">      haha:&apos;哈哈&apos;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // B,这个方法会在render之前执行. 表明组件即将要添加到dom中</div><div class="line">  componentWillMount()&#123;</div><div class="line">    console.log(&apos;哈哈，我是componentWillMount&apos;)</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // C返回一个组件！</div><div class="line">  render()&#123;</div><div class="line">    console.log(&apos;哈哈，我是render&apos;)</div><div class="line">    return(</div><div class="line">      &lt;div id=&quot;xx&quot;&gt;</div><div class="line">        &#123;this.state.haha&#125;</div><div class="line">      &lt;/div&gt;</div><div class="line">      )</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // D.渲染完成之后的事件(表明dom结构已经生成)</div><div class="line">  componentDidMount()&#123;</div><div class="line">    // 如果要做dom操作，就可以在这里进行</div><div class="line">    console.log(&apos;哈哈！我是DidMount&apos;)</div><div class="line">    this.setState(&#123;haha:&apos;哈哈哈哈!&apos;&#125;)</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // 当调用this.setState来改变this.state时，这个方法就会被自动调用</div><div class="line">  // 调用之后就会再调用render方法</div><div class="line">  componentWillUpdate()&#123;</div><div class="line">    console.log(&apos;哈哈！ 我是WillUpdate&apos;)</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // 这个方法会在render调用之后调用,第一次render调用时不会调用它!</div><div class="line">  componentDidUpdate()&#123;</div><div class="line">    console.log(&apos;哈哈！我是DidUpdate&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"> </div><div class="line">// 3.渲染组件</div><div class="line">ReactDom.render(</div><div class="line">  &lt;Life /&gt;,</div><div class="line">  document.getElementById(&apos;box&apos;)</div><div class="line">  )</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/nodejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/15/nodejs/" itemprop="url">nodejs</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-15T21:10:30+08:00">
+                2017-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="其特点为"><a href="#其特点为" class="headerlink" title="其特点为"></a>其特点为</h3><ul>
+<li>它是一个Javascript运行环境</li>
+<li>依赖于Chrome V8引擎进行代码解释</li>
+<li>事件驱动</li>
+<li>非阻塞I/O</li>
+<li>轻量、可伸缩，适于实时数据交互应用</li>
+<li>单线程</li>
+</ul>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li>优点<ul>
+<li>高并发</li>
+<li>I/O密集型应用</li>
+<li>为网络服务而设计(微服务SOA)</li>
+</ul>
+</li>
+<li>缺点(原因单线程,单进程)<ul>
+<li>只支持单核CPU，不能充分利用CPU</li>
+<li>可靠性低，一旦代码某个环节崩溃，整个系统都崩溃</li>
+<li>解决方案:1.Nnigx反向代理，负载均衡，开多个进程，绑定多个端口;2.开多个进程监听同一个端口，使用cluster模块;</li>
+<li>开源组件库质量参差不齐，更新快，向下不兼容</li>
+<li>Debug不方便</li>
+</ul>
+</li>
+</ul>
+<h3 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h3><ul>
+<li>Nnigx做负载均衡,将一个网站划分为多个服务(当某个服务压力大的时候就加服务器,各个服务之间可以相互通信),例如:<ul>
+<li>登录服务</li>
+<li>用户信息服务</li>
+<li>购物服务</li>
+</ul>
+</li>
+<li>问题如何处理在为服务中氢气失败的情况,<ul>
+<li>比如在一次购买物品的请求中有如下请求, 服务1请求付款,向服务2发送请求,如果失败怎么办 , 回滚吗,</li>
+</ul>
+</li>
+</ul>
+<h3 id="dirname-amp-filename"><a href="#dirname-amp-filename" class="headerlink" title="dirname   &amp; filename"></a><strong>dirname   &amp; </strong>filename</h3><ul>
+<li><p>__dirname 当前文件所在文件夹路径</p>
+</li>
+<li><p>__filename 当期那文件所在文件件路径+文件名</p>
+</li>
+</ul>
+<h3 id="require加载流程"><a href="#require加载流程" class="headerlink" title="require加载流程"></a>require加载流程</h3><ul>
+<li></li>
+</ul>
+<h3 id="fs模块"><a href="#fs模块" class="headerlink" title="fs模块"></a>fs模块</h3><ul>
+<li><code>var stat = fs.statSync(filename); console.log(stat)</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/ / ，其中atime，mtime，ctime就分别代表了访问时间，修改时间以及创建时间，都为date类型</div><div class="line">&#123; dev: 0,</div><div class="line">  ino: 0,</div><div class="line">  mode: 33206,</div><div class="line">  nlink: 1,</div><div class="line">  uid: 0,</div><div class="line">  gid: 0,</div><div class="line">  rdev: 0,</div><div class="line">  size: 1747,</div><div class="line">  atime: Tue, 03 Jan 2012 13:35:51 GMT,</div><div class="line">  mtime: Tue, 03 Jan 2012 13:35:51 GMT,</div><div class="line">  ctime: Wed, 21 Dec 2011 14:31:59 GMT &#125;</div><div class="line">来源： http://www.cnblogs.com/xiziyin/archive/2012/01/04/2312498.html</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="路由-Router"><a href="#路由-Router" class="headerlink" title="路由 Router"></a>路由 Router</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app.use( &apos;/index&apos;,routes);</div><div class="line">/index是从端口号之后开始截取</div></pre></td></tr></table></figure>
+<h3 id="request请求"><a href="#request请求" class="headerlink" title="request请求"></a>request请求</h3><ul>
+<li><p>在使用request向另一台服务器发送请求的时候需要西那些全路径 , 因为端口不一样</p>
+</li>
+<li><p>请求端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">// 像这样去请求 , 需要加上http的协议头 , 因为不是用当期服务发送的请求 , </div><div class="line">// 若当期那服务为9000端口 , 如果想请求8000端口资源只发送 /token请求会默认拼接为127.0.0.1:9000/token,</div><div class="line">// 所以根本请求不到</div><div class="line"></div><div class="line">const http = require(&apos;http&apos;);</div><div class="line">const request = require(&apos;request&apos;);</div><div class="line">const server = http.createServer((req2, res2) =&gt; &#123;</div><div class="line">	console.log(req2.url);</div><div class="line">    var postData = &apos;package.json&apos;</div><div class="line">    var options = &#123;</div><div class="line">        uri: &apos;http://127.0.0.1&apos;,</div><div class="line">        port: 8000,</div><div class="line">        path: &apos;/upload&apos;,</div><div class="line">        method: &apos;GET&apos;</div><div class="line">    &#125;;</div><div class="line"> 	request(&apos;http://127.0.0.1:8000/token&apos;,function (error, response, body) &#123;</div><div class="line"> 		 console.log(&apos;response : &apos;,response)</div><div class="line"> 		 console.log(error)</div><div class="line"> 		 res2.end(postData)</div><div class="line"> 	&#125;)</div><div class="line">    </div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(5000);</div><div class="line">console.log(&apos;app3.js , listen  5000&apos;)</div></pre></td></tr></table></figure>
+<ul>
+<li>服务端<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const http = require(&apos;http&apos;);</div><div class="line"></div><div class="line">const server = http.createServer((req, res) =&gt; &#123;</div><div class="line">	console.log(req.url)</div><div class="line">    res.end(&apos;80001111&apos;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(8000);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于根路径"><a href="#关于根路径" class="headerlink" title="关于根路径"></a>关于根路径</h3><ul>
+<li>服务端请求路径为 <code>/token</code> ; 客户端请求路径为 <code>127.0.0.1:3000/token</code></li>
+<li>那么服务端打印请求路径为<code>/</code></li>
+</ul>
+<ul>
+<li>服务端请求路径为 <code>/token</code> ; 客户端请求路径为 <code>127.0.0.1:3000/token/app</code></li>
+<li><p>那么服务端打印请求路径为<code>/app</code></p>
+</li>
+<li><p>服务端请求路径为 <code>/</code> ; 客户端请求路径为 <code>127.0.0.1:3000/token</code></p>
+</li>
+<li><p>那么服务端打印请求路径为<code>/token</code></p>
+</li>
+<li><p>总结 :  服务端与客户端请求路径匹配到的为根路径 <code>/</code></p>
+</li>
+</ul>
+<h3 id="node服务相互请求"><a href="#node服务相互请求" class="headerlink" title="node服务相互请求"></a>node服务相互请求</h3><ul>
+<li>两侧都是用的是express框架<ul>
+<li>两侧为原生nodejs</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>左侧为原生 , 右侧为 request包</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/03/08{node入门介绍环境}/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/03/08{node入门介绍环境}/" itemprop="url">node 入门01</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-03T22:00:00+08:00">
+                2016-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="SeaJS-的使用"><a href="#SeaJS-的使用" class="headerlink" title="SeaJS 的使用"></a><code>SeaJS</code> 的使用</h3><ul>
+<li>定义模块 <code>define</code>作用域就在define的函数体里，三个参数require、exports、module</li>
+<li>加载模块 <code>require</code><ul>
+<li>在一个模块系统中，<code>require</code> 加载过的模块会被缓存</li>
+<li>默认 <code>require</code> 是同步加载模块的</li>
+</ul>
+</li>
+<li>暴露接口 <code>exports</code> 和 <code>module.exports</code> exports是module.exports的别名，exports能做什么，module.exports就能做什么</li>
+<li>启动模块系统 <code>seajs.use(callback)</code><ul>
+<li>seajs.use 和 Document 的 ready 没有任何关系</li>
+<li>要想保证 文档结构加载完毕再执行你的 js 代码，一定要在 seajs.use  内部通过 window.onload 或者 $(function(){})</li>
+</ul>
+</li>
+<li>分清楚前台模块化和node中的模块化的区别</li>
+<li>掌握模块化的思想</li>
+</ul>
+<p>#node-lesson1</p>
+<p>##1.解决几个问题？</p>
+<p>###1.前端、后端都是干什么的？<br>前端：写静态文件的  html css js …<br>后端：操作服务器的硬件等等</p>
+<p>###4.浏览器中的JavaScript可以做什么？<br>操作dom 提交表单等等</p>
+<p>###5.浏览器中的JavaScript不可以做什么？<br>js不能操作电脑的硬件</p>
+<p>###6.浏览器与JavaScript是什么关系？</p>
+<p>js引擎—-&gt;就是内核</p>
+<p>引擎的第一特点： 转化<br>发动机—–&gt;汽油转化成动力   重点在转化</p>
+<p>模板引擎—-&gt;模板+数据–转化–&gt;页面</p>
+<p>js代码通过—&gt;js引擎—-转化–&gt;字节码或者机器码</p>
+<p>引擎的第二特点：可移植性</p>
+<p>###7.JavaScript只可以运行在浏览器中吗？<br>Js靠我们的js引擎解析<br>Node.js运行js  node给V8引擎包一层壳，黑匣子</p>
+<p>java java<br>.net c#<br>php php<br>noode.js js</p>
+<p>##什么是 Node?</p>
+<ul>
+<li><a href="">https://nodejs.org/en/</a></li>
+<li>node是js运行环境基于v8引擎<br>特点用事件驱动模型、无阻塞的io模型<br>优势轻量、高效</li>
+<li>node是门技术不是语言<br>java java<br>.net c#<br>node js</li>
+<li>Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. <ul>
+<li>JavaScript runtime  JavaScript 运行时</li>
+<li>Chrome’s V8 JavaScript engine Chrome 浏览器 V8 引擎</li>
+<li>Node.js 是一个 构建于 谷歌的 Chrome 浏览器的 V8 引擎之上的一个 <code>JavaScript运行时</code> 环境</li>
+<li>Node.js可以解析和执行 JavaScript 代码</li>
+</ul>
+</li>
+<li>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. <ul>
+<li>event-driven  事件驱动模型</li>
+<li>non-blocking I/O model  非阻塞IO模型  IO（input/output）输入与输出</li>
+<li>lightweight[ˈlaɪtweɪt]  轻量级<ul>
+<li>在软件开发行业中，轻量级标识褒义词</li>
+<li>轻量级也就意味着 运行速度快</li>
+<li>轻量级也就意味着有更好的 跨平台 特性（平台的差异性，兼容性）</li>
+</ul>
+</li>
+<li>efficient[ɪˈfɪʃnt] 高效的</li>
+<li>Node.js的 事件驱动和非阻塞IO模型使得Node.js本身非常的轻量和高效</li>
+</ul>
+</li>
+<li>Node.js’ package ecosystem, npm, is the largest ecosystem of open source libraries in the world.<ul>
+<li>package ecosystem npm  包生态系统 npm</li>
+<li>largest  最大的</li>
+<li>open source libraries 开源库<ul>
+<li>理论意义上 开源就表示有成熟的社区，开放源代码</li>
+</ul>
+</li>
+<li>Node.js 的npm包生态系统，是世界上 最大的 开源库 生态系统</li>
+<li>以前的 客户端中 JavaScript 库 散列在互联网的各个地方</li>
+<li>npm 就是 把大家经常使用的一些开源库 给 组织到了一起</li>
+</ul>
+</li>
+</ul>
+<p>Node 是一个可以解析和执行 JavaScript 代码的 运行时环境</p>
+<ul>
+<li>Node.js 的作者<ul>
+<li>瑞恩.达尔</li>
+</ul>
+</li>
+</ul>
+<h3 id="Node-的实现结构"><a href="#Node-的实现结构" class="headerlink" title="Node 的实现结构"></a>Node 的实现结构</h3><ul>
+<li>V8 JavaScript 解析执行引擎   ECMAScript</li>
+<li>中间层 （提供了文件操作、网络操作登陆接口）更加接近操作系统的接口供开发人员使用</li>
+<li>硬件层</li>
+</ul>
+<p>###谁在使用 Node</p>
+<p>国内一些创业公司用用的比较多，功夫熊（做上门保健的，美甲、按摩）<br>国外的一些大公司都有使用：Facebook、Twitter、Google<br>国内的一些大公司：Alibaba（天猫所有的页面都是通过Node提供的服务）、Tencent、Baidu</p>
+<h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><h3 id="3m安装法-nvm-npm-nrm"><a href="#3m安装法-nvm-npm-nrm" class="headerlink" title="3m安装法 nvm npm nrm"></a>3m安装法 nvm npm nrm</h3><h3 id="安装包的方式安装"><a href="#安装包的方式安装" class="headerlink" title="安装包的方式安装"></a>安装包的方式安装</h3><ul>
+<li>问题1：安装了node 没有卸载 2:32和64搞混了 3：；拼写错误，路径错误——&gt;老师眼力</li>
+<li>下载地址：</li>
+<li>一路下一步 next</li>
+<li>如何确认是否安装成功：<ul>
+<li><code>win + r</code> ，然后输入 <code>cmd</code> ，然后敲回车 就可以进入 cmd 控制台</li>
+</ul>
+</li>
+</ul>
+<h3 id="nvm-安装和管理我们的-Node-js版本"><a href="#nvm-安装和管理我们的-Node-js版本" class="headerlink" title="nvm 安装和管理我们的 Node.js版本"></a>nvm 安装和管理我们的 Node.js版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">nvm的安装方式，node.js version manager 是一个node的版本管理工具</div><div class="line">为了解决node版本切换问题</div><div class="line">右键在此电脑上点击一下--》属性---》系统---》高级系统设置---》环境变量</div><div class="line">控制面板---》系统---》高级系统设置---》环境变量</div><div class="line">NVM_HOME---C:\dev\nvm</div><div class="line">NVM_SYMLINK--C:\dev\nodejs</div><div class="line">新建一个path     %NVM_HOME%;%NVM_SYMLINK%</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">nvm 用法</div><div class="line">查看版本号</div><div class="line">nvm list</div><div class="line">用哪个版本（已经下载过的版本）</div><div class="line">nvm use 版本号 </div><div class="line">nvm use 版本号 32</div><div class="line">下载相对应版本</div><div class="line">nvm install 版本号 </div><div class="line">nvm install 版本号 32</div><div class="line"></div><div class="line">nvm下载的是二进制版本</div></pre></td></tr></table></figure>
+<h2 id="控制台基本使用"><a href="#控制台基本使用" class="headerlink" title="控制台基本使用"></a>控制台基本使用</h2><p>允许用户可以在终端命令台中与操作系统交互，其实就是输入与输出</p>
+<h3 id="如何打开cmd"><a href="#如何打开cmd" class="headerlink" title="如何打开cmd"></a>如何打开cmd</h3><ol>
+<li>通过 按 window 键，输入 <code>cmd</code> 打开cmd程序</li>
+<li>通过 <code>win+r</code>  输入 <code>cmd</code>，敲回车就可以进入</li>
 </ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/05/24/divCss/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/05/24/divCss/" itemprop="url">divCss</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-05-24T22:14:37+08:00">
-                2014-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="不清边距会导致滚动条"><a href="#不清边距会导致滚动条" class="headerlink" title="不清边距会导致滚动条"></a>不清边距会导致滚动条</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">body,html&#123;</div><div class="line">   padding:0;</div><div class="line">   margin:0;</div><div class="line">&#125;</div><div class="line">body,html &#123;</div><div class="line">            height: 100%;</div><div class="line">            background-color: green;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<h3 id="永远不要使用a标签做按钮"><a href="#永远不要使用a标签做按钮" class="headerlink" title="永远不要使用a标签做按钮"></a>永远不要使用a标签做按钮</h3><ul>
-<li>bootstrap中当<a></a>被点击的时候会focus,bootstrap中会对a:focus  的bgc:#2e6da4</li>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><ul>
+<li><code>dir</code> directory 列出当前目录下所有的条目<ul>
+<li>别名 <code>ls</code> 在 powershell 中可以使用</li>
 </ul>
-<h3 id="css样式表-优先级"><a href="#css样式表-优先级" class="headerlink" title="css样式表 优先级"></a>css样式表 优先级</h3><ul>
-<li>行内样式&gt;内联样式表&gt;外联样式表</li>
+</li>
+<li><code>cd</code> change directory 切换目录</li>
 </ul>
-<h3 id="a标签不能嵌套chrome会解析成并列的结构"><a href="#a标签不能嵌套chrome会解析成并列的结构" class="headerlink" title="a标签不能嵌套chrome会解析成并列的结构"></a>a标签不能嵌套chrome会解析成并列的结构</h3><h3 id="禁止选中文本"><a href="#禁止选中文本" class="headerlink" title="禁止选中文本"></a>禁止选中文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">.noselect &#123;</div><div class="line">-webkit-touch-callout: none; /* iOS Safari */</div><div class="line">-webkit-user-select: none; /* Chrome/Safari/Opera */</div><div class="line">-khtml-user-select: none; /* Konqueror */</div><div class="line">-moz-user-select: none; /* Firefox */</div><div class="line">-ms-user-select: none; /* Internet Explorer/Edge */</div><div class="line">user-select: none; /* Non-prefixed version, currently</div><div class="line">not supported by any browser */</div><div class="line">&#125;</div><div class="line">来源： http://www.divcss5.com/rumen/r17062.shtml</div></pre></td></tr></table></figure>
-<h3 id="禁止页面缓存"><a href="#禁止页面缓存" class="headerlink" title="禁止页面缓存"></a>禁止页面缓存</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;meta http-equiv=&quot;Pragma&quot; content=&quot;no-cache&quot;&gt;</div><div class="line">&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-cache&quot;&gt;</div><div class="line">&lt;meta http-equiv=&quot;Expires&quot; content=&quot;0&quot;&gt;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/24/js初级04((函数))/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2013/10/24/js初级04((函数))/" itemprop="url">js初级04(函数)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-24T22:14:37+08:00">
-                2013-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="函数复习"><a href="#函数复习" class="headerlink" title="函数复习"></a>函数复习</h1><h3 id="函数返回值调用时不传参数"><a href="#函数返回值调用时不传参数" class="headerlink" title="函数返回值调用时不传参数"></a>函数返回值调用时不传参数</h3><h4 id="函数调用没有return语句-会默认返回undefined"><a href="#函数调用没有return语句-会默认返回undefined" class="headerlink" title="函数调用没有return语句,会默认返回undefined"></a>函数调用没有return语句,会默认返回undefined</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function f5() &#123;&#125;</div><div class="line">console.log(f5()); //印f5调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用后返回一个基本数据类型"><a href="#函数调用后返回一个基本数据类型" class="headerlink" title="函数调用后返回一个基本数据类型"></a>函数调用后返回一个基本数据类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f6() &#123;</div><div class="line">      return 2;</div><div class="line">&#125;</div><div class="line">console.log(f6()); // 打印f6调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用返回一个对象"><a href="#函数调用返回一个对象" class="headerlink" title="函数调用返回一个对象"></a>函数调用返回一个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f7() &#123;</div><div class="line">    return &#123;&#125;;</div><div class="line">&#125;</div><div class="line">console.log(f7()); // 打印f7调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用返回函数"><a href="#函数调用返回函数" class="headerlink" title="函数调用返回函数"></a>函数调用返回函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f8() &#123;</div><div class="line">      return function() &#123;</div><div class="line">      console.log(&apos;我被返回出去了&apos;);</div><div class="line">   &#125;;</div><div class="line">&#125;</div><div class="line">console.log(f8()); // 打印f8调用后的返回值</div></pre></td></tr></table></figure>
-<h4 id="函数调用返回另一函数的执行结果"><a href="#函数调用返回另一函数的执行结果" class="headerlink" title="函数调用返回另一函数的执行结果"></a>函数调用返回另一函数的执行结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f9() &#123;</div><div class="line">    return function() &#123;</div><div class="line">        console.log(&apos;我被返回出去了&apos;);</div><div class="line">        return 2;</div><div class="line">    &#125;();</div><div class="line">&#125;</div><div class="line">console.log(f9()); // 打印f9函数中的自调函数调用后的返回值</div></pre></td></tr></table></figure>
-<h3 id="函数返回值调用时传入参数"><a href="#函数返回值调用时传入参数" class="headerlink" title="函数返回值调用时传入参数"></a>函数返回值调用时传入参数</h3><h4 id="f3函数功能：打印传入的第一个参数"><a href="#f3函数功能：打印传入的第一个参数" class="headerlink" title="f3函数功能：打印传入的第一个参数"></a>f3函数功能：打印传入的第一个参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function f3() &#123;</div><div class="line">    console.log(arguments[0]);</div><div class="line">&#125;</div><div class="line">// 调用f3函数，传入1</div><div class="line">f3(1);</div><div class="line">// 调用f3函数，传入1 + 1的运算结果</div><div class="line">f3(1 + 1);</div></pre></td></tr></table></figure>
-<h5 id="调用f3函数，传入的是f4变量-与上文有联系"><a href="#调用f3函数，传入的是f4变量-与上文有联系" class="headerlink" title="调用f3函数，传入的是f4变量(与上文有联系)"></a>调用f3函数，传入的是f4变量(与上文有联系)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 会具象化这个变量的值，而f4是一个指针指向函数，</div><div class="line">// 具象化后传入的f4变成了指向函数的指针</div><div class="line">function f4() &#123;&#125;</div><div class="line">f3(f4);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是f4的调用后的返回结果，</div><div class="line">// 因为f4没有return语句，所以f4调用后的返回结果为undefined，</div><div class="line">// 最终传入f3的参数变成了undefined</div><div class="line">f3(f4());</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是一个匿名函数</div><div class="line">f3(function() &#123;</div><div class="line">    console.log(&apos;传入f3的是一个匿名函数！&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 调用f3函数，传入的是一个匿名函数调用后的返回结果</div><div class="line">f3(function() &#123;</div><div class="line">    return &apos;传入f3的是自调函数的返回值！&apos;;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
-<h1 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">            var obj = &#123;&#125;;</div><div class="line">            return obj;</div><div class="line">&#125;</div><div class="line">console.log( fn() === fn() );  // false</div><div class="line"> </div><div class="line">//函数每调用一次都会新生成一个obj并且返回,所以false</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">   var obj = &#123;&#125;;</div><div class="line">        function f() &#123;</div><div class="line">            return obj;</div><div class="line">        &#125;</div><div class="line">        console.log( f() === f() );  //  true</div><div class="line">//对象在全局定义,函数调用只是去全局获取这个对象的地址(函数调用时obj没有被重新定义),所以每次的返回值都是相同的对象地址.</div></pre></td></tr></table></figure>
-<h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><h4 id="变量的所有有效区域-运行环境-统称为作用链"><a href="#变量的所有有效区域-运行环境-统称为作用链" class="headerlink" title="变量的所有有效区域(运行环境),统称为作用链"></a>变量的所有有效区域(运行环境),统称为作用链</h4><blockquote>
-<p>画出下面代码所有变量的影射图</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">var b = 2;</div><div class="line">function add(par1, par2) &#123;</div><div class="line">    var c = 10;</div><div class="line">    return function () &#123;</div><div class="line">        return par1 + par2 + c;</div><div class="line">    &#125;();</div><div class="line">&#125;</div><div class="line">add(a, b);</div></pre></td></tr></table></figure>
-<h1 id="return基本数据类型和对象的区别"><a href="#return基本数据类型和对象的区别" class="headerlink" title="return基本数据类型和对象的区别"></a>return基本数据类型和对象的区别</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">            var a = 1;</div><div class="line">            return a;</div><div class="line">        &#125;</div><div class="line">var a = fn();</div><div class="line">var a2 = fn();</div><div class="line">//fn执行结果是返回一个数值，那么a和a2分别存储返回数值的一个copy版本。</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function fn() &#123;</div><div class="line">     var obj = &#123;&#125;;</div><div class="line">     return obj;</div><div class="line">&#125;</div><div class="line">//fn执行结果是返回一个对象的地址，那么o和o2存储是同一个对象的地址。</div><div class="line">var o = fn();</div><div class="line">var o2 = fn();</div></pre></td></tr></table></figure>
-<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><blockquote>
-<p>以后面试问什么是闭包：可以访问非自身局部变量的函数就是闭包。函数内的函数就是闭包。<br>闭包的特点:利用闭包，可以在任何地方操作一个局部变量。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//如果想要阻止a的释放，必须要借助闭包</div><div class="line">    function fn() &#123;</div><div class="line">        var a = 1;</div><div class="line">        return function() &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">var f = fn();</div><div class="line">var f2 = fn();</div><div class="line">//f调用和f2调用后，得到的a值，是来源与同一个a的。</div><div class="line">console.log(f());</div><div class="line">console.log(f2());</div></pre></td></tr></table></figure>
-<h4 id="闭包应用环境"><a href="#闭包应用环境" class="headerlink" title="闭包应用环境"></a>闭包应用环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//如果想要阻止a的释放，必须要借助闭包</div><div class="line">    function fn() &#123;</div><div class="line">        var a = 1;</div><div class="line">        return function() &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    var f = fn();</div><div class="line">    var f2 = fn();</div><div class="line">    //f调用和f2调用后，得到的a值，是来源与同一个a的。</div><div class="line">    console.log(f());</div><div class="line">    console.log(f2());</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var cache = &#123;&#125;;</div><div class="line">    // 给缓存中添加数据</div><div class="line">    function setCache(key, val) &#123;</div><div class="line">        cache[key] = val;</div><div class="line">    &#125;</div><div class="line">    // 获取缓存中指定的数据</div><div class="line">    function getCache(key) &#123;</div><div class="line">        return cache[key];</div><div class="line">    &#125;</div><div class="line">    function getCacheObj() &#123;</div><div class="line">        var cache = &#123;&#125;;</div><div class="line">        // 给缓存中添加数据</div><div class="line">        function setCache(key, val) &#123;</div><div class="line">            cache[key] = val;</div><div class="line">        &#125;</div><div class="line">        // 获取缓存中指定的数据</div><div class="line">        function getCache(key) &#123;</div><div class="line">            return cache[key];</div><div class="line">        &#125;</div><div class="line">        return &#123;</div><div class="line">            setCache: setCache,</div><div class="line">            getCache: getCache</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    var cacheObj = getCacheObj();</div><div class="line">    cacheObj.setCache(&apos;val&apos;, 888);</div><div class="line">    console.log(cacheObj.getCache(&apos;val&apos;));</div></pre></td></tr></table></figure>
-<h1 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h1><blockquote>
-<p>代码执行时所依赖的环境,函数被调用一次，就会产生一个执行环境。</p>
-</blockquote>
-<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//问题:</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">        for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">            setTimeout(function () &#123;</div><div class="line">                console.log(arr[i]);</div><div class="line">            &#125;, 1000);</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">//上面的代码要求，每隔一秒说一句话，找到存在的问题，并解决。</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//上面题解决方法</div><div class="line">//因为传入的定时器的回调,在循环结束之后才执行,所以打印的i值是4</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">        for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">            (function () &#123;</div><div class="line">                var par = i;</div><div class="line">                setTimeout(function () &#123;</div><div class="line">                    console.log(arr[par]);</div><div class="line">                &#125;, 1000 * (par + 1));</div><div class="line">            &#125;)();</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//另一种解决方法</div><div class="line">//let 定义的变量具有块级作用域</div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">       for ( let i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">           setTimeout(function () &#123;</div><div class="line">               console.log(arr[i]);</div><div class="line">           &#125;, 1000 * (i + 1));</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function setVal(val) &#123;</div><div class="line">    return function () &#123;</div><div class="line">        return val;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">/*var fn = setVal(566);</div><div class="line">var val = fn();</div><div class="line">console.log(val);*/</div><div class="line"> </div><div class="line">var arr = [&apos;第一句话&apos;,&apos;第二句话&apos;,&apos;第三句话&apos;,&apos;第四句话&apos;];</div><div class="line">for ( var i = 0, len = arr.length; i &lt; len; i++ ) &#123;</div><div class="line">    (function () &#123;</div><div class="line">        var fn = setVal(i);</div><div class="line">        setTimeout(function () &#123;</div><div class="line">            console.log(arr[fn()]);</div><div class="line">        &#125;, 0);</div><div class="line">    &#125;)();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">function callback() &#123;</div><div class="line">    console.log(111);</div><div class="line">&#125;</div><div class="line">// setTimeout是全局下的一个函数,</div><div class="line">// 第一个参数要求是回调函数</div><div class="line">// 传入setTimeout的回调函数，是异步执行的(即：不是随着代码的顺序执行)。</div><div class="line">setTimeout(callback, 0);</div><div class="line">console.log(222);</div><div class="line">for ( var i = 0; i &lt; 10; i++ ) &#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/24/js初级03((原型链总结))/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2013/10/24/js初级03((原型链总结))/" itemprop="url">js初级03(原型链总结)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-24T22:14:37+08:00">
-                2013-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="原型总结"><a href="#原型总结" class="headerlink" title="原型总结"></a>原型总结</h1><h4 id="原型链的概念"><a href="#原型链的概念" class="headerlink" title="原型链的概念"></a>原型链的概念</h4><blockquote>
-<p>一个对象继承的所有对象称之为对象的原型链，对象的原型链结构可长可短。</p>
-</blockquote>
-<h4 id="什么类型的对象既有prototype属性又有proto属性？"><a href="#什么类型的对象既有prototype属性又有proto属性？" class="headerlink" title="什么类型的对象既有prototype属性又有proto属性？"></a>什么类型的对象既有prototype属性又有<strong>proto</strong>属性？</h4><blockquote>
-<p>函数类型的对象</p>
-</blockquote>
-<h4 id="直接继承Object-prototype的对象有哪几种？"><a href="#直接继承Object-prototype的对象有哪几种？" class="headerlink" title="直接继承Object.prototype的对象有哪几种？"></a>直接继承Object.prototype的对象有哪几种？</h4><blockquote>
-<p>{}、new Object  内置构造函数.prototype  自定义函数.prototype、 Math</p>
-</blockquote>
-<h4 id="直接继承Function-prototype的对象有哪几种？"><a href="#直接继承Function-prototype的对象有哪几种？" class="headerlink" title="直接继承Function.prototype的对象有哪几种？"></a>直接继承Function.prototype的对象有哪几种？</h4><blockquote>
-<p>内置的构造函数、字面量定义的函数、new Function创建的函数</p>
-</blockquote>
-<h4 id="instanceof运算符的运算规则："><a href="#instanceof运算符的运算规则：" class="headerlink" title="instanceof运算符的运算规则："></a>instanceof运算符的运算规则：</h4><blockquote>
-<p>判断左边的对象的原型链中有没有右边构造函数.prototype指向的对象。</p>
-</blockquote>
-<h4 id="for-in-语句"><a href="#for-in-语句" class="headerlink" title="for in 语句"></a>for in 语句</h4><ul>
-<li>for in用来遍历一个对象可枚举的属性</li>
-<li>需要注意：该对象继承的属性也能够被遍历出来</li>
-</ul>
-<h4 id="in-运算符"><a href="#in-运算符" class="headerlink" title="in 运算符"></a>in 运算符</h4><ul>
-<li>用来判断一个对象能否使用某个属性</li>
-<li>需要注意：in运算符单独使用时，与属性是不是可枚举的没有任何瓜葛</li>
-</ul>
-<h4 id="delete-运算符"><a href="#delete-运算符" class="headerlink" title="delete 运算符"></a>delete 运算符</h4><ul>
-<li>用来删除对象的属性</li>
-</ul>
-<h4 id="hasOwnProperty和propertyIsEnumerable有什么区别？"><a href="#hasOwnProperty和propertyIsEnumerable有什么区别？" class="headerlink" title="hasOwnProperty和propertyIsEnumerable有什么区别？"></a>hasOwnProperty和propertyIsEnumerable有什么区别？</h4><ul>
-<li>hasOwnProperty用来判断一个对象是否含有某个属性</li>
-<li>propertyIsEnumerable不光用来判断一个对象是否含有某个属性，还要判断这个属性是不是可枚举的</li>
-</ul>
-<h4 id="函数的length属性和arguments对象的length属性有什么区别？"><a href="#函数的length属性和arguments对象的length属性有什么区别？" class="headerlink" title="函数的length属性和arguments对象的length属性有什么区别？"></a>函数的length属性和arguments对象的length属性有什么区别？</h4><ul>
-<li>函数的length属性用来获取形参的个数</li>
-<li>arguments对象的length属性用来获取实参的个数</li>
-</ul>
-<h4 id="Function-和-eval-有什么共同特点？"><a href="#Function-和-eval-有什么共同特点？" class="headerlink" title="Function 和 eval 有什么共同特点？"></a>Function 和 eval 有什么共同特点？</h4><blockquote>
-<p>都可以把字符串转换为代码执行。</p>
-</blockquote>
-<h4 id="静态成员-类成员"><a href="#静态成员-类成员" class="headerlink" title="静态成员(类成员)"></a>静态成员(类成员)</h4><blockquote>
-<p>添加给构造函数自己的属性与方法，称之为静态成员。</p>
-</blockquote>
-<h4 id="实例成员"><a href="#实例成员" class="headerlink" title="实例成员"></a>实例成员</h4><blockquote>
-<p>添加给实例或者构造函数原型中的属性与方法，称之为实例成员。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/10/04/js初级02((原型))/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2013/10/04/js初级02((原型))/" itemprop="url">js初级02(原型)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-10-04T22:14:37+08:00">
-                2013-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="关于-proto-的理解"><a href="#关于-proto-的理解" class="headerlink" title="关于__ proto__的理解"></a>关于__ proto__的理解</h1><p>每个对象那个在创建的的时候否会在其内部初始化一个__ proto<strong>属性,当访问一个对象的属性时,如果这个对象内部不存在这个属性,那么会去\</strong> proto__里面去找,那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链的概念。</p>
-<h1 id="动态创建"><a href="#动态创建" class="headerlink" title="动态创建"></a>动态创建</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//创建一个构造函数</div><div class="line">    function Student(age)&#123;</div><div class="line">            this.age=age;</div><div class="line">    &#125;</div><div class="line">    var stu=new Student(18);</div><div class="line">    Student.prototype.say =function ()&#123;</div><div class="line">        console.log(&quot;hahha&quot;);</div><div class="line">    &#125;</div><div class="line">    console.log(stu);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">切换到当前目录下的 Desktop 目录</div><div class="line">当想切换到当前目录的时候，最好使用 cd ./ 相对路径的形式</div><div class="line">C:\Users\iroc&gt;cd Desktop</div><div class="line">C:\Users\iroc\Desktop&gt;</div><div class="line"></div><div class="line">在Windows 上切换盘符：</div><div class="line">`d:`</div><div class="line"></div><div class="line">切换绝对路径之后再同一个盘符下才有效</div><div class="line"></div><div class="line">切换到上一级目录</div><div class="line">C:\Users\iroc\Desktop\code\seajs&gt;cd ../</div><div class="line">C:\Users\iroc\Desktop\code&gt;</div><div class="line"></div><div class="line">连续进入多级目录</div><div class="line">C:\Users\iroc\Desktop\code&gt;cd seajs/a</div><div class="line">C:\Users\iroc\Desktop\code\seajs\a&gt;</div></pre></td></tr></table></figure>
 <ul>
-<li>通过Student创建出来的实例会指向Student.prototype,上述方法属于动态在创建(给构造函数.prototype添加了一个方法).给原型添加属性可以在创建实例之前也可以在创建实例之后,实例都可以访问原型中的方法.</li>
-<li>stu可以通难过stu.__proto__获取say.</li>
-<li>也可以通过stu.say()</li>
+<li><p><code>cls</code> clear screen 清屏</p>
+<ul>
+<li>别名 clear 在widnows中的 <code>powershell</code> 中可以使用</li>
 </ul>
-<h1 id="原型覆写"><a href="#原型覆写" class="headerlink" title="原型覆写"></a>原型覆写</h1><ul>
-<li><p>相比默认的原型对象construtor属性,会丢失</p>
-</li>
-<li><p>Student.prototype这种方式访问constructor属性不准确,因为会被覆写<br>手动修复在Student.prototype中添加属性”constructor:Student”(不写也没有是他并没有什么卵用)</p>
-</li>
-<li><p>注意:原型覆写注意代码顺序</p>
-</li>
-<li><p>原型覆写是尽量使用新对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">        var obj = &#123;</div><div class="line">            count: function (a, b) &#123;</div><div class="line">                console.log(a + b);</div><div class="line">            &#125;,</div><div class="line">            con: function (a) &#123;</div><div class="line">                console.log(a);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"> </div><div class="line">        // 注意事项3：覆写时尽量使用一个新对象</div><div class="line">        function Student(age) &#123;</div><div class="line">            this.age = age;</div><div class="line">        &#125;</div><div class="line">        // 覆写构造函数的prototype属性值</div><div class="line">        // 把Student.prototype修改为一个新的自定义对象</div><div class="line">        Student.prototype = obj;</div><div class="line">        // 如果我想修改con方法，那么obj对象也会受到连带影响，因为赋值是地址,两个地址同时指向一个对象</div><div class="line">        // 将来使用obj的时候，极有可能我已经忘记了这里对obj进行过修改，</div><div class="line">        // 就可能出现问题，为了防止自己给自己挖坑，还是不要使用已存在的对象为好。</div><div class="line">        console.log(&quot;--------------------&quot;);</div><div class="line">        Student.prototype.con = function (a) &#123;</div><div class="line">            return a;</div><div class="line">        &#125;;</div><div class="line">       // var guoJing = new Student(38);</div><div class="line">       // guoJing.run();</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>windows下的寻址用\反斜杠 </p>
 </li>
 </ul>
-<h2 id="实例与实例之间的继承"><a href="#实例与实例之间的继承" class="headerlink" title="实例与实例之间的继承"></a>实例与实例之间的继承</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var o1=&#123;</div><div class="line">        value:100</div><div class="line">    &#125;</div><div class="line">    var o2=&#123;&#125;;</div><div class="line">    o2.__proto__=o1;</div><div class="line">    console.log(o2.value);</div><div class="line">    console.log(o1);</div><div class="line">    console.log(o2);</div><div class="line">    //o1,o2均为实例,o2.__proto__指向o1</div></pre></td></tr></table></figure>
-<h1 id="对象与对象之间的继承-混入"><a href="#对象与对象之间的继承-混入" class="headerlink" title="对象与对象之间的继承(混入)"></a>对象与对象之间的继承(混入)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var o=&#123;val:100&#125;</div><div class="line">    var o2=&#123;&#125;</div><div class="line">    for(var key in o)&#123;</div><div class="line">        o2[key]=o[key]</div><div class="line">    &#125;</div><div class="line">    console.log(o2);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h1 id="内置对象不可枚举"><a href="#内置对象不可枚举" class="headerlink" title="内置对象不可枚举"></a>内置对象不可枚举</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;value:100&#125;;</div><div class="line">obj.toString</div><div class="line">obj.valueOf</div><div class="line">for(var key in obj)&#123;</div><div class="line">    console.log(key)//只能把我们自己的属性遍历出来了</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="另一种方法-混入原型中"><a href="#另一种方法-混入原型中" class="headerlink" title="另一种方法(混入原型中)"></a>另一种方法(混入原型中)</h1><ul>
-<li>注意:在jQuery中也是这样用的</li>
-<li>在jQuery中有个extend方法;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//    创建一个对象</div><div class="line">    var obj=&#123;</div><div class="line">        say:function ()&#123;</div><div class="line">                console.log(this.name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">//    创建一个构造函数</div><div class="line">    function Animal(name)&#123;</div><div class="line">            this.name=name;</div><div class="line">    &#125;</div><div class="line">    for(var key in obj)&#123;</div><div class="line">        Animal.prototype[key]=obj[key];</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">//    通过Animal创建实例</div><div class="line">    var dog=new Animal(&quot;大黄&quot;);</div><div class="line">    dog.say();</div></pre></td></tr></table></figure>
+<h3 id="path-环境变量"><a href="#path-环境变量" class="headerlink" title="path 环境变量"></a>path 环境变量</h3><p>目的是为了在控制台中的任何目录都可以快速打开或者使用该可执行文件</p>
+<p>环境变量就是用来存储系统级别的变量</p>
+<ul>
+<li>添加环境变量<ul>
+<li>我的电脑 -&gt; 右键选择属性 -&gt; 高级系统设置 -&gt; 切换到<code>高级</code>面板 -&gt; 环境变量</li>
+<li>第一种方式：直接把可执行文件所属的目录 放到 PATH 环境变量中（如果没有PATH环境变量，自己新建）</li>
+<li>第二种方式：新建一个环境变量，变量名规范：逻辑名_HOME 变量值：该可执行文件所属的目录</li>
+<li>注意：无论是直接添加的路径还是引用的变量名，一定要用 英文的分号 区分开</li>
+<li>引用变量名的时候，变量名两边都是 <code>%</code></li>
+</ul>
+</li>
+</ul>
+<p><code>&gt; feiq</code><br>当你在控制台中输入一个程序的名字的时候，cmd 默认把它当成一个可执行文件去执行了，<br>优先找当前目录下是否有没有一个叫做feiq.exe 的可执行文件，如果有，直接执行打开<br>如果没有，cmd会进入 path 环境变量中 一个目录一个目录的挨着查找里面是否有该可执行文件</p>
+<h2 id="REPL-Read-eval-print-loop-运行环境"><a href="#REPL-Read-eval-print-loop-运行环境" class="headerlink" title="REPL(Read-eval-print-loop) 运行环境"></a>REPL(Read-eval-print-loop) 运行环境</h2><p>用来测试一下代码的，repl和chrome的控制台很像</p>
+<ul>
+<li>通过在控制台中输入 <code>node</code> 敲回车就可以计入 REPL 运行环境</li>
+<li>通过在REPL运行环境中 连续按两次 <code>Ctrl+C</code> 就可以退出 REPL 运行环境</li>
+</ul>
+<h2 id="执行js文件"><a href="#执行js文件" class="headerlink" title="执行js文件"></a>执行js文件</h2><p> 用node执行js文件，文件在当前目录下—-&gt;node +文件名<br> 如果不在当前目录下，node +文件路径的形式执行<br> 相对路径<br> ./当前路径<br> ../上级目录<br> 绝对路径执行js的方式<br> node c:\Users\cena\Desktop\code\01helloworld.js</p>
+<h2 id="Global"><a href="#Global" class="headerlink" title="Global"></a>Global</h2><p>global和window很像，都是全局对象</p>
+<h2 id="CONSOLE"><a href="#CONSOLE" class="headerlink" title="CONSOLE"></a>CONSOLE</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">断言 是用来测试用的</div><div class="line">断言就是假定一个条件，如果条件成立则不输出任何内容，如果条件不成立则报错还要输出想要输出的内容。</div><div class="line">console.assert(条件,条件不成立输出的内容);</div><div class="line">var foo=3;</div><div class="line">console.assert(foo==3,&quot;失败&quot;);</div><div class="line">time() timeEnd()成对出现，计算在两个方法中间的代码的运行时间，传入的参数要一致</div><div class="line">console.time(&apos;test&apos;);</div><div class="line"></div><div class="line"></div><div class="line">console.timeEnd(&apos;test1&apos;);</div></pre></td></tr></table></figure>
+<h3 id="dirname-和-filename"><a href="#dirname-和-filename" class="headerlink" title="dirname 和 filename"></a><strong>dirname 和 </strong>filename</h3><p><strong>dirnamee 用来找到当前文件夹的路径
+</strong>filename 用来去到当前文件的路径<br>不知道代码要才哪使用的时候，用于灵活的写代码取路径的时候。<br>它们属于模块作用域，可以直接使用<br>它们两个用来获取路径的，一般用于操作文件路径的时候，才会用到</p>
+<h2 id="process"><a href="#process" class="headerlink" title="process"></a>process</h2><p>process 是一个全局可用对象，用来和我们现在启动中的node进行交互的</p>
+<p>process.version取版本号<br>在控制台做标准输出<br>process.stdout.write(<code>123123</code>);<br>process.pid：当前进程的进程号。<br>process.version：Node的版本，比如v0.10.18。<br>process.platform：当前系统平台，比如Linux。<br>process.env：指向当前shell的环境变量，比如process.env.HOME。<br>process.stdout：指向标准输出。<br>process.stdin：指向标准输入。<br>process.stderr：指向标准错误。</p>
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><h2 id="node-js模块化"><a href="#node-js模块化" class="headerlink" title="node.js模块化"></a>node.js模块化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">一个js文件在node里面我们就理解为一个模块</div><div class="line">require用来加载模块</div><div class="line">module.exports用来曝露属性和方法的，因为模块有封装性，需要打破封装性曝露方法和属性来</div><div class="line">exports是module.exports的别名，exports可以做的事情，module.exports都可以做，exports只能用.的形式曝露属性和方法</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/02/02{github_git操作}/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/02/02{github_git操作}/" itemprop="url">node 入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-02T22:00:00+08:00">
+                2016-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><ul>
+<li>命令:<code>git branch [分支名]</code><ul>
+<li>创建一个新分支</li>
+</ul>
+</li>
+<li>命令:<code>git branch</code><ul>
+<li>查看当前所有的分支</li>
+</ul>
+</li>
+</ul>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ul>
+<li>命令:<code>git checkout [分支名]</code><ul>
+<li>切换分支后可以在切换后的分支中进行正常的操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ul>
+<li>命令:<code>git merge [分支名]</code><ul>
+<li>git会将指定的分支合并到当前分支.</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><ul>
+<li>命令:<code>git branch -d [分支名]</code><ul>
+<li>删除指定分支，-d参数表示要执行删除操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="git提交中的冲突"><a href="#git提交中的冲突" class="headerlink" title="git提交中的冲突"></a>git提交中的冲突</h3><ul>
+<li>如果git不能自动合并分支，就会有冲突，我们需要手动解决冲突，然后再次提交</li>
+</ul>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>推荐网站 <a href="http://www.crx4chrome.com/" target="_blank" rel="external">http://www.crx4chrome.com/</a></p>
+<h3 id="github与git"><a href="#github与git" class="headerlink" title="github与git"></a>github与git</h3><ul>
+<li>git 版本管理工具</li>
+<li>github 就是一个网站，只是这个网站提供git服务器的功能</li>
+</ul>
+<h3 id="上传代码到git服务器-push"><a href="#上传代码到git服务器-push" class="headerlink" title="上传代码到git服务器(push)"></a>上传代码到git服务器(push)</h3><ul>
+<li><p>命令:<code>git push [远程服务器地址] [远程服务器的分支]</code></p>
+<ul>
+<li>示例:<code>git push https://github.com/huoqishi/test002.git master</code></li>
+</ul>
+</li>
+<li><p>上传时可以使用一些简化的命令</p>
+<ul>
+<li>将远程服务器地址写成变量的形式<ul>
+<li><code>git remote add [变量名]  [远程服务器地址]</code></li>
+<li>示例:<code>git remote add origin https://github.com/huoqishi/test002.git</code></li>
+<li>这样之后就可以直接使用origin来代替git push 后面写的地址了<br><code>git push origin master</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>还可以尽一步简化<ul>
+<li>在push时加上-u参数，就会默认建立本地当前分支与远程指定分支的关联,下一次push时就不需要输入分支名了<code>git push origin</code>;</li>
+</ul>
+</li>
+</ul>
+<h2 id="git使用ssh方式上传代码与github"><a href="#git使用ssh方式上传代码与github" class="headerlink" title="git使用ssh方式上传代码与github"></a>git使用ssh方式上传代码与github</h2><ul>
+<li>SSH<br>SSH是一种网络协议，用于计算机之间的加密登录。</li>
+<li>对称加密&amp;非对称加密&amp;不可逆加密<br>对称加密：一个钥匙开一把锁<br>非对称加密：公钥和私钥  公钥加密 私钥解密<br>不可逆加密：多用于密码的加密</li>
+</ul>
+<ul>
+<li>git生成公钥和私钥<ul>
+<li>命令:<code>ssh-keygen -t rsa</code>生成的公钥与私钥文件会在当用户目录的.ssh目录下.<h3 id="把代码push到服务器时需要先pull一下"><a href="#把代码push到服务器时需要先pull一下" class="headerlink" title="把代码push到服务器时需要先pull一下"></a>把代码push到服务器时需要先pull一下</h3></li>
+</ul>
+</li>
+<li>在pull之后如果远程的代码与本地的代码有冲突，git会先自动合并冲突，如果不能自动合并，就必需我们手动去处理冲突。</li>
+</ul>
+<h3 id="从服务器上pull代码到本地"><a href="#从服务器上pull代码到本地" class="headerlink" title="从服务器上pull代码到本地"></a>从服务器上pull代码到本地</h3><ul>
+<li>如果本地没有.git目录，需要先初始化一下。</li>
+<li>命令:<code>git pull [远程服务器地址] [远程的分支]</code></li>
+</ul>
+<h3 id="gh-pages分支-搭建博客"><a href="#gh-pages分支-搭建博客" class="headerlink" title="gh-pages分支-搭建博客."></a>gh-pages分支-搭建博客.</h3><ul>
+<li>需要把自已博客的网页代码上传到github上的gh-pages分支</li>
+<li>然后就直接访问了<ul>
+<li>访问的url形式: [github用户名].github.io/[仓库的名字]/[具体的页面]</li>
+</ul>
 </li>
 </ul>
 <ul>
-<li>extend函数封装</li>
-<li>本质就是把多个对象的属性一次copy到原型对象中</li>
+<li>流程<br>git init<br>git add *<br>git commit -m “”<br>git branch gh-pages<br>git checkout gh-pages<br>git push [远程服务器地址] gh-pages</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function extend(o1,o2)&#123;</div><div class="line">    for(var key in o2)&#123;</div><div class="line">        o1[key]=o2[key]</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">extend(dog.prototype,&#123;</div><div class="line">    val:100;</div><div class="line">    name:&quot;ll&quot;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="copy继承的注意"><a href="#copy继承的注意" class="headerlink" title="copy继承的注意"></a>copy继承的注意</h2><ol>
-<li><p>实现copy继承所需的函数名没有硬性要求</p>
-</li>
-<li><p>乱用会造成内存浪费</p>
-</li>
-<li><p>通常都是配合原型来使用(对原型进行扩展)</p>
-</li>
-</ol>
-<h1 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h1><ul>
-<li>Object是一个内置的构造函数</li>
-<li>在Object身上有很多方法</li>
+<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><blockquote>
+<p>专注写作，提高生产力</p>
+</blockquote>
+<h3 id="Markdown-介绍"><a href="#Markdown-介绍" class="headerlink" title="Markdown 介绍"></a>Markdown 介绍</h3><p>轻量级标记语言（html、xml），2004 年被 <code>John Gruber</code> 创造，<br>它允许人们“使用易读易写的纯文本格式编写文档”，<br>Markdown 最重要的设计就是可读性，<br>Markdown 可以选择性的转换为 HTML 文档格式，<br>很多网站目前都使用了 Markdown 或者其变种，例如Github、简书等大型社区。</p>
+<h3 id="Markdown-的优点"><a href="#Markdown-的优点" class="headerlink" title="Markdown 的优点"></a>Markdown 的优点</h3><ul>
+<li>纯文本，所以兼容性极强，可以用所有文本编辑器打开</li>
+<li>专注于文字写作而不是排版</li>
+<li>格式转换方便，可以轻松转换为 HTML、PPT、电子书等</li>
+<li>Markdown 标记语法简单好记，可读性强</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//创建一个对象</div><div class="line">    var o1 = &#123;val: 100&#125;</div><div class="line">    //创建一个构造函数</div><div class="line">    function Person(name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">    var per = new Person(&quot;ll&quot;)</div><div class="line">    //指定per继承O1,即per.__proto__===obj</div><div class="line">    //调用Object.create方法时会返回一个新对象这个新对象的地址赋值给per</div><div class="line">    //并让per中的__proto__指向O1;</div><div class="line">    per = Object.create(o1)</div><div class="line">    console.log(per.val);</div></pre></td></tr></table></figure>
-<h1 id="Object-create加原型组合"><a href="#Object-create加原型组合" class="headerlink" title="Object.create加原型组合"></a>Object.create加原型组合</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//创建两个构造函数</div><div class="line">       function Animal()&#123;</div><div class="line">               this.name=1;</div><div class="line">       &#125;</div><div class="line">       function human()&#123;</div><div class="line">               this.age=123;</div><div class="line">       &#125;</div><div class="line">       human.prototype=new Animal();</div><div class="line">       //创建实例</div><div class="line">       var person=new human();</div><div class="line">       console.log(person.name);</div></pre></td></tr></table></figure>
-<h1 id="扩展1"><a href="#扩展1" class="headerlink" title="扩展1"></a>扩展1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">// 需求：Person的实例可以使用Animal原型里面的方法</div><div class="line">        function Animal(name, age, sex) &#123;</div><div class="line">            this.name = name;</div><div class="line">            this.age = age;</div><div class="line">            this.sex = sex;</div><div class="line">        &#125;</div><div class="line">        Animal.prototype = &#123;</div><div class="line">            fn: function () &#123;</div><div class="line">                // 谁调用fn，this指向谁</div><div class="line">                console.log(this.name);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        // 人类都是动物，动物不一定是人类，所以动物拥有的属性人类一定也有</div><div class="line">        function Person(name, age, sex) &#123;</div><div class="line">            /*</div><div class="line">            * 复用Animal构造函数里的代码解决思路：</div><div class="line">            * 1、Animal里面有一些this.xx = xx的代码，</div><div class="line">            * 2、如果，我能够让Animal里面的this指向Person的实例，</div><div class="line">            * 3、那么Animal里面的代码含义就变成了给Person的实例添加xx属性。</div><div class="line">            *</div><div class="line">            * 那么问题来了，如何让Animal函数执行时，里面的this指向Person的实例：</div><div class="line">            * 1、把Animal函数作为属性添加到Person实例自身，</div><div class="line">            * 2、然后通过Person实例调用Animal函数，那么Animal执行时里面的this就指向了Person实例</div><div class="line">            * */</div><div class="line">            // 这种代码复用的方式：</div><div class="line">            // 有地方叫它 对象冒充，也叫属性盗窃，也叫属性继承，</div><div class="line">            // 最简单明了好理解的叫法是：构造函数借用</div><div class="line">            // 借用Animal函数，给Person实例添加属性</div><div class="line">            this.__Animal__ = Animal;</div><div class="line">            // 调用Animal函数时，里的this指向了当前Person的实例</div><div class="line">            this.__Animal__(name, age, sex);</div><div class="line">        &#125;</div><div class="line">        // 这一行代码，为了让Person的实例能给使用Animal原型里面的东西</div><div class="line">        Person.prototype = Object.create(Animal.prototype);</div><div class="line">        var huangYaoShi = new Person(&apos;黄药师&apos;, 888, &apos;男&apos;);</div><div class="line">        console.log(huangYaoShi.age);</div></pre></td></tr></table></figure>
-<h1 id="扩展2-extend"><a href="#扩展2-extend" class="headerlink" title="扩展2(extend)"></a>扩展2(extend)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">        * 需求：</div><div class="line">        *</div><div class="line">        * 给Fn构造函数添加一个extend函数，</div><div class="line">        * 用来给构造函数添加静态成员。</div><div class="line">        *</div><div class="line">        * 给Fn的原型也添加一个extend函数，</div><div class="line">        * 用来给将来的实例添加实例成员。</div><div class="line">        * */</div><div class="line">        function Fn() &#123; &#125;</div><div class="line">        // 给Fn添加一个静态方法，供将来给Fn扩展其他静态成员</div><div class="line">        Fn.extend = function (obj) &#123;</div><div class="line">            for ( var key in obj ) &#123;</div><div class="line">                this[key] = obj[key];</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        // 给Fn添加静态成员</div><div class="line">        Fn.extend(&#123;</div><div class="line">            value: 100,</div><div class="line">            max: 888</div><div class="line">        &#125;);</div><div class="line">        /*----------------------------------------------------------------------*/</div><div class="line">        // 给Fn原型添加一个实例方法，供将来给Fn的原型扩展其他实例成员</div><div class="line">        // 完成这个需求，添加到Fn的静态方法与添加到原型的实例方法一致，</div><div class="line">        // 为了代码的复用，一般实例方法会利用静态方法实现。</div><div class="line">        Fn.prototype.extend = Fn.extend;</div><div class="line">        // 给Fn的原型添加实例成员</div><div class="line">        Fn.prototype.extend(&#123;</div><div class="line">            add: function () &#123;&#125;,</div><div class="line">            count: function () &#123;&#125;</div><div class="line">        &#125;);</div><div class="line">        console.log(Fn.value);</div><div class="line">        console.log(Fn.prototype.count);</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/09/15/js初级01(js基本数据类型)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robert">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robert">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2013/09/15/js初级01(js基本数据类型)/" itemprop="url">js初级01(js基本数据类型)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-09-15T22:14:37+08:00">
-                2013-09-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="JavaScript-基本组成"><a href="#JavaScript-基本组成" class="headerlink" title="JavaScript 基本组成"></a>JavaScript 基本组成</h2><ul>
-<li>JavaScript由几部分构成？<blockquote>
-<p>ECMAScript、DOM、BOM</p>
+<h3 id="实时预览编辑器"><a href="#实时预览编辑器" class="headerlink" title="实时预览编辑器"></a>实时预览编辑器</h3><p><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="external">月光博客 - 好用的Markdown编辑器一览</a></p>
+<p>编辑实时预览工具只是为了辅助教学而已，<br>我们真正在进行写作的时候，其实是不需要实时预览的，<br>因为 Markdown 标记语言本身已经足够清晰了。</p>
+<h3 id="Markdown-基本语法"><a href="#Markdown-基本语法" class="headerlink" title="Markdown 基本语法"></a>Markdown 基本语法</h3><ul>
+<li>标题<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6></li>
+<li>代码块<blockquote>
+<p>这里是代码块</p>
+</blockquote>
+</li>
+<li>字体<br>他是最可爱的人<em>雷锋</em>（斜体）<br>他是最可爱的人<em>雷锋</em> （斜体）<br>他是最可爱的人<strong>雷锋</strong>（加粗）<br>他是最可爱的人 <strong>雷锋</strong>（加粗）</li>
+<li>无序列表<ul>
+<li>Candy.</li>
+<li>Gum.</li>
+<li>Booze.<blockquote>
+<p>加号：</p>
 </blockquote>
 </li>
 </ul>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h4 id="数据类型有哪些？"><a href="#数据类型有哪些？" class="headerlink" title="数据类型有哪些？"></a>数据类型有哪些？</h4><ul>
-<li><p>基本数据类型<br>number、string、boolean、null、undefined</p>
-</li>
-<li><p>复杂数据类型<br>object</p>
-</li>
-</ul>
-<h4 id="ECMAScript内置对象有哪些？"><a href="#ECMAScript内置对象有哪些？" class="headerlink" title="ECMAScript内置对象有哪些？"></a>ECMAScript内置对象有哪些？</h4><ul>
-<li>Array、Math、Date、Object、String、Number、Boolean、Function、Error、RegExp</li>
-</ul>
-<h4 id="如何判断数据类型？"><a href="#如何判断数据类型？" class="headerlink" title="如何判断数据类型？"></a>如何判断数据类型？</h4><ul>
-<li>typeof</li>
-<li>typeof无法判断null类型的数据，反过来说typeof判断object类型的数据可能存在误判</li>
-<li>typeof可以判断Function类型的对象</li>
-</ul>
-<h2 id="基本类型与引用类型的赋值问题"><a href="#基本类型与引用类型的赋值问题" class="headerlink" title="基本类型与引用类型的赋值问题"></a>基本类型与引用类型的赋值问题</h2><h4 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h4><ul>
-<li>赋的是具体的值</li>
-</ul>
-<h4 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h4><ul>
-<li>赋的是对象的地址</li>
-</ul>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符 + %"></a>算术运算符 + %</h4><ul>
-<li>算术运算、字符串连接、把数据类型转换为number</li>
-<li>取余数</li>
-</ul>
-<h4 id="逻辑运算符-amp-amp"><a href="#逻辑运算符-amp-amp" class="headerlink" title="逻辑运算符 &amp;&amp; || !"></a>逻辑运算符 &amp;&amp; || !</h4><ul>
-<li>&amp;&amp; 从左往右依次把数据转换为boolean类型，如果是false，则返回对应的数据；<br>如果一直没有找到，则返回最后一个数据。</li>
-<li>|| 从左往右依次把数据转换为boolean类型，如果是true，则返回对应的数据；<br>如果一直没有找到，则返回最后一个数据。</li>
-<li>! 把数据转换为boolean类型，然后取反</li>
-</ul>
-<h4 id="相等运算符"><a href="#相等运算符" class="headerlink" title="相等运算符 == === != !=="></a>相等运算符 == === != !==</h4><ul>
-<li>=== 类型与值必须全等</li>
-<li>== 会先进行数据类型转换，然后比较（具体转换规则，下面有。）</li>
-</ul>
-<h4 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符 ? :"></a>三元运算符 ? :</h4><ul>
-<li>问号前面的表达式结果为true，执行冒号前的表达式，否则执行后面的表达式。</li>
-</ul>
-<h2 id="布尔类型转换"><a href="#布尔类型转换" class="headerlink" title="布尔类型转换"></a>布尔类型转换</h2><h4 id="如何把数据转换为布尔类型？"><a href="#如何把数据转换为布尔类型？" class="headerlink" title="如何把数据转换为布尔类型？"></a>如何把数据转换为布尔类型？</h4><ul>
-<li>!! Boolean</li>
-</ul>
-<h4 id="哪些数据在转换为布尔类型时结果为false？"><a href="#哪些数据在转换为布尔类型时结果为false？" class="headerlink" title="哪些数据在转换为布尔类型时结果为false？"></a>哪些数据在转换为布尔类型时结果为false？</h4><ul>
-<li>0、undefined、null、NaN、’’</li>
-<li>所有的对象转换后为boolean类型，都为true</li>
-</ul>
-<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><h4 id="分支语句"><a href="#分支语句" class="headerlink" title="分支语句"></a>分支语句</h4><ul>
-<li>if else、switch case</li>
-</ul>
-<h4 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h4><ul>
-<li>for、while、do while、for in</li>
-</ul>
-<h4 id="break和continue的作用是什么？"><a href="#break和continue的作用是什么？" class="headerlink" title="break和continue的作用是什么？"></a>break和continue的作用是什么？</h4><ul>
-<li>break：结束循环。</li>
-<li>continue：跳出当前循环，继续下一次循环</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h4 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h4><ul>
-<li>函数声明式</li>
-<li>函数表达式</li>
-<li>Function</li>
-</ul>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
-<li>对函数中重复执行代码中的不同部分的抽象提取</li>
-<li>形参是用来接收实参传递过来的值。</li>
-<li>练习：写一个函数，函数接收一个参数并打印，如果参数的值是null或undefined，则不打印。</li>
-</ul>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><ul>
-<li>如果没有return语句，则为undefined，如果有则为对应的值。</li>
-</ul>
-<h4 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h4><ul>
-<li>arguments是一个代表实参的对象，</li>
-<li>可以通过下标的方式获取实参，</li>
-<li>可以通过length属性获取实参的个数</li>
-</ul>
-<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><ul>
-<li>谁调用就指向谁。</li>
-</ul>
-<h4 id="错误抛出"><a href="#错误抛出" class="headerlink" title="错误抛出"></a>错误抛出</h4><ul>
-<li>throw 自定义抛出错误。</li>
-</ul>
-<h2 id="debugger与断点"><a href="#debugger与断点" class="headerlink" title="debugger与断点"></a>debugger与断点</h2><h1 id="号"><a href="#号" class="headerlink" title="+号"></a>+号</h1><ul>
-<li>如果两边含有字符串或者对象，那么转换为string之后再相加</li>
-<li>除此之外，两数相加，转换为number之后再相加</li>
-</ul>
-<h1 id="号-1"><a href="#号-1" class="headerlink" title="-号"></a>-号</h1><ul>
-<li>把两边数据转换为number之后再相减</li>
-</ul>
-<h1 id="运算符比较规则"><a href="#运算符比较规则" class="headerlink" title="==运算符比较规则"></a>==运算符比较规则</h1><blockquote>
-<p>约定：非空数据类型表示除null和undefined两种数据类型。</p>
-</blockquote>
 <ul>
-<li>任何数据和NaN相比结果都为false</li>
-<li>null等于undefined</li>
-<li>null和非空类型相比结果为false</li>
-<li>undefined和非空类型相比结果为false</li>
-<li>数字和非空类型比较，先转换为数字再比较</li>
-<li>布尔和非空类型比较，先转换为数字再比较</li>
-<li>对象与对象比较内存地址</li>
-<li>对象与字符串，对象先转换为字符串再比较</li>
+<li>Candy.</li>
+<li>Gum.</li>
+<li>Booze<blockquote>
+<p>减号</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>Candy.</li>
+<li>Gum.</li>
+<li>Booze.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>链接</li>
+</ul>
+<p><a href="https://github.com/KingNigel" target="_blank" rel="external">github地址</a></p>
+<ul>
+<li>图片</li>
+</ul>
+<p><img src="pic/1.jpeg" alt="路飞"></p>
+<ul>
+<li>代码引用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="number">123</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>表格</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th>类型</th>
-<th>类型</th>
-<th>规律</th>
+<th>姓名</th>
+<th>性别</th>
+<th>籍贯</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>NaN</td>
-<td>任意类型</td>
-<td>false</td>
+<td>老赵</td>
+<td>男</td>
+<td>河北</td>
 </tr>
 <tr>
-<td>null</td>
-<td>undefined</td>
-<td>true</td>
+<td>老朱</td>
+<td>女</td>
+<td>湖南</td>
 </tr>
 <tr>
-<td>null</td>
-<td>非空类型</td>
-<td>false</td>
-</tr>
-<tr>
-<td>undefined</td>
-<td>非空类型</td>
-<td>false</td>
-</tr>
-<tr>
-<td>数字</td>
-<td>非空类型</td>
-<td>转换为数字再比较</td>
-</tr>
-<tr>
-<td>布尔</td>
-<td>非空类型</td>
-<td>转换为数字再比较</td>
-</tr>
-<tr>
-<td>对象</td>
-<td>对象</td>
-<td>内存地址比较</td>
-</tr>
-<tr>
-<td>对象</td>
-<td>字符串</td>
-<td>转换为字符串再比较</td>
+<td>老段</td>
+<td>未知</td>
+<td>火星</td>
 </tr>
 </tbody>
 </table>
+<h3 id="sourceTree-tortoiseGit"><a href="#sourceTree-tortoiseGit" class="headerlink" title="sourceTree , tortoiseGit"></a>sourceTree , tortoiseGit</h3><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><ul>
+<li>官网[<a href="https://www.npmjs.com" target="_blank" rel="external">https://www.npmjs.com</a>]</li>
+<li>node package manager</li>
+<li>命令:<ul>
+<li>初始化:<code>npm init</code></li>
+<li>安装指定包:<code>npm install jquery --save</code></li>
+<li>删除指定包:<code>npm remove jquery --save</code></li>
+<li>下载安装package.json中dependencies属性对的文件:<code>npm install --production</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="browser-sync"><a href="#browser-sync" class="headerlink" title="browser-sync"></a>browser-sync</h3><ul>
+<li>更改代码之后自动刷新浏览器</li>
+<li>需要使用npm进行全局安装:<code>npm install browser-sync -g</code>,-g表示安装到全局</li>
+<li>使用:<code>browser-sync start --server --files &quot;./index.html,app.css,./css/*.css,*.*&quot;</code></li>
+<li>–files参数指定要监视的文件，后面跟要监视的文件的文件路径以逗号分隔。</li>
+</ul>
 
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/01/01{shell_git}/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/01/01{shell_git}/" itemprop="url">node 入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-01T22:00:00+08:00">
+                2016-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><h3 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h3><ul>
+<li>在计算机科学中，Shell俗称壳，用来区别于Kernel（核），是指“提供使用者使用界面”的软件（命令解析器）。<br>它类似于DOS下的command和后来的cmd.exe。它接收用户命令，然后调用相应的应用程序。</li>
+</ul>
+<p><img src="./images/1.png" alt="Alt text"></p>
+<h3 id="shell分类"><a href="#shell分类" class="headerlink" title="shell分类"></a>shell分类</h3><ul>
+<li>图形界面shell：通过提供友好的可视化界面，调用相应应用程序，<br>如windows系列操作系统，Linux系统上的图形化应用程序Unity、KDE等。</li>
+<li>命令行shell：通过键盘输入特定命令的方式，调用相应的应用程序，<br>如windows系统的cmd.exe、Windows PowerShell，<br>Linux系统的Bourne shell ( sh)、Bourne Again shell ( bash)、zsh等<h3 id="认识bash这个shell"><a href="#认识bash这个shell" class="headerlink" title="认识bash这个shell"></a>认识bash这个shell</h3></li>
+<li>在window系统下使用bash，需要一个软件，这个软件模拟集成了bash大部分命令。<br>各个 shell 的功能都差不多， Linux 默认使用 bash ，所以我们主要学习bash的使用。<h3 id="bash命令格式"><a href="#bash命令格式" class="headerlink" title="bash命令格式"></a>bash命令格式</h3>命令 [-options] [参数]，如：mkdir blog   如果有&lt;&gt;表示必须要有这个参数,[]可选参数<br>查看帮助：–help是命令的一个参数,命令后面加上 –help 或者 -h , -h是–help的缩写形式 可以打开命令的一个说明，说明中有这个命令的参数的具体的解释<h3 id="bash常见命令"><a href="#bash常见命令" class="headerlink" title="bash常见命令"></a>bash常见命令</h3></li>
+<li><p>pwd (Print Working Directory) 查看当前目录</p>
+</li>
+<li><p>cd (Change Directory)<br> 切换目录，如 cd etc<br> 寻找上级目录 cd ..<br> 在寻找目录的的时候—-tab键去补全<br> 也可以通过 cd a/b/c 一个路径的形式去进入目录</p>
+</li>
+<li><p>ls (List) 查看当前目录下内容，如 ls -al</p>
+</li>
+<li><p>mkdir (Make Directory) 创建目录，如 mkdir blog</p>
+</li>
+<li><p>touch 创建文件，如 touch index.html</p>
+</li>
+<li><p>cat 查看文件全部内容，如 cat index.html</p>
+</li>
+<li><p>rm (remove) 删除文件，如 rm index.html、rm -rf  blog(慎用-删除非空)</p>
+</li>
+<li><p>rmdir (Remove Directory) 删除文件夹，只能删除空文件夹，不常用</p>
+</li>
+<li><p>mv (move) 移动文件或重命名，如 mv index.html ./demo/index.html</p>
+</li>
+<li><p>cp (copy) 复制文件，cp index.html ./demo/index.html</p>
+</li>
+<li><p>head 查看文件前几行，如 head -5 index.html</p>
+</li>
+<li><p>tail 查看文件后几行 –n，如 tail index.html、tail -n  5 index.html </p>
+</li>
+<li><p>tab 自动补全，连按两次会将所有匹配内容显示出来</p>
+</li>
+<li><p>history 查看操作历史</p>
+</li>
+<li><p>curl 网络请求，如curl <a href="http://www.baidu.com" target="_blank" rel="external">http://www.baidu.com</a></p>
+</li>
+</ul>
+<h2 id="vi编辑器"><a href="#vi编辑器" class="headerlink" title="vi编辑器"></a>vi编辑器</h2><h3 id="什么是vi编辑器"><a href="#什么是vi编辑器" class="headerlink" title="什么是vi编辑器"></a>什么是vi编辑器</h3><ul>
+<li>如同Windows下的记事本，vi编辑器是Linux下的标配，通过它我们可以创建、编辑文件。<br>它是一个随系统一起安装的文本编辑软件。<h3 id="三种模式"><a href="#三种模式" class="headerlink" title="三种模式"></a>三种模式</h3></li>
+<li>vi编辑器提供了3种模式，分别是命令模式、插入模式、底行模式，每种模式下用户所能进行的操作是不一样的。<br>3种模式的切换如下图所示：</li>
+</ul>
+<p><img src="./images/2.png" alt="Alt text"></p>
+<h3 id="使用vi编辑器"><a href="#使用vi编辑器" class="headerlink" title="使用vi编辑器"></a>使用vi编辑器</h3><pre><code>a) 打开/创建文件， vi 文件路径
+b) 底行模式 :w保存，:w filenme另存为
+c) 底行模式 :q退出
+d) 底行模式 :wq保存并退出
+e) 底行模式 :e! 撤销更改，返回到上一次保存的状态
+f) 底行模式 :q! 不保存强制退出
+g) 底行模式 :set nu 设置行号
+h) 命令模式 ZZ（大写）保存并退出
+i) 命令模式 u辙销操作，可多次使用
+j) 命令模式 dd删除当前行
+k) 命令模式 yy复制当前行
+l) 命令模式 p 粘贴内容
+m) 命令模式 ctrl+f向前翻页
+n) 命令模式 ctrl+b向后翻页
+o) 命令模式 i进入编辑模式，当前光标处插入
+p) 命令模式 a进入编辑模式，当前光标后插入
+q) 命令模式 A进入编辑模式，光标移动到行尾
+r) 命令模式 o进入编辑模式，当前行下面插入新行
+s) 命令模式 O进入编辑模式，当前行上面插入新行
+</code></pre><p>当我们处在编辑模式的情况下，和我们在Windows编辑器的使用相似。</p>
+<h3 id="什么是Git"><a href="#什么是Git" class="headerlink" title="什么是Git?"></a>什么是Git?</h3><ul>
+<li>Git是一款源代码管理工具(版本控制工具)<ul>
+<li>我们写的代码需要使用Git进行管理。<br>1.0是稳定<br>2.0加了新功能</li>
+</ul>
+</li>
+<li>源代码有必要管理起吗？</li>
+<li>有必要，因为人工的去处理不同的版本，做相应备份会很麻烦。</li>
+<li>svn,vss,vcs,tfs…..<br>-Git是linux之父当年为了维护linux—linus之前也是手动维护合并把文件发给Linus</li>
+<li>BitKeeper(收费)</li>
+<li>有人想破解(不给提供免费使用)</li>
+<li>linus自己写了一个版本管理的工具（Git）</li>
+</ul>
+<h3 id="分布式版本管理工具，集中式"><a href="#分布式版本管理工具，集中式" class="headerlink" title="分布式版本管理工具，集中式"></a>分布式版本管理工具，集中式</h3><ul>
+<li>git属于分布式</li>
+<li>svn集中式</li>
+</ul>
+<h3 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h3><h3 id="git初始化一个仓库"><a href="#git初始化一个仓库" class="headerlink" title="git初始化一个仓库"></a>git初始化一个仓库</h3><ul>
+<li>其实就是创建了一个.git隐藏目录</li>
+<li>命令:<code>git init</code>;<ul>
+<li>想在哪个目录创建.git目录，就是哪个目录打开工具然后写命令.</li>
+<li>一般是在项目的根目录执行这个命令.</li>
+</ul>
+</li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li>配置用户名 : <code>git config user.name &quot;testName&quot;</code></li>
+<li>配置邮箱   : <code>git config user.email &quot;test@sina.com&quot;</code></li>
+<li>上面这两条命令是在设置我当前目录里面的用户名和邮箱</li>
+<li>查看配置信息: <code>git config --list</code></li>
+<li>全局设置 :<code>git config --global user.name [username]</code></li>
+<li>全局设置 :<code>git config --global user.email [email]</code></li>
+</ul>
+<h3 id="把代码提交到仓库中"><a href="#把代码提交到仓库中" class="headerlink" title="把代码提交到仓库中"></a>把代码提交到仓库中</h3><ul>
+<li><p>1.先把代码添加到暂存区(就相当于放到仓库门口)</p>
+<ul>
+<li>命令:<code>git add 文件路径</code></li>
+<li>示例:<code>git add ./reademe.md</code></li>
+<li>可以使用<code>git add .</code>这个命令，批量把当前目录下所有修改过的文件添加到暂存区。</li>
+</ul>
+</li>
+<li><p>2.把暂存区的文件提交仓库里</p>
+<ul>
+<li>命令: <code>git commit -m &quot;注释&quot;</code></li>
+<li>示例: <code>git commit -m &quot;我们添加了一个新的功能&quot;</code></li>
+<li>-m 表示指定一个字符串，作为提交的说明(相当于注释);</li>
+</ul>
+</li>
+<li><p>合并add 与commit 命令</p>
+<ul>
+<li><code>git commit -a -m &quot;这是使用合并添加与提交的操作&quot;</code>;</li>
+<li>这里-a参数表明把所有修改后的文件一起添加到暂存区.(只是对修改后的文件有效，对于新添加的文件没有作用)</li>
+<li>在提交到仓库里面</li>
+</ul>
+</li>
+</ul>
+<h3 id="查看工作区状态"><a href="#查看工作区状态" class="headerlink" title="查看工作区状态"></a>查看工作区状态</h3><ul>
+<li>命令:<code>git status</code></li>
+</ul>
+<h3 id="添加忽略文件"><a href="#添加忽略文件" class="headerlink" title="添加忽略文件"></a>添加忽略文件</h3><ul>
+<li>在项目中有一些文件是不需要提交的,我们需要把它忽略掉</li>
+<li>需要在.git文件夹所在目录新建一个名为.gitignore的文件<br>然后在这个文件中写上需要被忽略的文件的路径。<br>示例: /css/a.css<pre><code>: /css/*.css
+: /a.html
+</code></pre></li>
+</ul>
+<h3 id="比对文件差异"><a href="#比对文件差异" class="headerlink" title="比对文件差异"></a>比对文件差异</h3><ul>
+<li>命令: <code>git diff</code><ul>
+<li>用来比较暂存区文件内容与工作区文件内容的区别</li>
+<li>如果暂存区没有文件，就会将工作与代码与最近一次提交对比</li>
+</ul>
+</li>
+<li>命令：<code>git diff --cached</code></li>
+<li>对比之前某两次提交的文件的差异<ul>
+<li>命令:<code>git diff [版本号1] [版本号2] [想比较的文件路径]</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><ul>
+<li>命令:<code>git log</code>,可以查看每一次提交的日志</li>
+<li>命令:<code>git log --oneline</code> 表示使用简洁的形式输出提交日志</li>
+</ul>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><ul>
+<li>命令:<code>git reset --hard Head~1</code><ul>
+<li>这是将代码回退到上上一次提交时的状态</li>
+</ul>
+</li>
+<li>命令:<code>git reset --hard Head~2</code><ul>
+<li>回退到上上上次</li>
+</ul>
+</li>
+<li><p>命令:<code>git reset --hard Head~0</code></p>
+<ul>
+<li>回退到上次提交时的状态,~0可以省略</li>
+</ul>
+</li>
+<li><p>命令:<code>git reset --hard 版本号</code></p>
+<ul>
+<li>通过每次提交时生成的版本号来回退版本</li>
+</ul>
+</li>
+<li><p>通过<code>git reflog</code>命令可以查看之前所有版本切换的操作记录，可以通过这个命令得到的版本号回退到指定的版本。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/24/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/24/git/" itemprop="url">git</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-24T11:22:07+08:00">
+                2016-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="gitlab创建公钥"><a href="#gitlab创建公钥" class="headerlink" title="gitlab创建公钥"></a>gitlab创建公钥</h3><ul>
+<li><code>ssh-keygen -t rsa -C &quot;your.email@example.com&quot; -b 4096</code><br>-<code>https://gitlab.com/help/ssh/README</code></li>
+</ul>
+<h3 id="移除origin"><a href="#移除origin" class="headerlink" title="移除origin"></a>移除origin</h3><p>-<code>$ git remote rm origin</code></p>
+<h3 id="Command-line-instructions"><a href="#Command-line-instructions" class="headerlink" title="Command line instructions"></a>Command line instructions</h3><h4 id="Git-global-setup"><a href="#Git-global-setup" class="headerlink" title="Git global setup"></a>Git global setup</h4><ul>
+<li>git config –global user.name “xxxx”</li>
+<li>git config –global user.email “xxxxx@xx.com”</li>
+</ul>
+<h4 id="Create-a-new-repository"><a href="#Create-a-new-repository" class="headerlink" title="Create a new repository"></a>Create a new repository</h4><ul>
+<li>git clone git@gitlab.com:xxxx/weixinnode.git</li>
+<li>cd weixinnode</li>
+<li>touch README.md</li>
+<li>git add README.md</li>
+<li>git commit -m “add README”</li>
+<li>git push -u origin master</li>
+</ul>
+<h4 id="Existing-folder"><a href="#Existing-folder" class="headerlink" title="Existing folder"></a>Existing folder</h4><ul>
+<li>cd existing_folder</li>
+<li>git init</li>
+<li>git remote add origin git@gitlab.com:xxxx/xxxx.git</li>
+<li>git add .</li>
+<li>git commit</li>
+<li>git push -u origin master</li>
+</ul>
+<h4 id="Existing-Git-repository"><a href="#Existing-Git-repository" class="headerlink" title="Existing Git repository"></a>Existing Git repository</h4><ul>
+<li>cd existing_repo</li>
+<li>git remote add origin git@gitlab.com:xxxx/xxxx.git</li>
+<li>git push -u origin –all</li>
+<li>git push -u origin –tags</li>
+<li>来源： <a href="https://gitlab.com/xxxx/xxxx" target="_blank" rel="external">https://gitlab.com/xxxx/xxxx</a></li>
+</ul>
+<h3 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h3><ul>
+<li><code>git reset --hard &lt;commit ID号&gt;</code></li>
+</ul>
+<h3 id="强制覆盖本地"><a href="#强制覆盖本地" class="headerlink" title="强制覆盖本地"></a>强制覆盖本地</h3><ul>
+<li><p><code>git fetch --all  
+git reset --hard origin/master 
+git pull</code></p>
+</li>
+<li><p>git clone 远程分支<br>Git clone只能clone远程库的master分支，无法clone所有分支，解决办法如下：</p>
+</li>
+</ul>
+<ol>
+<li>找一个干净目录，假设是git_work</li>
+<li>cd git_work</li>
+<li>git clone <a href="http://myrepo.xxx.com/project/.git" target="_blank" rel="external">http://myrepo.xxx.com/project/.git</a> ,这样在git_work目录下得到一个project子目录</li>
+<li>cd project</li>
+<li>git branch -a，列出所有分支名称如下：<br>remotes/origin/dev<br>remotes/origin/release</li>
+<li>git checkout -b dev origin/dev，作用是checkout远程的dev分支，在本地起名为dev分支，并切换到本地的dev分支</li>
+<li>git checkout -b release origin/release，作用参见上一步解释</li>
+<li>git checkout dev，切换回dev分支，并开始开发。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/23/angular(mix)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/23/angular(mix)/" itemprop="url">angular路由</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-23T08:10:03+08:00">
+                2016-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Api和WebApi"><a href="#Api和WebApi" class="headerlink" title="Api和WebApi"></a>Api和WebApi</h2><ul>
+<li>Api <ul>
+<li><code>Application Programming Interface</code>, 应用程序编程接口</li>
+<li>通常是指方法的集合</li>
+</ul>
+</li>
+<li>WebApi<ul>
+<li><code>Web Application Programming Interface</code>, 网络应用程序编程接口</li>
+<li>通常是指通过发送get、post数据请求不同路径获取数据</li>
+</ul>
+</li>
+<li>接口文档&amp;Api文档</li>
+<li>常用Api和WebApi<ul>
+<li>百度地图：<code>http://lbsyun.baidu.com/</code></li>
+<li>百度api：<code>http://apistore.baidu.com/</code></li>
+<li>豆瓣api：<code>https://developers.douban.com/wiki/?title=api_v2</code></li>
+</ul>
+</li>
+<li>常用检测工具PostMan</li>
+</ul>
+<p>头信息 <code>Access-Control-Allow-Origin:*</code> 百度天气api里面有豆瓣的api里面没有</p>
+<h2 id="http"><a href="#http" class="headerlink" title="$http"></a>$http</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">angular提供了$http服务来同服务端进行通信，$http服务队浏览器的XMLHttpRequest对象进行了封装，</div><div class="line">让我们可以以ajax的方式来从服务器请求数据。</div><div class="line">$http服务是一个接受一个参数的函数，参数的类型是对象，用来配置生成的http的请求</div><div class="line">&#123;</div><div class="line">    method: &apos;GET&apos;,//发送get请求</div><div class="line">    url: &apos;http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname=北京&amp;cityid=101010300&apos;,</div><div class="line">    headers:&#123;</div><div class="line">        &apos;apikey&apos;:&apos;8a8efad7ed263d1b8cac9e3354fc16b5&apos;//你的key</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">   $http(参数).then(function(data) &#123;</div><div class="line">            //成功的回调函数</div><div class="line">            console.log(&apos;successCallback&apos;);</div><div class="line">            console.log(data);</div><div class="line">            $scope.jsonData=data;</div><div class="line">        &#125;,function(data) &#123;</div><div class="line">            //失败的回调函数</div><div class="line">            console.log(&apos;errorCallback&apos;);</div><div class="line">            console.log(data);</div><div class="line">        &#125;)</div></pre></td></tr></table></figure>
+<p>##跨域</p>
+<h3 id="script标签跨域-这就是jsonp"><a href="#script标签跨域-这就是jsonp" class="headerlink" title="script标签跨域(这就是jsonp)"></a>script标签跨域(这就是jsonp)</h3><ul>
+<li>场景：需要快捷方便的使用接口的时候</li>
+<li><p>原理：1.动态创建script标签，</p>
+<pre><code>2. src指向服务器的js的文件地址
+3.约定传输的callback参数
+4.返回并执行
+</code></pre></li>
+<li><p>window.name,iframe, postMessage</p>
+<ul>
+<li>在同一个标签页是共用一个name</li>
+</ul>
+</li>
+</ul>
+<h3 id="angular-jsonp"><a href="#angular-jsonp" class="headerlink" title="angular jsonp"></a>angular jsonp</h3><ul>
+<li>$http</li>
+</ul>
+<p>angular.callbacks</p>
+<h3 id="百度api"><a href="#百度api" class="headerlink" title="百度api"></a>百度api</h3><p>百度天气 支持ajax直接跨域请求 原因<code>Access-Control-Allow-Origin →*</code></p>
+<h3 id="豆瓣api"><a href="#豆瓣api" class="headerlink" title="豆瓣api"></a>豆瓣api</h3><p>豆瓣不支持<code>Access-Control-Allow-Origin</code> 跨域</p>
+<h4 id="jsonp方法"><a href="#jsonp方法" class="headerlink" title="jsonp方法"></a>jsonp方法</h4><h4 id="理解封装的jsonp方法"><a href="#理解封装的jsonp方法" class="headerlink" title="理解封装的jsonp方法"></a>理解封装的jsonp方法</h4>
           
         
       
@@ -1315,7 +2191,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1360,7 +2236,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1373,7 +2249,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

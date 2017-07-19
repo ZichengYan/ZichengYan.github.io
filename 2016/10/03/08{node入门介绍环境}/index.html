@@ -1,0 +1,819 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="node," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="SeaJS 的使用 定义模块 define作用域就在define的函数体里，三个参数require、exports、module 加载模块 require 在一个模块系统中，require 加载过的模块会被缓存 默认 require 是同步加载模块的   暴露接口 exports 和 module.exports exports是module.exports的别名，exports能做什么，modu">
+<meta name="keywords" content="node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node 入门01">
+<meta property="og:url" content="http://yoursite.com/2016/10/03/08{node入门介绍环境}/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="SeaJS 的使用 定义模块 define作用域就在define的函数体里，三个参数require、exports、module 加载模块 require 在一个模块系统中，require 加载过的模块会被缓存 默认 require 是同步加载模块的   暴露接口 exports 和 module.exports exports是module.exports的别名，exports能做什么，modu">
+<meta property="og:updated_time" content="2017-07-19T14:21:25.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node 入门01">
+<meta name="twitter:description" content="SeaJS 的使用 定义模块 define作用域就在define的函数体里，三个参数require、exports、module 加载模块 require 在一个模块系统中，require 加载过的模块会被缓存 默认 require 是同步加载模块的   暴露接口 exports 和 module.exports exports是module.exports的别名，exports能做什么，modu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/03/08{node入门介绍环境}/"/>
+
+
+
+
+
+  <title>node 入门01 | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/03/08{node入门介绍环境}/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node 入门01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-03T22:00:00+08:00">
+                2016-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="SeaJS-的使用"><a href="#SeaJS-的使用" class="headerlink" title="SeaJS 的使用"></a><code>SeaJS</code> 的使用</h3><ul>
+<li>定义模块 <code>define</code>作用域就在define的函数体里，三个参数require、exports、module</li>
+<li>加载模块 <code>require</code><ul>
+<li>在一个模块系统中，<code>require</code> 加载过的模块会被缓存</li>
+<li>默认 <code>require</code> 是同步加载模块的</li>
+</ul>
+</li>
+<li>暴露接口 <code>exports</code> 和 <code>module.exports</code> exports是module.exports的别名，exports能做什么，module.exports就能做什么</li>
+<li>启动模块系统 <code>seajs.use(callback)</code><ul>
+<li>seajs.use 和 Document 的 ready 没有任何关系</li>
+<li>要想保证 文档结构加载完毕再执行你的 js 代码，一定要在 seajs.use  内部通过 window.onload 或者 $(function(){})</li>
+</ul>
+</li>
+<li>分清楚前台模块化和node中的模块化的区别</li>
+<li>掌握模块化的思想</li>
+</ul>
+<p>#node-lesson1</p>
+<p>##1.解决几个问题？</p>
+<p>###1.前端、后端都是干什么的？<br>前端：写静态文件的  html css js …<br>后端：操作服务器的硬件等等</p>
+<p>###4.浏览器中的JavaScript可以做什么？<br>操作dom 提交表单等等</p>
+<p>###5.浏览器中的JavaScript不可以做什么？<br>js不能操作电脑的硬件</p>
+<p>###6.浏览器与JavaScript是什么关系？</p>
+<p>js引擎—-&gt;就是内核</p>
+<p>引擎的第一特点： 转化<br>发动机—–&gt;汽油转化成动力   重点在转化</p>
+<p>模板引擎—-&gt;模板+数据–转化–&gt;页面</p>
+<p>js代码通过—&gt;js引擎—-转化–&gt;字节码或者机器码</p>
+<p>引擎的第二特点：可移植性</p>
+<p>###7.JavaScript只可以运行在浏览器中吗？<br>Js靠我们的js引擎解析<br>Node.js运行js  node给V8引擎包一层壳，黑匣子</p>
+<p>java java<br>.net c#<br>php php<br>noode.js js</p>
+<p>##什么是 Node?</p>
+<ul>
+<li><a href="">https://nodejs.org/en/</a></li>
+<li>node是js运行环境基于v8引擎<br>特点用事件驱动模型、无阻塞的io模型<br>优势轻量、高效</li>
+<li>node是门技术不是语言<br>java java<br>.net c#<br>node js</li>
+<li>Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. <ul>
+<li>JavaScript runtime  JavaScript 运行时</li>
+<li>Chrome’s V8 JavaScript engine Chrome 浏览器 V8 引擎</li>
+<li>Node.js 是一个 构建于 谷歌的 Chrome 浏览器的 V8 引擎之上的一个 <code>JavaScript运行时</code> 环境</li>
+<li>Node.js可以解析和执行 JavaScript 代码</li>
+</ul>
+</li>
+<li>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. <ul>
+<li>event-driven  事件驱动模型</li>
+<li>non-blocking I/O model  非阻塞IO模型  IO（input/output）输入与输出</li>
+<li>lightweight[ˈlaɪtweɪt]  轻量级<ul>
+<li>在软件开发行业中，轻量级标识褒义词</li>
+<li>轻量级也就意味着 运行速度快</li>
+<li>轻量级也就意味着有更好的 跨平台 特性（平台的差异性，兼容性）</li>
+</ul>
+</li>
+<li>efficient[ɪˈfɪʃnt] 高效的</li>
+<li>Node.js的 事件驱动和非阻塞IO模型使得Node.js本身非常的轻量和高效</li>
+</ul>
+</li>
+<li>Node.js’ package ecosystem, npm, is the largest ecosystem of open source libraries in the world.<ul>
+<li>package ecosystem npm  包生态系统 npm</li>
+<li>largest  最大的</li>
+<li>open source libraries 开源库<ul>
+<li>理论意义上 开源就表示有成熟的社区，开放源代码</li>
+</ul>
+</li>
+<li>Node.js 的npm包生态系统，是世界上 最大的 开源库 生态系统</li>
+<li>以前的 客户端中 JavaScript 库 散列在互联网的各个地方</li>
+<li>npm 就是 把大家经常使用的一些开源库 给 组织到了一起</li>
+</ul>
+</li>
+</ul>
+<p>Node 是一个可以解析和执行 JavaScript 代码的 运行时环境</p>
+<ul>
+<li>Node.js 的作者<ul>
+<li>瑞恩.达尔</li>
+</ul>
+</li>
+</ul>
+<h3 id="Node-的实现结构"><a href="#Node-的实现结构" class="headerlink" title="Node 的实现结构"></a>Node 的实现结构</h3><ul>
+<li>V8 JavaScript 解析执行引擎   ECMAScript</li>
+<li>中间层 （提供了文件操作、网络操作登陆接口）更加接近操作系统的接口供开发人员使用</li>
+<li>硬件层</li>
+</ul>
+<p>###谁在使用 Node</p>
+<p>国内一些创业公司用用的比较多，功夫熊（做上门保健的，美甲、按摩）<br>国外的一些大公司都有使用：Facebook、Twitter、Google<br>国内的一些大公司：Alibaba（天猫所有的页面都是通过Node提供的服务）、Tencent、Baidu</p>
+<h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><h3 id="3m安装法-nvm-npm-nrm"><a href="#3m安装法-nvm-npm-nrm" class="headerlink" title="3m安装法 nvm npm nrm"></a>3m安装法 nvm npm nrm</h3><h3 id="安装包的方式安装"><a href="#安装包的方式安装" class="headerlink" title="安装包的方式安装"></a>安装包的方式安装</h3><ul>
+<li>问题1：安装了node 没有卸载 2:32和64搞混了 3：；拼写错误，路径错误——&gt;老师眼力</li>
+<li>下载地址：</li>
+<li>一路下一步 next</li>
+<li>如何确认是否安装成功：<ul>
+<li><code>win + r</code> ，然后输入 <code>cmd</code> ，然后敲回车 就可以进入 cmd 控制台</li>
+</ul>
+</li>
+</ul>
+<h3 id="nvm-安装和管理我们的-Node-js版本"><a href="#nvm-安装和管理我们的-Node-js版本" class="headerlink" title="nvm 安装和管理我们的 Node.js版本"></a>nvm 安装和管理我们的 Node.js版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">nvm的安装方式，node.js version manager 是一个node的版本管理工具</div><div class="line">为了解决node版本切换问题</div><div class="line">右键在此电脑上点击一下--》属性---》系统---》高级系统设置---》环境变量</div><div class="line">控制面板---》系统---》高级系统设置---》环境变量</div><div class="line">NVM_HOME---C:\dev\nvm</div><div class="line">NVM_SYMLINK--C:\dev\nodejs</div><div class="line">新建一个path     %NVM_HOME%;%NVM_SYMLINK%</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">nvm 用法</div><div class="line">查看版本号</div><div class="line">nvm list</div><div class="line">用哪个版本（已经下载过的版本）</div><div class="line">nvm use 版本号 </div><div class="line">nvm use 版本号 32</div><div class="line">下载相对应版本</div><div class="line">nvm install 版本号 </div><div class="line">nvm install 版本号 32</div><div class="line"></div><div class="line">nvm下载的是二进制版本</div></pre></td></tr></table></figure>
+<h2 id="控制台基本使用"><a href="#控制台基本使用" class="headerlink" title="控制台基本使用"></a>控制台基本使用</h2><p>允许用户可以在终端命令台中与操作系统交互，其实就是输入与输出</p>
+<h3 id="如何打开cmd"><a href="#如何打开cmd" class="headerlink" title="如何打开cmd"></a>如何打开cmd</h3><ol>
+<li>通过 按 window 键，输入 <code>cmd</code> 打开cmd程序</li>
+<li>通过 <code>win+r</code>  输入 <code>cmd</code>，敲回车就可以进入</li>
+</ol>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><ul>
+<li><code>dir</code> directory 列出当前目录下所有的条目<ul>
+<li>别名 <code>ls</code> 在 powershell 中可以使用</li>
+</ul>
+</li>
+<li><code>cd</code> change directory 切换目录</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">切换到当前目录下的 Desktop 目录</div><div class="line">当想切换到当前目录的时候，最好使用 cd ./ 相对路径的形式</div><div class="line">C:\Users\iroc&gt;cd Desktop</div><div class="line">C:\Users\iroc\Desktop&gt;</div><div class="line"></div><div class="line">在Windows 上切换盘符：</div><div class="line">`d:`</div><div class="line"></div><div class="line">切换绝对路径之后再同一个盘符下才有效</div><div class="line"></div><div class="line">切换到上一级目录</div><div class="line">C:\Users\iroc\Desktop\code\seajs&gt;cd ../</div><div class="line">C:\Users\iroc\Desktop\code&gt;</div><div class="line"></div><div class="line">连续进入多级目录</div><div class="line">C:\Users\iroc\Desktop\code&gt;cd seajs/a</div><div class="line">C:\Users\iroc\Desktop\code\seajs\a&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>cls</code> clear screen 清屏</p>
+<ul>
+<li>别名 clear 在widnows中的 <code>powershell</code> 中可以使用</li>
+</ul>
+<p>windows下的寻址用\反斜杠 </p>
+</li>
+</ul>
+<h3 id="path-环境变量"><a href="#path-环境变量" class="headerlink" title="path 环境变量"></a>path 环境变量</h3><p>目的是为了在控制台中的任何目录都可以快速打开或者使用该可执行文件</p>
+<p>环境变量就是用来存储系统级别的变量</p>
+<ul>
+<li>添加环境变量<ul>
+<li>我的电脑 -&gt; 右键选择属性 -&gt; 高级系统设置 -&gt; 切换到<code>高级</code>面板 -&gt; 环境变量</li>
+<li>第一种方式：直接把可执行文件所属的目录 放到 PATH 环境变量中（如果没有PATH环境变量，自己新建）</li>
+<li>第二种方式：新建一个环境变量，变量名规范：逻辑名_HOME 变量值：该可执行文件所属的目录</li>
+<li>注意：无论是直接添加的路径还是引用的变量名，一定要用 英文的分号 区分开</li>
+<li>引用变量名的时候，变量名两边都是 <code>%</code></li>
+</ul>
+</li>
+</ul>
+<p><code>&gt; feiq</code><br>当你在控制台中输入一个程序的名字的时候，cmd 默认把它当成一个可执行文件去执行了，<br>优先找当前目录下是否有没有一个叫做feiq.exe 的可执行文件，如果有，直接执行打开<br>如果没有，cmd会进入 path 环境变量中 一个目录一个目录的挨着查找里面是否有该可执行文件</p>
+<h2 id="REPL-Read-eval-print-loop-运行环境"><a href="#REPL-Read-eval-print-loop-运行环境" class="headerlink" title="REPL(Read-eval-print-loop) 运行环境"></a>REPL(Read-eval-print-loop) 运行环境</h2><p>用来测试一下代码的，repl和chrome的控制台很像</p>
+<ul>
+<li>通过在控制台中输入 <code>node</code> 敲回车就可以计入 REPL 运行环境</li>
+<li>通过在REPL运行环境中 连续按两次 <code>Ctrl+C</code> 就可以退出 REPL 运行环境</li>
+</ul>
+<h2 id="执行js文件"><a href="#执行js文件" class="headerlink" title="执行js文件"></a>执行js文件</h2><p> 用node执行js文件，文件在当前目录下—-&gt;node +文件名<br> 如果不在当前目录下，node +文件路径的形式执行<br> 相对路径<br> ./当前路径<br> ../上级目录<br> 绝对路径执行js的方式<br> node c:\Users\cena\Desktop\code\01helloworld.js</p>
+<h2 id="Global"><a href="#Global" class="headerlink" title="Global"></a>Global</h2><p>global和window很像，都是全局对象</p>
+<h2 id="CONSOLE"><a href="#CONSOLE" class="headerlink" title="CONSOLE"></a>CONSOLE</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">断言 是用来测试用的</div><div class="line">断言就是假定一个条件，如果条件成立则不输出任何内容，如果条件不成立则报错还要输出想要输出的内容。</div><div class="line">console.assert(条件,条件不成立输出的内容);</div><div class="line">var foo=3;</div><div class="line">console.assert(foo==3,&quot;失败&quot;);</div><div class="line">time() timeEnd()成对出现，计算在两个方法中间的代码的运行时间，传入的参数要一致</div><div class="line">console.time(&apos;test&apos;);</div><div class="line"></div><div class="line"></div><div class="line">console.timeEnd(&apos;test1&apos;);</div></pre></td></tr></table></figure>
+<h3 id="dirname-和-filename"><a href="#dirname-和-filename" class="headerlink" title="dirname 和 filename"></a><strong>dirname 和 </strong>filename</h3><p><strong>dirnamee 用来找到当前文件夹的路径
+</strong>filename 用来去到当前文件的路径<br>不知道代码要才哪使用的时候，用于灵活的写代码取路径的时候。<br>它们属于模块作用域，可以直接使用<br>它们两个用来获取路径的，一般用于操作文件路径的时候，才会用到</p>
+<h2 id="process"><a href="#process" class="headerlink" title="process"></a>process</h2><p>process 是一个全局可用对象，用来和我们现在启动中的node进行交互的</p>
+<p>process.version取版本号<br>在控制台做标准输出<br>process.stdout.write(<code>123123</code>);<br>process.pid：当前进程的进程号。<br>process.version：Node的版本，比如v0.10.18。<br>process.platform：当前系统平台，比如Linux。<br>process.env：指向当前shell的环境变量，比如process.env.HOME。<br>process.stdout：指向标准输出。<br>process.stdin：指向标准输入。<br>process.stderr：指向标准错误。</p>
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><h2 id="node-js模块化"><a href="#node-js模块化" class="headerlink" title="node.js模块化"></a>node.js模块化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">一个js文件在node里面我们就理解为一个模块</div><div class="line">require用来加载模块</div><div class="line">module.exports用来曝露属性和方法的，因为模块有封装性，需要打破封装性曝露方法和属性来</div><div class="line">exports是module.exports的别名，exports可以做的事情，module.exports都可以做，exports只能用.的形式曝露属性和方法</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/02/02{github_git操作}/" rel="next" title="node 入门">
+                <i class="fa fa-chevron-left"></i> node 入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/15/nodejs/" rel="prev" title="nodejs">
+                nodejs <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SeaJS-的使用"><span class="nav-number">1.</span> <span class="nav-text">SeaJS 的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-的实现结构"><span class="nav-number">2.</span> <span class="nav-text">Node 的实现结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与配置"><span class="nav-number"></span> <span class="nav-text">安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3m安装法-nvm-npm-nrm"><span class="nav-number">1.</span> <span class="nav-text">3m安装法 nvm npm nrm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装包的方式安装"><span class="nav-number">2.</span> <span class="nav-text">安装包的方式安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvm-安装和管理我们的-Node-js版本"><span class="nav-number">3.</span> <span class="nav-text">nvm 安装和管理我们的 Node.js版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制台基本使用"><span class="nav-number"></span> <span class="nav-text">控制台基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何打开cmd"><span class="nav-number">1.</span> <span class="nav-text">如何打开cmd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本命令"><span class="nav-number">2.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#path-环境变量"><span class="nav-number">3.</span> <span class="nav-text">path 环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REPL-Read-eval-print-loop-运行环境"><span class="nav-number"></span> <span class="nav-text">REPL(Read-eval-print-loop) 运行环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行js文件"><span class="nav-number"></span> <span class="nav-text">执行js文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Global"><span class="nav-number"></span> <span class="nav-text">Global</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CONSOLE"><span class="nav-number"></span> <span class="nav-text">CONSOLE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dirname-和-filename"><span class="nav-number">1.</span> <span class="nav-text">dirname 和 filename</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process"><span class="nav-number"></span> <span class="nav-text">process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块系统"><span class="nav-number"></span> <span class="nav-text">模块系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-js模块化"><span class="nav-number"></span> <span class="nav-text">node.js模块化</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

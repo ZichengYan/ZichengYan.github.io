@@ -1,0 +1,864 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="node," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="创建分支 命令:git branch [分支名] 创建一个新分支   命令:git branch 查看当前所有的分支    切换分支 命令:git checkout [分支名] 切换分支后可以在切换后的分支中进行正常的操作    合并分支 命令:git merge [分支名] git会将指定的分支合并到当前分支.    删除分支 命令:git branch -d [分支名] 删除指定分支，-d参数">
+<meta name="keywords" content="node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node 入门">
+<meta property="og:url" content="http://yoursite.com/2016/10/02/02{github_git操作}/index.html">
+<meta property="og:site_name" content="Robert">
+<meta property="og:description" content="创建分支 命令:git branch [分支名] 创建一个新分支   命令:git branch 查看当前所有的分支    切换分支 命令:git checkout [分支名] 切换分支后可以在切换后的分支中进行正常的操作    合并分支 命令:git merge [分支名] git会将指定的分支合并到当前分支.    删除分支 命令:git branch -d [分支名] 删除指定分支，-d参数">
+<meta property="og:image" content="http://yoursite.com/2016/10/02/02%7Bgithub_git操作%7D/pic/1.jpeg">
+<meta property="og:updated_time" content="2017-07-19T14:18:43.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node 入门">
+<meta name="twitter:description" content="创建分支 命令:git branch [分支名] 创建一个新分支   命令:git branch 查看当前所有的分支    切换分支 命令:git checkout [分支名] 切换分支后可以在切换后的分支中进行正常的操作    合并分支 命令:git merge [分支名] git会将指定的分支合并到当前分支.    删除分支 命令:git branch -d [分支名] 删除指定分支，-d参数">
+<meta name="twitter:image" content="http://yoursite.com/2016/10/02/02%7Bgithub_git操作%7D/pic/1.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/02/02{github_git操作}/"/>
+
+
+
+
+
+  <title>node 入门 | Robert</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robert</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/02/02{github_git操作}/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robert">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robert">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node 入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-02T22:00:00+08:00">
+                2016-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><ul>
+<li>命令:<code>git branch [分支名]</code><ul>
+<li>创建一个新分支</li>
+</ul>
+</li>
+<li>命令:<code>git branch</code><ul>
+<li>查看当前所有的分支</li>
+</ul>
+</li>
+</ul>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ul>
+<li>命令:<code>git checkout [分支名]</code><ul>
+<li>切换分支后可以在切换后的分支中进行正常的操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ul>
+<li>命令:<code>git merge [分支名]</code><ul>
+<li>git会将指定的分支合并到当前分支.</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><ul>
+<li>命令:<code>git branch -d [分支名]</code><ul>
+<li>删除指定分支，-d参数表示要执行删除操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="git提交中的冲突"><a href="#git提交中的冲突" class="headerlink" title="git提交中的冲突"></a>git提交中的冲突</h3><ul>
+<li>如果git不能自动合并分支，就会有冲突，我们需要手动解决冲突，然后再次提交</li>
+</ul>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>推荐网站 <a href="http://www.crx4chrome.com/" target="_blank" rel="external">http://www.crx4chrome.com/</a></p>
+<h3 id="github与git"><a href="#github与git" class="headerlink" title="github与git"></a>github与git</h3><ul>
+<li>git 版本管理工具</li>
+<li>github 就是一个网站，只是这个网站提供git服务器的功能</li>
+</ul>
+<h3 id="上传代码到git服务器-push"><a href="#上传代码到git服务器-push" class="headerlink" title="上传代码到git服务器(push)"></a>上传代码到git服务器(push)</h3><ul>
+<li><p>命令:<code>git push [远程服务器地址] [远程服务器的分支]</code></p>
+<ul>
+<li>示例:<code>git push https://github.com/huoqishi/test002.git master</code></li>
+</ul>
+</li>
+<li><p>上传时可以使用一些简化的命令</p>
+<ul>
+<li>将远程服务器地址写成变量的形式<ul>
+<li><code>git remote add [变量名]  [远程服务器地址]</code></li>
+<li>示例:<code>git remote add origin https://github.com/huoqishi/test002.git</code></li>
+<li>这样之后就可以直接使用origin来代替git push 后面写的地址了<br><code>git push origin master</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>还可以尽一步简化<ul>
+<li>在push时加上-u参数，就会默认建立本地当前分支与远程指定分支的关联,下一次push时就不需要输入分支名了<code>git push origin</code>;</li>
+</ul>
+</li>
+</ul>
+<h2 id="git使用ssh方式上传代码与github"><a href="#git使用ssh方式上传代码与github" class="headerlink" title="git使用ssh方式上传代码与github"></a>git使用ssh方式上传代码与github</h2><ul>
+<li>SSH<br>SSH是一种网络协议，用于计算机之间的加密登录。</li>
+<li>对称加密&amp;非对称加密&amp;不可逆加密<br>对称加密：一个钥匙开一把锁<br>非对称加密：公钥和私钥  公钥加密 私钥解密<br>不可逆加密：多用于密码的加密</li>
+</ul>
+<ul>
+<li>git生成公钥和私钥<ul>
+<li>命令:<code>ssh-keygen -t rsa</code>生成的公钥与私钥文件会在当用户目录的.ssh目录下.<h3 id="把代码push到服务器时需要先pull一下"><a href="#把代码push到服务器时需要先pull一下" class="headerlink" title="把代码push到服务器时需要先pull一下"></a>把代码push到服务器时需要先pull一下</h3></li>
+</ul>
+</li>
+<li>在pull之后如果远程的代码与本地的代码有冲突，git会先自动合并冲突，如果不能自动合并，就必需我们手动去处理冲突。</li>
+</ul>
+<h3 id="从服务器上pull代码到本地"><a href="#从服务器上pull代码到本地" class="headerlink" title="从服务器上pull代码到本地"></a>从服务器上pull代码到本地</h3><ul>
+<li>如果本地没有.git目录，需要先初始化一下。</li>
+<li>命令:<code>git pull [远程服务器地址] [远程的分支]</code></li>
+</ul>
+<h3 id="gh-pages分支-搭建博客"><a href="#gh-pages分支-搭建博客" class="headerlink" title="gh-pages分支-搭建博客."></a>gh-pages分支-搭建博客.</h3><ul>
+<li>需要把自已博客的网页代码上传到github上的gh-pages分支</li>
+<li>然后就直接访问了<ul>
+<li>访问的url形式: [github用户名].github.io/[仓库的名字]/[具体的页面]</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>流程<br>git init<br>git add *<br>git commit -m “”<br>git branch gh-pages<br>git checkout gh-pages<br>git push [远程服务器地址] gh-pages</li>
+</ul>
+<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><blockquote>
+<p>专注写作，提高生产力</p>
+</blockquote>
+<h3 id="Markdown-介绍"><a href="#Markdown-介绍" class="headerlink" title="Markdown 介绍"></a>Markdown 介绍</h3><p>轻量级标记语言（html、xml），2004 年被 <code>John Gruber</code> 创造，<br>它允许人们“使用易读易写的纯文本格式编写文档”，<br>Markdown 最重要的设计就是可读性，<br>Markdown 可以选择性的转换为 HTML 文档格式，<br>很多网站目前都使用了 Markdown 或者其变种，例如Github、简书等大型社区。</p>
+<h3 id="Markdown-的优点"><a href="#Markdown-的优点" class="headerlink" title="Markdown 的优点"></a>Markdown 的优点</h3><ul>
+<li>纯文本，所以兼容性极强，可以用所有文本编辑器打开</li>
+<li>专注于文字写作而不是排版</li>
+<li>格式转换方便，可以轻松转换为 HTML、PPT、电子书等</li>
+<li>Markdown 标记语法简单好记，可读性强</li>
+</ul>
+<h3 id="实时预览编辑器"><a href="#实时预览编辑器" class="headerlink" title="实时预览编辑器"></a>实时预览编辑器</h3><p><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="external">月光博客 - 好用的Markdown编辑器一览</a></p>
+<p>编辑实时预览工具只是为了辅助教学而已，<br>我们真正在进行写作的时候，其实是不需要实时预览的，<br>因为 Markdown 标记语言本身已经足够清晰了。</p>
+<h3 id="Markdown-基本语法"><a href="#Markdown-基本语法" class="headerlink" title="Markdown 基本语法"></a>Markdown 基本语法</h3><ul>
+<li>标题<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6></li>
+<li>代码块<blockquote>
+<p>这里是代码块</p>
+</blockquote>
+</li>
+<li>字体<br>他是最可爱的人<em>雷锋</em>（斜体）<br>他是最可爱的人<em>雷锋</em> （斜体）<br>他是最可爱的人<strong>雷锋</strong>（加粗）<br>他是最可爱的人 <strong>雷锋</strong>（加粗）</li>
+<li>无序列表<ul>
+<li>Candy.</li>
+<li>Gum.</li>
+<li>Booze.<blockquote>
+<p>加号：</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>Candy.</li>
+<li>Gum.</li>
+<li>Booze<blockquote>
+<p>减号</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>Candy.</li>
+<li>Gum.</li>
+<li>Booze.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>链接</li>
+</ul>
+<p><a href="https://github.com/KingNigel" target="_blank" rel="external">github地址</a></p>
+<ul>
+<li>图片</li>
+</ul>
+<p><img src="pic/1.jpeg" alt="路飞"></p>
+<ul>
+<li>代码引用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="number">123</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>表格</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>性别</th>
+<th>籍贯</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>老赵</td>
+<td>男</td>
+<td>河北</td>
+</tr>
+<tr>
+<td>老朱</td>
+<td>女</td>
+<td>湖南</td>
+</tr>
+<tr>
+<td>老段</td>
+<td>未知</td>
+<td>火星</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sourceTree-tortoiseGit"><a href="#sourceTree-tortoiseGit" class="headerlink" title="sourceTree , tortoiseGit"></a>sourceTree , tortoiseGit</h3><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><ul>
+<li>官网[<a href="https://www.npmjs.com" target="_blank" rel="external">https://www.npmjs.com</a>]</li>
+<li>node package manager</li>
+<li>命令:<ul>
+<li>初始化:<code>npm init</code></li>
+<li>安装指定包:<code>npm install jquery --save</code></li>
+<li>删除指定包:<code>npm remove jquery --save</code></li>
+<li>下载安装package.json中dependencies属性对的文件:<code>npm install --production</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="browser-sync"><a href="#browser-sync" class="headerlink" title="browser-sync"></a>browser-sync</h3><ul>
+<li>更改代码之后自动刷新浏览器</li>
+<li>需要使用npm进行全局安装:<code>npm install browser-sync -g</code>,-g表示安装到全局</li>
+<li>使用:<code>browser-sync start --server --files &quot;./index.html,app.css,./css/*.css,*.*&quot;</code></li>
+<li>–files参数指定要监视的文件，后面跟要监视的文件的文件路径以逗号分隔。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/01/01{shell_git}/" rel="next" title="node 入门">
+                <i class="fa fa-chevron-left"></i> node 入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/03/08{node入门介绍环境}/" rel="prev" title="node 入门01">
+                node 入门01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Robert" />
+          <p class="site-author-name" itemprop="name">Robert</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">1.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">2.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">3.</span> <span class="nav-text">合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">4.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git提交中的冲突"><span class="nav-number">5.</span> <span class="nav-text">git提交中的冲突</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github"><span class="nav-number"></span> <span class="nav-text">github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#github与git"><span class="nav-number">1.</span> <span class="nav-text">github与git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传代码到git服务器-push"><span class="nav-number">2.</span> <span class="nav-text">上传代码到git服务器(push)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git使用ssh方式上传代码与github"><span class="nav-number"></span> <span class="nav-text">git使用ssh方式上传代码与github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把代码push到服务器时需要先pull一下"><span class="nav-number">1.</span> <span class="nav-text">把代码push到服务器时需要先pull一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从服务器上pull代码到本地"><span class="nav-number">2.</span> <span class="nav-text">从服务器上pull代码到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gh-pages分支-搭建博客"><span class="nav-number">3.</span> <span class="nav-text">gh-pages分支-搭建博客.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown"><span class="nav-number"></span> <span class="nav-text">Markdown</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Markdown-介绍"><span class="nav-number">1.</span> <span class="nav-text">Markdown 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markdown-的优点"><span class="nav-number">2.</span> <span class="nav-text">Markdown 的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时预览编辑器"><span class="nav-number">3.</span> <span class="nav-text">实时预览编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markdown-基本语法"><span class="nav-number">4.</span> <span class="nav-text">Markdown 基本语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二级标题"><span class="nav-number"></span> <span class="nav-text">二级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三级标题"><span class="nav-number">1.</span> <span class="nav-text">三级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#四级标题"><span class="nav-number">1.1.</span> <span class="nav-text">四级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#五级标题"><span class="nav-number">1.1.1.</span> <span class="nav-text">五级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#六级标题"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">六级标题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sourceTree-tortoiseGit"><span class="nav-number">2.</span> <span class="nav-text">sourceTree , tortoiseGit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">3.</span> <span class="nav-text">npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#browser-sync"><span class="nav-number">4.</span> <span class="nav-text">browser-sync</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robert</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
