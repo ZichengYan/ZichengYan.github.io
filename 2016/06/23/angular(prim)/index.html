@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Robert">
 <meta property="og:description" content="mvvm$scope 视图和控制器之间的数据桥梁 用于在视图和控制器之间传递数据 $scope的生命周期创建、链接、更新、销毁   ViewModel $scope 实际上就是MVVM中所谓的VM（视图模型） 正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架Angular全局Api使用 数据比较API angular.isAr">
 <meta property="og:image" content="http://yoursite.com/2016/06/23/angular(prim)/pic/angular-mvvm.png">
-<meta property="og:updated_time" content="2017-07-19T12:27:45.377Z">
+<meta property="og:updated_time" content="2017-07-19T13:06:45.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="angular路由">
 <meta name="twitter:description" content="mvvm$scope 视图和控制器之间的数据桥梁 用于在视图和控制器之间传递数据 $scope的生命周期创建、链接、更新、销毁   ViewModel $scope 实际上就是MVVM中所谓的VM（视图模型） 正是因为$scope在Angular中大量使用甚至盖过了C（控制器）的概念，所以很多人把Angular称之为MVVM框架Angular全局Api使用 数据比较API angular.isAr">
@@ -444,7 +444,7 @@
 </li>
 <li>从多种样式中选择一个样式<ul>
 <li>语法：类似于从一个key,value对象中获取其中一个属性的值</li>
-<li>ng-class=”{‘A’:’red’,’B’:’blue’,’C’:’green’}”</li>
+<li><code>ng-class=&quot;{&#39;A&#39;:&#39;red&#39;,&#39;B&#39;:&#39;blue&#39;,&#39;C&#39;:&#39;green&#39;}&quot;</code></li>
 </ul>
 </li>
 <li>从多种样式中选择多个<ul>
@@ -458,8 +458,8 @@
 <ul>
 <li>ng-hide：需要一个布尔值：当为true时为隐藏当前元素</li>
 <li>ng-show: 需要一个布尔值：当为true时为显示当前元素</li>
+<li>ng-switch:与ng-switch-when同用，类似与js中的switch case</li>
 </ul>
-<p>ng-switch:与ng-switch-when同用，类似与js中的switch case</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小明"</span>&gt;</span>我是小明<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小红"</span>&gt;</span>我是小红<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-switch-when</span>=<span class="string">"小月"</span>&gt;</span>我是小月<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="其他常用指令"><a href="#其他常用指令" class="headerlink" title="其他常用指令"></a>其他常用指令</h3><ul>
 <li>ng-checked：<ul>
@@ -479,14 +479,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="常用事件指令"><a href="#常用事件指令" class="headerlink" title="常用事件指令"></a>常用事件指令</h3><p>不同于以上的功能性指令，Angular还定义了一些用于和事件绑定的指令：</p>
-<ul>
-<li>ng-blur：失去焦点</li>
-<li>ng-focus：获得焦点</li>
-<li>ng-change：改变事件</li>
-<li>ng-click： ng-click=”add()”</li>
-<li>ng-dblclick：双击事件</li>
-<li>ng-submit： 表单提交事件</li>
+<h3 id="常用事件指令"><a href="#常用事件指令" class="headerlink" title="常用事件指令"></a>常用事件指令</h3><ul>
+<li>不同于以上的功能性指令，Angular还定义了一些用于和事件绑定的指令：</li>
+<li><code>ng-blur：失去焦点</code></li>
+<li><code>ng-focus：获得焦点</code></li>
+<li><code>ng-change：改变事件</code></li>
+<li><code>ng-click： ng-click=&quot;add()&quot;</code></li>
+<li><code>ng-dblclick：双击事件</code></li>
+<li><code>ng-submit： 表单提交事件</code></li>
 </ul>
 
       
